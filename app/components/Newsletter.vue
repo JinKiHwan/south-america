@@ -1,39 +1,84 @@
 <template>
-  <section id="newsletter" class="py-24 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="mb-16">
-        <h2 class="text-4xl font-bold tracking-tight mb-4 scroll-title fill-from-left">Newsletters</h2>
-        <p class="text-zinc-500">사역 소식과 기도 제목을 나눕니다.</p>
+  <section id="newsletter" class="py-24 bg-transparent">
+    <div class="mx-auto px-6" style="max-width: 1200px;">
+
+      <!-- Section header -->
+      <div class="mb-14">
+        <!-- Eyebrow -->
+        <div class="tag-soft mb-5 news-eyebrow">사역 소식</div>
+        <h2 
+          class="mb-4 scroll-title fill-from-left"
+          style="
+            font-family: 'Outfit', sans-serif;
+            font-size: 48px;
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: #2D2A26;
+          "
+        >
+          Ministry <span class="text-primary">Newsletters</span>
+        </h2>
+        <p style="font-size: 18px; font-weight: 400; line-height: 1.6; color: #7A7571;">
+          남미 선교 현장의 생생한 소식과 기도 제목을 나눕니다.
+        </p>
       </div>
 
-      <div class="flex gap-4 mb-10 overflow-x-auto pb-4 hide-scrollbar">
+      <!-- Filter pills -->
+      <div class="flex gap-3 mb-10 overflow-x-auto pb-2 hide-scrollbar">
         <button 
           v-for="filter in filters" :key="filter"
           @click="activeFilter = filter"
-          class="px-6 py-2 rounded-full border transition-colors whitespace-nowrap"
-          :class="activeFilter === filter ? 'border-zinc-900 bg-zinc-900 text-white' : 'border-zinc-200 text-zinc-500 hover:border-zinc-900'"
+          class="btn-pill whitespace-nowrap transition-all duration-300"
+          :class="activeFilter === filter 
+            ? 'bg-primary text-white' 
+            : 'bg-[#F2EFE9] text-[#7A7571] hover:bg-[#E8E3DD]'"
+          style="font-size: 14px; padding: 10px 20px; border-radius: 99px;"
         >
           {{ filter }}
         </button>
       </div>
 
+      <!-- Cards grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div 
           v-for="(item, index) in filteredItems" 
           :key="item.id"
-          class="group cursor-pointer bg-zinc-50 border border-zinc-100 rounded-xl overflow-hidden hover:border-zinc-200 transition-colors news-card"
+          class="group cursor-pointer card-story overflow-hidden news-card"
         >
-          <div class="h-48 bg-zinc-100 relative overflow-hidden">
-            <!-- Mock image -->
-            <img :src="item.thumbnail" :alt="item.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+          <!-- Thumbnail -->
+          <div class="relative overflow-hidden" style="height: 240px;">
+            <img 
+              :src="item.thumbnail" 
+              :alt="item.title" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+            />
+            <div class="absolute inset-0 bg-ink/5 group-hover:bg-transparent transition-colors duration-300" />
           </div>
-          <div class="p-6">
-            <span class="text-xs font-medium px-2 py-1 bg-zinc-200 text-zinc-600 rounded uppercase tracking-wider mb-3 inline-block">
-              {{ item.region }}
-            </span>
-            <h3 class="text-lg font-medium mb-2 group-hover:text-zinc-600 transition-colors">{{ item.title }}</h3>
-            <p class="text-sm text-zinc-500">{{ item.date }}</p>
+
+          <!-- Card body -->
+          <div style="padding: 28px;">
+            <!-- Region tag -->
+            <span class="text-primary text-sm font-semibold mb-3 inline-block">{{ item.region }}</span>
+
+            <h3 
+              class="mb-4 group-hover:text-primary transition-colors duration-300"
+              style="
+                font-family: 'Outfit', sans-serif;
+                font-size: 22px;
+                font-weight: 500;
+                line-height: 1.4;
+                color: #2D2A26;
+              "
+            >
+              {{ item.title }}
+            </h3>
+            <div class="flex items-center justify-between">
+              <p style="font-size: 14px; color: #7A7571;">
+                {{ item.date }}
+              </p>
+              <span class="text-primary text-sm font-medium">읽어보기 →</span>
+            </div>
           </div>
         </div>
       </div>
@@ -62,27 +107,29 @@ const filteredItems = computed(() => {
 
 onMounted(() => {
   if ($gsap && $ScrollTrigger) {
+    $gsap.fromTo('.news-eyebrow',
+      { y: -8, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.6, ease: 'power2.out',
+        scrollTrigger: { trigger: '#newsletter', start: 'top 85%' }
+      }
+    );
+
     $gsap.fromTo('.scroll-title',
       { backgroundPosition: '100% 0' },
       {
         backgroundPosition: '0% 0',
         duration: 1.5,
         ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '#newsletter',
-          start: 'top 80%',
-        }
+        scrollTrigger: { trigger: '#newsletter', start: 'top 80%' }
       }
     );
 
     $gsap.fromTo('.news-card',
-      { y: 50, opacity: 0 },
+      { y: 40, opacity: 0 },
       {
-        y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.news-card',
-          start: 'top 85%',
-        }
+        y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out',
+        scrollTrigger: { trigger: '.news-card', start: 'top 88%' }
       }
     );
   }
@@ -90,11 +137,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>

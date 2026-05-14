@@ -1,43 +1,169 @@
 <template>
-  <section id="contact" class="py-24 bg-white">
-    <div class="container mx-auto px-6 max-w-4xl">
+  <!-- canvas-cream band: warm interlude (design.md: card-story style feel) -->
+  <section id="contact" class="py-24" style="background-color: transparent;">
+    <div class="mx-auto px-6" style="max-width: 800px;">
+
+      <!-- Section header -->
       <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold tracking-tight mb-4 scroll-title-contact fill-from-left">Support & Contact</h2>
-        <p class="text-zinc-500">기도 동역 및 일대일 제자 양육 교재 자료 요청을 남겨주시면 개별 안내해 드립니다.</p>
+        <div class="tag-soft mb-5 contact-eyebrow">동역 문의</div>
+        <h2 
+          class="mb-4 scroll-title-contact fill-from-left"
+          style="
+            font-family: 'Outfit', sans-serif;
+            font-size: 48px;
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: #2D2A26;
+          "
+        >
+          Support &amp; Contact
+        </h2>
+        <p style="font-size: 18px; font-weight: 400; line-height: 1.6; color: #7A7571;">
+          기도 동역 및 일대일 제자 양육 교재 자료 요청을 남겨주시면 정성껏 안내해 드립니다.
+        </p>
       </div>
 
-      <form @submit.prevent="submitForm" class="bg-zinc-50 p-8 md:p-12 rounded-2xl border border-zinc-100 contact-form-wrap">
+      <!-- Form -->
+      <form 
+        @submit.prevent="submitForm" 
+        class="contact-form-wrap card-story overflow-hidden"
+        style="padding: 48px 60px;"
+      >
+        <!-- Name + Email row -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          <div>
-            <label class="block text-sm font-medium text-zinc-500 mb-2">이름 (Name)</label>
-            <input type="text" v-model="form.name" required class="w-full bg-white border border-zinc-200 rounded-lg px-4 py-3 text-zinc-900 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 transition-colors" />
+          <div class="form-group">
+            <label class="block mb-2 text-sm font-semibold text-[#7A7571]">
+              이름 (Name)
+            </label>
+            <input 
+              type="text" 
+              v-model="form.name" 
+              required 
+              class="w-full transition-all duration-300"
+              style="
+                background: #FDFCFB;
+                color: #2D2A26;
+                border: 1px solid #E8E3DD;
+                border-radius: 12px;
+                padding: 14px 18px;
+                font-size: 16px;
+                outline: none;
+              "
+              onfocus="this.style.borderColor='#E87A5D'; this.style.boxShadow='0 0 0 4px rgba(232, 122, 93, 0.1)';"
+              onblur="this.style.borderColor='#E8E3DD'; this.style.boxShadow='none';"
+            />
           </div>
-          <div>
-            <label class="block text-sm font-medium text-zinc-500 mb-2">이메일 (Email)</label>
-            <input type="email" v-model="form.email" required class="w-full bg-white border border-zinc-200 rounded-lg px-4 py-3 text-zinc-900 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 transition-colors" />
+          <div class="form-group">
+            <label class="block mb-2 text-sm font-semibold text-[#7A7571]">
+              이메일 (Email)
+            </label>
+            <input 
+              type="email" 
+              v-model="form.email" 
+              required 
+              class="w-full transition-all duration-300"
+              style="
+                background: #FDFCFB;
+                color: #2D2A26;
+                border: 1px solid #E8E3DD;
+                border-radius: 12px;
+                padding: 14px 18px;
+                font-size: 16px;
+                outline: none;
+              "
+              onfocus="this.style.borderColor='#E87A5D'; this.style.boxShadow='0 0 0 4px rgba(232, 122, 93, 0.1)';"
+              onblur="this.style.borderColor='#E8E3DD'; this.style.boxShadow='none';"
+            />
           </div>
         </div>
 
+        <!-- Inquiry type -->
         <div class="mb-8">
-          <label class="block text-sm font-medium text-zinc-500 mb-2">문의 유형 (Inquiry Type)</label>
-          <select v-model="form.type" class="w-full bg-white border border-zinc-200 rounded-lg px-4 py-3 text-zinc-900 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 transition-colors appearance-none">
-            <option value="materials">자료 요청 (일대일 제자 양육 교재 PDF 등)</option>
-            <option value="prayer">기도 동역 문의</option>
-            <option value="general">일반 문의</option>
-          </select>
+          <label class="block mb-2 text-sm font-semibold text-[#7A7571]">
+            문의 유형 (Inquiry Type)
+          </label>
+          <div class="relative">
+            <select 
+              v-model="form.type" 
+              class="w-full transition-all duration-300 appearance-none"
+              style="
+                background: #FDFCFB;
+                color: #2D2A26;
+                border: 1px solid #E8E3DD;
+                border-radius: 12px;
+                padding: 14px 18px;
+                font-size: 16px;
+                outline: none;
+              "
+              onfocus="this.style.borderColor='#E87A5D'; this.style.boxShadow='0 0 0 4px rgba(232, 122, 93, 0.1)';"
+              onblur="this.style.borderColor='#E8E3DD'; this.style.boxShadow='none';"
+            >
+              <option value="materials">자료 요청 (일대일 제자 양육 교재 PDF 등)</option>
+              <option value="prayer">기도 동역 문의</option>
+              <option value="general">일반 문의</option>
+            </select>
+            <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#7A7571]">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </div>
+          </div>
         </div>
 
-        <div class="mb-8">
-          <label class="block text-sm font-medium text-zinc-500 mb-2">메시지 (Message)</label>
-          <textarea v-model="form.message" rows="5" required class="w-full bg-white border border-zinc-200 rounded-lg px-4 py-3 text-zinc-900 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 transition-colors resize-none"></textarea>
+        <!-- Message -->
+        <div class="mb-10">
+          <label class="block mb-2 text-sm font-semibold text-[#7A7571]">
+            메시지 (Message)
+          </label>
+          <textarea 
+            v-model="form.message" 
+            rows="5" 
+            required 
+            class="w-full transition-all duration-300"
+            style="
+              background: #FDFCFB;
+              color: #2D2A26;
+              border: 1px solid #E8E3DD;
+              border-radius: 12px;
+              padding: 14px 18px;
+              font-size: 16px;
+              outline: none;
+              resize: none;
+            "
+            onfocus="this.style.borderColor='#E87A5D'; this.style.boxShadow='0 0 0 4px rgba(232, 122, 93, 0.1)';"
+            onblur="this.style.borderColor='#E8E3DD'; this.style.boxShadow='none';"
+          />
         </div>
 
-        <button type="submit" :disabled="isSubmitting" class="w-full bg-zinc-900 text-white font-medium py-4 rounded-lg hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-          {{ isSubmitting ? '전송 중...' : '메시지 보내기' }}
+        <!-- CTA button -->
+        <button 
+          type="submit" 
+          :disabled="isSubmitting" 
+          class="btn-primary w-full py-4 text-lg font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300"
+          :style="isSubmitting ? { opacity: '0.6', cursor: 'not-allowed' } : {}"
+        >
+          <span>{{ isSubmitting ? '전송 중...' : '메시지 보내기' }}</span>
+          <svg v-if="!isSubmitting" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="stroke-width: 2.5;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7-7 7M3 12h18"/>
+          </svg>
         </button>
 
-        <p v-if="submitStatus === 'success'" class="mt-4 text-green-500 text-center text-sm">성공적으로 전송되었습니다. 확인 후 연락 드리겠습니다.</p>
-        <p v-if="submitStatus === 'error'" class="mt-4 text-red-500 text-center text-sm">오류가 발생했습니다. 나중에 다시 시도해 주세요.</p>
+        <!-- Status messages -->
+        <p 
+          v-if="submitStatus === 'success'" 
+          class="mt-4 text-center" 
+          style="font-size: 14px; color: #15803d; font-feature-settings: 'ss01';"
+        >
+          성공적으로 전송되었습니다. 확인 후 연락 드리겠습니다.
+        </p>
+        <p 
+          v-if="submitStatus === 'error'" 
+          class="mt-4 text-center" 
+          style="font-size: 14px; color: #ea2261; font-feature-settings: 'ss01';"
+        >
+          오류가 발생했습니다. 나중에 다시 시도해 주세요.
+        </p>
       </form>
     </div>
   </section>
@@ -83,27 +209,29 @@ const submitForm = async () => {
 
 onMounted(() => {
   if ($gsap && $ScrollTrigger) {
+    $gsap.fromTo('.contact-eyebrow',
+      { y: -8, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.6, ease: 'power2.out',
+        scrollTrigger: { trigger: '#contact', start: 'top 85%' }
+      }
+    );
+
     $gsap.fromTo('.scroll-title-contact',
       { backgroundPosition: '100% 0' },
       {
         backgroundPosition: '0% 0',
         duration: 1.5,
         ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '#contact',
-          start: 'top 80%',
-        }
+        scrollTrigger: { trigger: '#contact', start: 'top 80%' }
       }
     );
 
     $gsap.fromTo('.contact-form-wrap',
-      { y: 50, opacity: 0 },
+      { y: 40, opacity: 0 },
       {
         y: 0, opacity: 1, duration: 1, ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '#contact',
-          start: 'top 75%',
-        }
+        scrollTrigger: { trigger: '#contact', start: 'top 75%' }
       }
     );
   }

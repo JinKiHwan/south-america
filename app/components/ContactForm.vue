@@ -14,7 +14,7 @@
             font-weight: 500;
             line-height: 1.1;
             letter-spacing: -0.02em;
-            color: #2D2A26;
+            color: #171717;
           "
         >
           Support &amp; Contact
@@ -43,7 +43,7 @@
               class="w-full transition-all duration-300"
               style="
                 background: #FDFCFB;
-                color: #2D2A26;
+                color: #171717;
                 border: 1px solid #E8E3DD;
                 border-radius: 12px;
                 padding: 14px 18px;
@@ -65,7 +65,7 @@
               class="w-full transition-all duration-300"
               style="
                 background: #FDFCFB;
-                color: #2D2A26;
+                color: #171717;
                 border: 1px solid #E8E3DD;
                 border-radius: 12px;
                 padding: 14px 18px;
@@ -89,7 +89,7 @@
               class="w-full transition-all duration-300 appearance-none"
               style="
                 background: #FDFCFB;
-                color: #2D2A26;
+                color: #171717;
                 border: 1px solid #E8E3DD;
                 border-radius: 12px;
                 padding: 14px 18px;
@@ -123,7 +123,7 @@
             class="w-full transition-all duration-300"
             style="
               background: #FDFCFB;
-              color: #2D2A26;
+              color: #171717;
               border: 1px solid #E8E3DD;
               border-radius: 12px;
               padding: 14px 18px;

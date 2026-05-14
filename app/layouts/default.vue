@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col relative" style="color: #2D2A26;">
+  <div class="min-h-screen flex flex-col relative" style="color: #171717;">
     <!-- Background Decorator (Flight Path) -->
     <div class="fixed inset-0 z-[-1] pointer-events-none opacity-[0.03]">
       <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="none">
@@ -8,7 +8,7 @@
       </svg>
     </div>
 
-    <!-- Background is handled by body in tailwind.css (#FAF7F2) -->
+    <!-- Background is handled by body in tailwind.css (#f3e6da) -->
 
     <!-- Header -->
     <header
@@ -19,7 +19,7 @@
     >
       <div class="mx-auto px-6 h-16 flex items-center justify-between" style="max-width: 1600px;">
         <NuxtLink to="/" class="flex items-center gap-2" style="text-decoration: none;">
-          <span style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.01em; color: #2D2A26;">
+          <span style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.01em; color: #171717;">
             Vision Thru the Bible
           </span>
         </NuxtLink>
@@ -37,7 +37,7 @@
         <!-- Mobile menu button -->
         <button
           class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5"
-          style="color: #2D2A26; background: none; border: none; cursor: pointer;"
+          style="color: #171717; background: none; border: none; cursor: pointer;"
           @click="mobileOpen = !mobileOpen"
           aria-label="Menu"
         >
@@ -79,7 +79,7 @@
       <div class="mx-auto px-6 py-20" style="max-width: 1600px;">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
-            <p style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 500; color: #2D2A26; margin-bottom: 12px;">
+            <p style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 500; color: #171717; margin-bottom: 12px;">
               Vision Thru the Bible
             </p>
             <p style="font-size: 14px; font-weight: 400; line-height: 1.6; color: #7A7571;">
@@ -157,7 +157,7 @@ onUnmounted(() => {
 
 .footer-link-primary {
   font-size: 14px;
-  color: #2D2A26;
+  color: #171717;
   text-decoration: none;
   transition: color 0.2s;
   font-weight: 500;

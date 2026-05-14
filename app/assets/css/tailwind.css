@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@400;500&family=Vujahday+Script&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,8 +10,8 @@
   }
 
   body {
-    background-color: #FAF7F2;
-    color: #2D2A26;
+    background-color: #f3e6da;
+    color: #171717;
     font-family: 'Inter', system-ui, sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
@@ -23,7 +23,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', sans-serif;
     font-weight: 500;
-    color: #2D2A26;
+    color: #171717;
   }
 }
 
@@ -49,7 +49,7 @@
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    background-image: linear-gradient(to right, #2D2A26 50%, #7A7571 50%);
+    background-image: linear-gradient(to right, #171717 50%, #7A7571 50%);
     background-size: 200% 100%;
     background-position: 100% 0;
   }

@@ -14,7 +14,7 @@
             font-weight: 500;
             line-height: 1.1;
             letter-spacing: -0.02em;
-            color: #2D2A26;
+            color: #171717;
           "
         >
           Ministry <span class="text-primary">Newsletters</span>
@@ -68,7 +68,7 @@
                 font-size: 22px;
                 font-weight: 500;
                 line-height: 1.4;
-                color: #2D2A26;
+                color: #171717;
               "
             >
               {{ item.title }}

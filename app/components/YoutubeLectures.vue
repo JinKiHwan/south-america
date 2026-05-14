@@ -13,7 +13,7 @@
               font-weight: 500;
               line-height: 1.1;
               letter-spacing: -0.02em;
-              color: #2D2A26;
+              color: #171717;
             "
           >
             YouTube <span class="text-primary">Lectures</span>
@@ -51,7 +51,7 @@
         <swiper-slide v-for="video in mockVideos" :key="video.id" class="w-[320px] md:w-[420px]">
           <div class="group cursor-pointer card-story overflow-hidden">
             <!-- Thumbnail -->
-            <div class="relative overflow-hidden" style="aspect-ratio: 16/10; background: #2D2A26;">
+            <div class="relative overflow-hidden" style="aspect-ratio: 16/10; background: #171717;">
               <img 
                 :src="video.thumbnail" 
                 :alt="video.title" 
@@ -81,7 +81,7 @@
                   font-size: 20px;
                   font-weight: 500;
                   line-height: 1.4;
-                  color: #2D2A26;
+                  color: #171717;
                 "
               >
                 {{ video.title }}

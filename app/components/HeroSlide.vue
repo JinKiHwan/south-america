@@ -1,9 +1,9 @@
 <template>
-  <section class="relative w-full bg-[#FAF7F2] overflow-hidden flex items-center" style="min-height: 800px; height: 100vh;">
+  <section class="relative w-full bg-[#f3e6da] overflow-hidden flex items-center" style="min-height: 800px; height: 100vh;">
     <!-- Background Decoration: World Map -->
     <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none flex items-center justify-center">
       <svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto max-w-none scale-150 lg:scale-110">
-        <path d="M150 200C180 150 250 150 300 180C350 210 400 150 450 160C500 170 550 250 600 240C650 230 700 150 750 160C800 170 850 220 900 210C950 200 1000 120 1050 130" stroke="#2D2A26" stroke-width="2" stroke-dasharray="8 8" class="gs-path-anim" />
+        <path d="M150 200C180 150 250 150 300 180C350 210 400 150 450 160C500 170 550 250 600 240C650 230 700 150 750 160C800 170 850 220 900 210C950 200 1000 120 1050 130" stroke="#171717" stroke-width="2" stroke-dasharray="8 8" class="gs-path-anim" />
         <!-- Simplified continent shapes as paths -->
         <circle cx="200" cy="250" r="80" fill="currentColor" />
         <circle cx="500" cy="350" r="120" fill="currentColor" />
@@ -25,6 +25,7 @@
         src="/images/heroSection/south-america.png" 
         alt="South America Map Background" 
         class="w-[700px] lg:w-[1100px] max-h-[85vh] h-auto object-contain opacity-100"
+        style="filter: contrast(0.7);"
       >
     </div>
 
@@ -39,11 +40,13 @@
           <h1 
             class="mb-6 gs-fade-text"
             style="
-              font-size: clamp(32px, 5vw, 52px);
-              font-weight: 600;
-              line-height: 1.25;
-              letter-spacing: -1.2px;
-              color: #2D2A26;
+              font-family: 'Vujahday Script', cursive;
+              font-size: clamp(36px, 6vw, 58px);
+              font-weight: 700;
+              line-height: 1.2;
+              letter-spacing: 0;
+              text-shadow: 0.4px 0 0.1px currentColor, -0.4px 0 0.1px currentColor;
+              color: #171717;
               max-width: 1000px;
             "
           >
@@ -62,7 +65,7 @@
               max-width: 480px;
             "
           >
-            <span class="block mb-4 font-medium text-[#E87A5D]">Acts 1:8</span>
+            <span class="block mb-4 font-medium text-[#E87A5D]" style="font-family: 'Vujahday Script', cursive; font-size: 24px; font-weight: 700; text-shadow: 0.3px 0 0.1px currentColor;">Acts 1:8</span>
             Reaching the heart of South America with God's love. 
             We are dedicated to sharing the Gospel and 
             discovering vision through the Word of God.

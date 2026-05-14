@@ -17,7 +17,7 @@
         ? 'background-color: rgba(250, 247, 242, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #E8E3DD; box-shadow: 0 4px 12px rgba(45, 42, 38, 0.04);'
         : 'background-color: transparent;'"
     >
-      <div class="mx-auto px-6 h-16 flex items-center justify-between" style="max-width: 1200px;">
+      <div class="mx-auto px-6 h-16 flex items-center justify-between" style="max-width: 1600px;">
         <NuxtLink to="/" class="flex items-center gap-2" style="text-decoration: none;">
           <span style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.01em; color: #2D2A26;">
             Vision Thru the Bible
@@ -76,7 +76,7 @@
 
     <!-- Footer -->
     <footer style="border-top: 1px solid #E8E3DD; background-color: rgba(242, 239, 233, 0.6); backdrop-filter: blur(4px);">
-      <div class="mx-auto px-6 py-20" style="max-width: 1200px;">
+      <div class="mx-auto px-6 py-20" style="max-width: 1600px;">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
             <p style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 500; color: #2D2A26; margin-bottom: 12px;">

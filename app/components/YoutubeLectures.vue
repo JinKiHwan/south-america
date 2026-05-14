@@ -1,7 +1,7 @@
 <template>
   <!-- canvas-soft background: feature band beneath gradient hero (design.md) -->
   <section id="lectures" class="py-24 overflow-hidden" style="background-color: transparent;">
-    <div class="mx-auto px-6 mb-12" style="max-width: 1200px;">
+    <div class="mx-auto px-6 mb-12" style="max-width: 1600px;">
       <div class="flex items-end justify-between">
         <div>
           <div class="tag-soft mb-5 lectures-eyebrow">성경 강해</div>
@@ -40,7 +40,7 @@
     </div>
 
     <!-- Scroll carousel -->
-    <div class="pl-6 md:pl-[max(1.5rem,calc((100vw-1200px)/2+1.5rem))]">
+    <div class="pl-6 md:pl-[max(1.5rem,calc((100vw-1600px)/2+1.5rem))]">
       <swiper
         :modules="[FreeMode]"
         :slidesPerView="'auto'"

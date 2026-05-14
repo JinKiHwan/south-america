@@ -1,6 +1,6 @@
 <template>
   <section id="newsletter" class="py-24 bg-transparent">
-    <div class="mx-auto px-6" style="max-width: 1200px;">
+    <div class="mx-auto px-6" style="max-width: 1600px;">
 
       <!-- Section header -->
       <div class="mb-14">

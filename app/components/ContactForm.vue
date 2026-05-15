@@ -28,16 +28,24 @@
         </p>
       </div>
 
-      <!-- Form -->
+      <!-- Glassmorphism Form -->
       <form 
         @submit.prevent="submitForm" 
-        class="contact-form-wrap card-story overflow-hidden"
-        style="padding: 48px 60px;"
+        class="contact-form-wrap overflow-hidden"
+        style="
+          padding: 56px 64px;
+          background: rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 24px;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        "
       >
         <!-- Name + Email row -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div class="form-group">
-            <label class="block mb-2 text-sm font-semibold text-[#7A7571]">
+            <label class="block mb-2 text-sm font-semibold text-white opacity-90">
               이름 (Name)
             </label>
             <input 
@@ -46,20 +54,20 @@
               required 
               class="w-full transition-all duration-300"
               style="
-                background: #FDFCFB;
-                color: #171717;
-                border: 1px solid #E8E3DD;
+                background: rgba(255, 255, 255, 0.05);
+                color: #FFFFFF;
+                border: 1px solid rgba(255, 255, 255, 0.1);
                 border-radius: 12px;
                 padding: 14px 18px;
                 font-size: 16px;
                 outline: none;
               "
-              onfocus="this.style.borderColor='#E87A5D'; this.style.boxShadow='0 0 0 4px rgba(232, 122, 93, 0.1)';"
-              onblur="this.style.borderColor='#E8E3DD'; this.style.boxShadow='none';"
+              onfocus="this.style.borderColor='rgba(232, 122, 93, 0.6)'; this.style.background='rgba(255, 255, 255, 0.1)';"
+              onblur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.background='rgba(255, 255, 255, 0.05)';"
             />
           </div>
           <div class="form-group">
-            <label class="block mb-2 text-sm font-semibold text-[#7A7571]">
+            <label class="block mb-2 text-sm font-semibold text-white opacity-90">
               이메일 (Email)
             </label>
             <input 
@@ -68,23 +76,23 @@
               required 
               class="w-full transition-all duration-300"
               style="
-                background: #FDFCFB;
-                color: #171717;
-                border: 1px solid #E8E3DD;
+                background: rgba(255, 255, 255, 0.05);
+                color: #FFFFFF;
+                border: 1px solid rgba(255, 255, 255, 0.1);
                 border-radius: 12px;
                 padding: 14px 18px;
                 font-size: 16px;
                 outline: none;
               "
-              onfocus="this.style.borderColor='#E87A5D'; this.style.boxShadow='0 0 0 4px rgba(232, 122, 93, 0.1)';"
-              onblur="this.style.borderColor='#E8E3DD'; this.style.boxShadow='none';"
+              onfocus="this.style.borderColor='rgba(232, 122, 93, 0.6)'; this.style.background='rgba(255, 255, 255, 0.1)';"
+              onblur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.background='rgba(255, 255, 255, 0.05)';"
             />
           </div>
         </div>
 
         <!-- Inquiry type -->
         <div class="mb-8">
-          <label class="block mb-2 text-sm font-semibold text-[#7A7571]">
+          <label class="block mb-2 text-sm font-semibold text-white opacity-90">
             문의 유형 (Inquiry Type)
           </label>
           <div class="relative">
@@ -92,22 +100,22 @@
               v-model="form.type" 
               class="w-full transition-all duration-300 appearance-none"
               style="
-                background: #FDFCFB;
-                color: #171717;
-                border: 1px solid #E8E3DD;
+                background: rgba(255, 255, 255, 0.05);
+                color: #FFFFFF;
+                border: 1px solid rgba(255, 255, 255, 0.1);
                 border-radius: 12px;
                 padding: 14px 18px;
                 font-size: 16px;
                 outline: none;
               "
-              onfocus="this.style.borderColor='#E87A5D'; this.style.boxShadow='0 0 0 4px rgba(232, 122, 93, 0.1)';"
-              onblur="this.style.borderColor='#E8E3DD'; this.style.boxShadow='none';"
+              onfocus="this.style.borderColor='rgba(232, 122, 93, 0.6)'; this.style.background='rgba(255, 255, 255, 0.1)';"
+              onblur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.background='rgba(255, 255, 255, 0.05)';"
             >
-              <option value="materials">자료 요청 (일대일 제자 양육 교재 PDF 등)</option>
-              <option value="prayer">기도 동역 문의</option>
-              <option value="general">일반 문의</option>
+              <option value="materials" style="background: #171717;">자료 요청 (일대일 제자 양육 교재 PDF 등)</option>
+              <option value="prayer" style="background: #171717;">기도 동역 문의</option>
+              <option value="general" style="background: #171717;">일반 문의</option>
             </select>
-            <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#7A7571]">
+            <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white opacity-60">
               <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
               </svg>
@@ -117,7 +125,7 @@
 
         <!-- Message -->
         <div class="mb-10">
-          <label class="block mb-2 text-sm font-semibold text-[#7A7571]">
+          <label class="block mb-2 text-sm font-semibold text-white opacity-90">
             메시지 (Message)
           </label>
           <textarea 
@@ -126,17 +134,17 @@
             required 
             class="w-full transition-all duration-300"
             style="
-              background: #FDFCFB;
-              color: #171717;
-              border: 1px solid #E8E3DD;
+              background: rgba(255, 255, 255, 0.05);
+              color: #FFFFFF;
+              border: 1px solid rgba(255, 255, 255, 0.1);
               border-radius: 12px;
               padding: 14px 18px;
               font-size: 16px;
               outline: none;
               resize: none;
             "
-            onfocus="this.style.borderColor='#E87A5D'; this.style.boxShadow='0 0 0 4px rgba(232, 122, 93, 0.1)';"
-            onblur="this.style.borderColor='#E8E3DD'; this.style.boxShadow='none';"
+            onfocus="this.style.borderColor='rgba(232, 122, 93, 0.6)'; this.style.background='rgba(255, 255, 255, 0.1)';"
+            onblur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.background='rgba(255, 255, 255, 0.05)';"
           />
         </div>
 
@@ -145,7 +153,7 @@
           type="submit" 
           :disabled="isSubmitting" 
           class="btn-primary w-full py-4 text-lg font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300"
-          :style="isSubmitting ? { opacity: '0.6', cursor: 'not-allowed' } : {}"
+          :style="isSubmitting ? { opacity: '0.6', cursor: 'not-allowed' } : { boxShadow: '0 10px 20px rgba(232, 122, 93, 0.2)' }"
         >
           <span>{{ isSubmitting ? '전송 중...' : '메시지 보내기' }}</span>
           <svg v-if="!isSubmitting" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="stroke-width: 2.5;">
@@ -156,15 +164,15 @@
         <!-- Status messages -->
         <p 
           v-if="submitStatus === 'success'" 
-          class="mt-4 text-center" 
-          style="font-size: 14px; color: #15803d; font-feature-settings: 'ss01';"
+          class="mt-6 text-center font-medium" 
+          style="font-size: 15px; color: #4ADE80;"
         >
           성공적으로 전송되었습니다. 확인 후 연락 드리겠습니다.
         </p>
         <p 
           v-if="submitStatus === 'error'" 
-          class="mt-4 text-center" 
-          style="font-size: 14px; color: #ea2261; font-feature-settings: 'ss01';"
+          class="mt-6 text-center font-medium" 
+          style="font-size: 15px; color: #F87171;"
         >
           오류가 발생했습니다. 나중에 다시 시도해 주세요.
         </p>

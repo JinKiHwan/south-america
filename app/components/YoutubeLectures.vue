@@ -1,16 +1,16 @@
 <template>
-  <!-- canvas-soft background: feature band beneath gradient hero (design.md) -->
   <section id="lectures" class="py-24 overflow-hidden" style="background-color: transparent;">
-    <div class="mx-auto px-6 mb-12" style="max-width: 1600px;">
-      <div class="flex items-end justify-between">
+    <div class="mx-auto px-6 mb-10" style="max-width: 1600px;">
+      
+      <!-- Header with Title and View All -->
+      <div class="flex items-end justify-between mb-8">
         <div>
-          <div class="tag-soft mb-5 lectures-eyebrow">성경 강해</div>
           <h2 
-            class="mb-4 scroll-title-lectures fill-from-left"
+            class="scroll-title-lectures fill-from-left"
             style="
               font-family: 'Outfit', sans-serif;
-              font-size: 48px;
-              font-weight: 500;
+              font-size: 42px;
+              font-weight: 600;
               line-height: 1.1;
               letter-spacing: -0.02em;
               color: #171717;
@@ -18,24 +18,29 @@
           >
             YouTube <span class="text-primary">Lectures</span>
           </h2>
-          <p style="font-size: 18px; font-weight: 400; line-height: 1.6; color: #7A7571;">
-            성경의 진리를 깊이 있게 배우는 영상 강해 자료입니다.
-          </p>
         </div>
-
-        <!-- View all -->
-        <a 
-          href="#" 
-          class="hidden md:flex items-center gap-1.5 transition-colors duration-300"
-          style="font-size: 15px; font-weight: 500; color: #E87A5D; text-decoration: none;"
-          onmouseover="this.style.color='#CC664D'"
-          onmouseout="this.style.color='#E87A5D'"
-        >
-          모든 영상 보기
-          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="stroke-width: 2.5;">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        <a href="#" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 20px; font-size: 14px;">
+          Explore all videos
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="group-hover:translate-x-1 transition-transform">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7M3 12h18"/>
           </svg>
         </a>
+      </div>
+
+      <!-- Filter Tabs directly below Title -->
+      <div class="flex gap-6 mb-2 border-b border-[#E8E3DD] overflow-x-auto hide-scrollbar">
+        <button 
+          v-for="filter in filters" :key="filter"
+          @click="activeFilter = filter"
+          class="pb-4 text-sm font-medium transition-all duration-300 relative whitespace-nowrap"
+          :class="activeFilter === filter ? 'text-primary' : 'text-[#7A7571] hover:text-[#171717]'"
+        >
+          {{ filter }}
+          <div 
+            v-if="activeFilter === filter" 
+            class="absolute bottom-0 left-0 w-full h-[2px] bg-primary transition-all duration-300"
+          ></div>
+        </button>
       </div>
     </div>
 
@@ -44,24 +49,24 @@
       <swiper
         :modules="[FreeMode]"
         :slidesPerView="'auto'"
-        :spaceBetween="24"
+        :spaceBetween="28"
         :freeMode="true"
         class="w-full overflow-visible lecture-swiper"
       >
-        <swiper-slide v-for="video in mockVideos" :key="video.id" class="w-[320px] md:w-[420px]">
-          <div class="group cursor-pointer card-story overflow-hidden">
-            <!-- Thumbnail -->
-            <div class="relative overflow-hidden" style="aspect-ratio: 16/10; background: #171717;">
+        <swiper-slide v-for="video in filteredVideos" :key="video.id" class="w-[300px] md:w-[400px]">
+          <div class="group cursor-pointer">
+            <!-- Thumbnail (16:9) -->
+            <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 16/9; background: #171717;">
               <img 
                 :src="video.thumbnail" 
                 :alt="video.title" 
-                class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
+                class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" 
               />
-              <!-- Play button -->
-              <div class="absolute inset-0 flex items-center justify-center">
+              <!-- Play button overlay -->
+              <div class="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-transparent transition-colors duration-300">
                 <div 
-                  class="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                  style="background: rgba(250, 247, 242, 0.2); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3);"
+                  class="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110"
+                  style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25);"
                 >
                   <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-lg">
                     <svg class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
@@ -73,22 +78,24 @@
             </div>
 
             <!-- Card info -->
-            <div style="padding: 24px 28px 28px;">
+            <div class="flex flex-col gap-1.5 px-1">
               <h3 
-                class="line-clamp-2 mb-3 group-hover:text-primary transition-colors duration-300"
+                class="line-clamp-1 group-hover:text-primary transition-colors duration-300"
                 style="
                   font-family: 'Outfit', sans-serif;
                   font-size: 20px;
-                  font-weight: 500;
-                  line-height: 1.4;
+                  font-weight: 600;
+                  line-height: 1.3;
                   color: #171717;
                 "
               >
                 {{ video.title }}
               </h3>
-              <p style="font-size: 14px; color: #7A7571;">
-                {{ video.date }}
-              </p>
+              <div class="flex items-center gap-2 text-sm text-[#7A7571]">
+                <span class="font-medium text-primary/80">{{ video.category }}</span>
+                <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
+                <span>{{ video.date }}</span>
+              </div>
             </div>
           </div>
         </swiper-slide>
@@ -98,39 +105,39 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
-import { onMounted } from 'vue';
 
 const { $gsap, $ScrollTrigger } = useNuxtApp();
 
+const filters = ['Popular', 'Deuteronomy', 'Disciple Training', 'Seminars', 'Others'];
+const activeFilter = ref('Popular');
+
 const mockVideos = [
-  { id: 1, title: '신명기 강해 1강 - 서론', date: '2026-04-10', thumbnail: '/images/mock/mock05.webp' },
-  { id: 2, title: '신명기 강해 2강 - 언약의 갱신', date: '2026-04-17', thumbnail: '/images/mock/mock06.webp' },
-  { id: 3, title: '일대일 제자양육 1과 - 예수 그리스도는 누구신가?', date: '2026-04-24', thumbnail: '/images/mock/mock07.webp' },
-  { id: 4, title: '일대일 제자양육 2과 - 구원의 확신', date: '2026-05-01', thumbnail: '/images/mock/mock08.webp' },
-  { id: 5, title: '성경적 리더십 세미나', date: '2026-05-08', thumbnail: '/images/mock/mock09.webp' },
+  { id: 1, title: '신명기 강해 1강 - 광야에서의 회상', category: 'Deuteronomy', date: 'Apr 10, 2026', thumbnail: '/images/mock/mock05.webp' },
+  { id: 2, title: '신명기 강해 2강 - 언약의 갱신과 축복', category: 'Deuteronomy', date: 'Apr 17, 2026', thumbnail: '/images/mock/mock06.webp' },
+  { id: 3, title: '일대일 제자양육 1과 - 그리스도는 누구신가', category: 'Disciple Training', date: 'Apr 24, 2026', thumbnail: '/images/mock/mock07.webp' },
+  { id: 4, title: '일대일 제자양육 2과 - 구원의 확신과 기쁨', category: 'Disciple Training', date: 'May 01, 2026', thumbnail: '/images/mock/mock08.webp' },
+  { id: 5, title: '성경적 리더십 세미나: 선교적 사명', category: 'Seminars', date: 'May 08, 2026', thumbnail: '/images/mock/mock09.webp' },
 ];
+
+const filteredVideos = computed(() => {
+  if (activeFilter.value === 'Popular') return mockVideos;
+  return mockVideos.filter(v => v.category === activeFilter.value);
+});
 
 onMounted(() => {
   if ($gsap && $ScrollTrigger) {
-    $gsap.fromTo('.lectures-eyebrow',
-      { y: -8, opacity: 0 },
-      {
-        y: 0, opacity: 1, duration: 0.6, ease: 'power2.out',
-        scrollTrigger: { trigger: '#lectures', start: 'top 85%' }
-      }
-    );
-
     $gsap.fromTo('.scroll-title-lectures',
       { backgroundPosition: '100% 0' },
       {
         backgroundPosition: '0% 0',
-        duration: 1.5,
+        duration: 1.2,
         ease: 'power2.out',
-        scrollTrigger: { trigger: '#lectures', start: 'top 80%' }
+        scrollTrigger: { trigger: '#lectures', start: 'top 85%' }
       }
     );
 
@@ -138,7 +145,7 @@ onMounted(() => {
       { opacity: 0, x: 40 },
       {
         opacity: 1, x: 0, duration: 1, ease: 'power2.out',
-        scrollTrigger: { trigger: '#lectures', start: 'top 72%' }
+        scrollTrigger: { trigger: '#lectures', start: 'top 75%' }
       }
     );
   }
@@ -146,5 +153,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 .swiper-slide { width: auto; }
 </style>

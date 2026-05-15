@@ -1,11 +1,15 @@
 <template>
-  <!-- canvas-cream band: warm interlude (design.md: card-story style feel) -->
-  <section id="contact" class="py-24" style="background-color: transparent;">
-    <div class="mx-auto px-6" style="max-width: 800px;">
+  <!-- Contact Section with Background Image -->
+  <section 
+    id="contact" 
+    class="py-32 relative overflow-hidden bg-cover bg-center" 
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/contact/contact_bg.webp');"
+  >
+    <div class="mx-auto px-6 relative z-10" style="max-width: 800px;">
 
       <!-- Section header -->
       <div class="text-center mb-16">
-        <div class="tag-soft mb-5 contact-eyebrow">동역 문의</div>
+        <div class="tag-soft mb-5 contact-eyebrow" style="background-color: rgba(255, 255, 255, 0.1); color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.2);">동역 문의</div>
         <h2 
           class="mb-4 scroll-title-contact fill-from-left"
           style="
@@ -14,12 +18,12 @@
             font-weight: 500;
             line-height: 1.1;
             letter-spacing: -0.02em;
-            color: #171717;
+            background-image: linear-gradient(to right, #FFFFFF 50%, rgba(255, 255, 255, 0.4) 50%);
           "
         >
           Support &amp; Contact
         </h2>
-        <p style="font-size: 18px; font-weight: 400; line-height: 1.6; color: #7A7571;">
+        <p style="font-size: 18px; font-weight: 400; line-height: 1.6; color: rgba(255, 255, 255, 0.8);">
           기도 동역 및 일대일 제자 양육 교재 자료 요청을 남겨주시면 정성껏 안내해 드립니다.
         </p>
       </div>

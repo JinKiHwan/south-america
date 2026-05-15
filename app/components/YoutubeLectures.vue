@@ -53,10 +53,10 @@
         :freeMode="true"
         class="w-full overflow-visible lecture-swiper"
       >
-        <swiper-slide v-for="video in filteredVideos" :key="video.id" class="w-[280px] md:w-[320px]">
-          <div class="group cursor-pointer">
+        <swiper-slide v-for="video in filteredVideos" :key="video.id" style="width: 320px !important;">
+          <div class="group cursor-pointer" style="width: 100%; max-width: 320px;">
             <!-- Thumbnail (16:9) -->
-            <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 16/9; background: #171717;">
+            <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 16/9; background: #171717; width: 100%;">
               <img 
                 :src="video.thumbnail" 
                 :alt="video.title" 
@@ -155,5 +155,10 @@ onMounted(() => {
 <style scoped>
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-.swiper-slide { width: auto; }
+
+@media (max-width: 768px) {
+  :deep(.swiper-slide) {
+    width: 280px !important;
+  }
+}
 </style>

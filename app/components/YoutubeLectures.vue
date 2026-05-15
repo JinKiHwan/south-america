@@ -32,61 +32,63 @@
     </div>
 
     <!-- Scroll carousel -->
-    <div class="pl-6 md:pl-[max(1.5rem,calc((100vw-1600px)/2+1.5rem))]">
-      <swiper
-        :modules="[FreeMode]"
-        :slidesPerView="'auto'"
-        :spaceBetween="28"
-        :freeMode="true"
-        class="w-full overflow-visible lecture-swiper"
-      >
-        <swiper-slide v-for="video in mockVideos" :key="video.id" style="width: 320px !important;">
-          <div class="group cursor-pointer" style="width: 100%; max-width: 320px;">
-            <!-- Thumbnail (16:9) -->
-            <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 16/9; background: #171717; width: 100%;">
-              <img 
-                :src="video.thumbnail" 
-                :alt="video.title" 
-                class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" 
-              />
-              <!-- Play button overlay -->
-              <div class="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-transparent transition-colors duration-300">
-                <div 
-                  class="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110"
-                  style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25);"
-                >
-                  <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-lg" style="background-color: #E87A5D;">
-                    <svg class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
+    <div class="relative pl-6 md:pl-[max(1.5rem,calc((100vw-1600px)/2+1.5rem))]">
+      <div class="lecture-swiper-container">
+        <swiper
+          :modules="[FreeMode]"
+          :slidesPerView="'auto'"
+          :spaceBetween="28"
+          :freeMode="true"
+          class="w-full overflow-visible lecture-swiper"
+        >
+          <swiper-slide v-for="video in mockVideos" :key="video.id" style="width: 360px !important;">
+            <div class="group cursor-pointer" style="width: 100%; max-width: 360px;">
+              <!-- Thumbnail (16:9) -->
+              <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 16/9; background: #171717; width: 100%;">
+                <img 
+                  :src="video.thumbnail" 
+                  :alt="video.title" 
+                  class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" 
+                />
+                <!-- Play button overlay -->
+                <div class="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-transparent transition-colors duration-300">
+                  <div 
+                    class="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110"
+                    style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25);"
+                  >
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-lg" style="background-color: #E87A5D;">
+                      <svg class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Card info -->
-            <div class="flex flex-col gap-1.5 px-1">
-              <h3 
-                class="line-clamp-1 group-hover:text-primary transition-colors duration-300"
-                style="
-                  font-family: 'Outfit', sans-serif;
-                  font-size: 20px;
-                  font-weight: 600;
-                  line-height: 1.3;
-                  color: #171717;
-                "
-              >
-                {{ video.title }}
-              </h3>
-              <div class="flex items-center gap-2 text-sm text-[#7A7571]">
-                <span class="font-medium" style="color: #E87A5D;">{{ video.category }}</span>
-                <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
-                <span>{{ video.date }}</span>
+              <!-- Card info -->
+              <div class="flex flex-col gap-1.5 px-1">
+                <h3 
+                  class="line-clamp-1 group-hover:text-[#E87A5D] transition-colors duration-300"
+                  style="
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 20px;
+                    font-weight: 600;
+                    line-height: 1.3;
+                    color: #171717;
+                  "
+                >
+                  {{ video.title }}
+                </h3>
+                <div class="flex items-center gap-2 text-sm text-[#7A7571]">
+                  <span class="font-medium" style="color: #E87A5D;">{{ video.category }}</span>
+                  <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
+                  <span>{{ video.date }}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </swiper-slide>
-      </swiper>
+          </swiper-slide>
+        </swiper>
+      </div>
     </div>
   </section>
 </template>
@@ -135,9 +137,20 @@ onMounted(() => {
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+.lecture-swiper-container {
+  position: relative;
+  width: 100%;
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
 @media (max-width: 768px) {
   :deep(.swiper-slide) {
     width: 280px !important;
+  }
+  .lecture-swiper-container {
+    mask-image: none;
+    -webkit-mask-image: none;
   }
 }
 </style>

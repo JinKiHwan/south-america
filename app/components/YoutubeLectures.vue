@@ -107,11 +107,11 @@ import { onMounted } from 'vue';
 const { $gsap, $ScrollTrigger } = useNuxtApp();
 
 const mockVideos = [
-  { id: 1, title: '신명기 강해 1강 - 서론', date: '2026-04-10', thumbnail: 'https://images.unsplash.com/photo-1494548162494-384bba4ab999?q=80&w=800&auto=format&fit=crop' },
-  { id: 2, title: '신명기 강해 2강 - 언약의 갱신', date: '2026-04-17', thumbnail: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=800&auto=format&fit=crop' },
-  { id: 3, title: '일대일 제자양육 1과 - 예수 그리스도는 누구신가?', date: '2026-04-24', thumbnail: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop' },
-  { id: 4, title: '일대일 제자양육 2과 - 구원의 확신', date: '2026-05-01', thumbnail: 'https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=800&auto=format&fit=crop' },
-  { id: 5, title: '성경적 리더십 세미나', date: '2026-05-08', thumbnail: 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=800&auto=format&fit=crop' },
+  { id: 1, title: '신명기 강해 1강 - 서론', date: '2026-04-10', thumbnail: '/images/mock/mock05.webp' },
+  { id: 2, title: '신명기 강해 2강 - 언약의 갱신', date: '2026-04-17', thumbnail: '/images/mock/mock06.webp' },
+  { id: 3, title: '일대일 제자양육 1과 - 예수 그리스도는 누구신가?', date: '2026-04-24', thumbnail: '/images/mock/mock07.webp' },
+  { id: 4, title: '일대일 제자양육 2과 - 구원의 확신', date: '2026-05-01', thumbnail: '/images/mock/mock08.webp' },
+  { id: 5, title: '성경적 리더십 세미나', date: '2026-05-08', thumbnail: '/images/mock/mock09.webp' },
 ];
 
 onMounted(() => {

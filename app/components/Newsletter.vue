@@ -143,7 +143,7 @@ const mockData = [
     date: 'May 10, 2026', 
     readTime: '5 min',
     excerpt: '아마존 깊은 곳에서 진행된 이번 사역을 통해 우리는 하나님의 놀라운 역사를 경험했습니다. 원주민 마을에 세워진 새로운 예배 처소와 그들의 고백을 전합니다.',
-    thumbnail: 'https://images.unsplash.com/photo-1518182170546-076616fd46fa?q=80&w=800&auto=format&fit=crop' 
+    thumbnail: '/images/mock/mock01.webp' 
   },
   { 
     id: 2, 
@@ -152,7 +152,7 @@ const mockData = [
     date: 'Apr 28, 2026', 
     readTime: '4 min',
     excerpt: '리마의 대학가에서 시작된 제자훈련 프로그램이 큰 결실을 맺고 있습니다. 복음을 향한 갈급함이 가득한 현장의 목소리를 들어보세요.',
-    thumbnail: 'https://images.unsplash.com/photo-1526080243450-4820689fcc49?q=80&w=400&auto=format&fit=crop' 
+    thumbnail: '/images/mock/mock02.webp' 
   },
   { 
     id: 3, 
@@ -161,7 +161,7 @@ const mockData = [
     date: 'Apr 15, 2026', 
     readTime: '6 min',
     excerpt: '미래의 영적 지도자들을 양육하는 멕시코 신학교의 사역 현장입니다. 이번 학기 강의 일정과 학생들을 위한 기도를 부탁드립니다.',
-    thumbnail: 'https://images.unsplash.com/photo-1588612140404-b97d21396aee?q=80&w=400&auto=format&fit=crop' 
+    thumbnail: '/images/mock/mock03.webp' 
   },
   { 
     id: 4, 
@@ -170,7 +170,7 @@ const mockData = [
     date: 'Mar 30, 2026', 
     readTime: '3 min',
     excerpt: '남미 대륙 전체를 위한 연합 기도 제목을 나눕니다. 각 지역의 상황과 함께 긴급한 기도 제목들을 확인해 주세요.',
-    thumbnail: 'https://images.unsplash.com/photo-1504150558240-0b4fd8946624?q=80&w=400&auto=format&fit=crop' 
+    thumbnail: '/images/mock/mock04.webp' 
   }
 ];
 

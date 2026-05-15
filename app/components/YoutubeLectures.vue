@@ -53,7 +53,7 @@
         :freeMode="true"
         class="w-full overflow-visible lecture-swiper"
       >
-        <swiper-slide v-for="video in filteredVideos" :key="video.id" class="w-[300px] md:w-[400px]">
+        <swiper-slide v-for="video in filteredVideos" :key="video.id" class="w-[280px] md:w-[320px]">
           <div class="group cursor-pointer">
             <!-- Thumbnail (16:9) -->
             <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 16/9; background: #171717;">

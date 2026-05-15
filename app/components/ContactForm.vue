@@ -152,8 +152,8 @@
         <button 
           type="submit" 
           :disabled="isSubmitting" 
-          class="btn-primary w-full py-4 text-lg font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300"
-          :style="isSubmitting ? { opacity: '0.6', cursor: 'not-allowed' } : { boxShadow: '0 10px 20px rgba(232, 122, 93, 0.2)' }"
+          class="w-full py-4 text-lg font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 text-white"
+          :style="isSubmitting ? { background: '#E87A5D', opacity: '0.6', cursor: 'not-allowed' } : { background: '#E87A5D', boxShadow: '0 10px 20px rgba(232, 122, 93, 0.2)' }"
         >
           <span>{{ isSubmitting ? '전송 중...' : '메시지 보내기' }}</span>
           <svg v-if="!isSubmitting" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="stroke-width: 2.5;">

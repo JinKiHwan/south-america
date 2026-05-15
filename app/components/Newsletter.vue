@@ -38,7 +38,8 @@
           {{ filter }}
           <div 
             v-if="activeFilter === filter" 
-            class="absolute bottom-0 left-0 w-full h-[2px] bg-primary transition-all duration-300"
+            class="absolute bottom-0 left-0 w-full h-[2px] transition-all duration-300"
+            style="background-color: #E87A5D;"
           ></div>
         </button>
       </div>
@@ -57,7 +58,7 @@
               />
             </div>
             <div class="flex flex-col gap-3">
-              <span class="text-primary text-sm font-semibold uppercase tracking-wider">{{ featuredItem.region }}</span>
+              <span class="text-sm font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ featuredItem.region }}</span>
               <h3 
                 class="group-hover:text-primary transition-colors duration-300"
                 style="
@@ -100,7 +101,7 @@
             
             <!-- List Item Content -->
             <div class="flex flex-col justify-center gap-2">
-              <span class="text-primary text-[12px] font-semibold uppercase tracking-wider">{{ item.region }}</span>
+              <span class="text-[12px] font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ item.region }}</span>
               <h4 
                 class="group-hover:text-primary transition-colors duration-300 line-clamp-2"
                 style="

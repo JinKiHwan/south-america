@@ -1,9 +1,9 @@
 <template>
   <section id="lectures" class="py-24 overflow-hidden" style="background-color: transparent;">
-    <div class="mx-auto px-6 mb-10" style="max-width: 1600px;">
+    <div class="mx-auto px-6 mb-12" style="max-width: 1600px;">
       
       <!-- Header with Title and View All -->
-      <div class="flex items-end justify-between mb-8">
+      <div class="flex items-end justify-between">
         <div>
           <h2 
             class="scroll-title-lectures fill-from-left"
@@ -16,31 +16,18 @@
               color: #171717;
             "
           >
-            YouTube <span class="text-primary">Lectures</span>
+            YouTube <span style="color: #E87A5D;">Lectures</span>
           </h2>
+          <p class="mt-4 text-[#7A7571]" style="font-size: 16px;">
+            성경의 진리를 깊이 있게 배우는 영상 강해 자료입니다.
+          </p>
         </div>
-        <a href="#" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 20px; font-size: 14px;">
+        <a href="#" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 24px; font-size: 14px;">
           Explore all videos
           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="group-hover:translate-x-1 transition-transform">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7M3 12h18"/>
           </svg>
         </a>
-      </div>
-
-      <!-- Filter Tabs directly below Title -->
-      <div class="flex gap-6 mb-2 border-b border-[#E8E3DD] overflow-x-auto hide-scrollbar">
-        <button 
-          v-for="filter in filters" :key="filter"
-          @click="activeFilter = filter"
-          class="pb-4 text-sm font-medium transition-all duration-300 relative whitespace-nowrap"
-          :class="activeFilter === filter ? 'text-primary' : 'text-[#7A7571] hover:text-[#171717]'"
-        >
-          {{ filter }}
-          <div 
-            v-if="activeFilter === filter" 
-            class="absolute bottom-0 left-0 w-full h-[2px] bg-primary transition-all duration-300"
-          ></div>
-        </button>
       </div>
     </div>
 
@@ -53,7 +40,7 @@
         :freeMode="true"
         class="w-full overflow-visible lecture-swiper"
       >
-        <swiper-slide v-for="video in filteredVideos" :key="video.id" style="width: 320px !important;">
+        <swiper-slide v-for="video in mockVideos" :key="video.id" style="width: 320px !important;">
           <div class="group cursor-pointer" style="width: 100%; max-width: 320px;">
             <!-- Thumbnail (16:9) -->
             <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 16/9; background: #171717; width: 100%;">
@@ -68,7 +55,7 @@
                   class="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110"
                   style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25);"
                 >
-                  <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-lg">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-lg" style="background-color: #E87A5D;">
                     <svg class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z"/>
                     </svg>
@@ -92,7 +79,7 @@
                 {{ video.title }}
               </h3>
               <div class="flex items-center gap-2 text-sm text-[#7A7571]">
-                <span class="font-medium text-primary/80">{{ video.category }}</span>
+                <span class="font-medium" style="color: #E87A5D;">{{ video.category }}</span>
                 <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
                 <span>{{ video.date }}</span>
               </div>
@@ -105,16 +92,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 
 const { $gsap, $ScrollTrigger } = useNuxtApp();
-
-const filters = ['Popular', 'Deuteronomy', 'Disciple Training', 'Seminars', 'Others'];
-const activeFilter = ref('Popular');
 
 const mockVideos = [
   { id: 1, title: '신명기 강해 1강 - 광야에서의 회상', category: 'Deuteronomy', date: 'Apr 10, 2026', thumbnail: '/images/mock/mock05.webp' },
@@ -123,11 +107,6 @@ const mockVideos = [
   { id: 4, title: '일대일 제자양육 2과 - 구원의 확신과 기쁨', category: 'Disciple Training', date: 'May 01, 2026', thumbnail: '/images/mock/mock08.webp' },
   { id: 5, title: '성경적 리더십 세미나: 선교적 사명', category: 'Seminars', date: 'May 08, 2026', thumbnail: '/images/mock/mock09.webp' },
 ];
-
-const filteredVideos = computed(() => {
-  if (activeFilter.value === 'Popular') return mockVideos;
-  return mockVideos.filter(v => v.category === activeFilter.value);
-});
 
 onMounted(() => {
   if ($gsap && $ScrollTrigger) {

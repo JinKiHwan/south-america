@@ -16,7 +16,7 @@
               color: #171717;
             "
           >
-            Latest <span style="color: #E87A5D;">Stories</span>
+            Latest <span style="color: #E87A5D;">Newsletters</span>
           </h2>
         </div>
         <a href="#" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 20px; font-size: 14px;">
@@ -44,86 +44,88 @@
         </button>
       </div>
 
-      <!-- Content Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        
-        <!-- Left: Featured (Latest) Item -->
-        <div class="lg:col-span-7 news-featured-wrap">
-          <div v-if="featuredItem" class="group cursor-pointer">
-            <div class="relative overflow-hidden rounded-2xl mb-6 shadow-sm" style="aspect-ratio: 16/10;">
-              <img 
-                :src="featuredItem.thumbnail" 
-                :alt="featuredItem.title" 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
-              />
-            </div>
-            <div class="flex flex-col gap-3">
-              <span class="text-sm font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ featuredItem.region }}</span>
-              <h3 
-                class="group-hover:text-[#E87A5D] transition-colors duration-300"
-                style="
-                  font-family: 'Outfit', sans-serif;
-                  font-size: 28px;
-                  font-weight: 600;
-                  line-height: 1.3;
-                  color: #171717;
-                "
-              >
-                {{ featuredItem.title }}
-              </h3>
-              <div class="flex items-center gap-3 text-sm text-[#7A7571] mb-2">
-                <span>{{ featuredItem.date }}</span>
-                <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
-                <span>{{ featuredItem.readTime }} read</span>
+      <!-- Content Grid with Transition -->
+      <Transition name="fade-slide" mode="out-in">
+        <div :key="activeFilter" class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          <!-- Left: Featured (Latest) Item -->
+          <div class="lg:col-span-7 news-featured-wrap">
+            <div v-if="featuredItem" class="group cursor-pointer">
+              <div class="relative overflow-hidden rounded-2xl mb-6 shadow-sm" style="aspect-ratio: 16/10;">
+                <img 
+                  :src="featuredItem.thumbnail" 
+                  :alt="featuredItem.title" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
+                />
               </div>
-              <p class="text-[#7A7571] leading-relaxed line-clamp-2" style="font-size: 16px;">
-                {{ featuredItem.excerpt }}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: List of Subsequent Items -->
-        <div class="lg:col-span-5 flex flex-col gap-10 news-list-wrap">
-          <div 
-            v-for="item in listItems" 
-            :key="item.id"
-            class="group cursor-pointer flex gap-6"
-          >
-            <!-- Small Thumbnail -->
-            <div class="flex-shrink-0 w-24 h-24 md:w-32 md:h-32 overflow-hidden rounded-xl shadow-sm">
-              <img 
-                :src="item.thumbnail" 
-                :alt="item.title" 
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-              />
-            </div>
-            
-            <!-- List Item Content -->
-            <div class="flex flex-col justify-center gap-2">
-              <span class="text-[12px] font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ item.region }}</span>
-              <h4 
-                class="group-hover:text-[#E87A5D] transition-colors duration-300 line-clamp-2"
-                style="
-                  font-family: 'Outfit', sans-serif;
-                  font-size: 17px;
-                  font-weight: 600;
-                  line-height: 1.4;
-                  color: #171717;
-                "
-              >
-                {{ item.title }}
-              </h4>
-              <div class="flex items-center gap-2 text-[13px] text-[#7A7571]">
-                <span>{{ item.date }}</span>
-                <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
-                <span>{{ item.readTime }} read</span>
+              <div class="flex flex-col gap-3">
+                <span class="text-sm font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ featuredItem.region }}</span>
+                <h3 
+                  class="group-hover:text-[#E87A5D] transition-colors duration-300"
+                  style="
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 28px;
+                    font-weight: 600;
+                    line-height: 1.3;
+                    color: #171717;
+                  "
+                >
+                  {{ featuredItem.title }}
+                </h3>
+                <div class="flex items-center gap-3 text-sm text-[#7A7571] mb-2">
+                  <span>{{ featuredItem.date }}</span>
+                  <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
+                  <span>{{ featuredItem.readTime }} read</span>
+                </div>
+                <p class="text-[#7A7571] leading-relaxed line-clamp-2" style="font-size: 16px;">
+                  {{ featuredItem.excerpt }}
+                </p>
               </div>
             </div>
           </div>
-        </div>
 
-      </div>
+          <!-- Right: List of Subsequent Items -->
+          <div class="lg:col-span-5 flex flex-col gap-8 news-list-wrap">
+            <div 
+              v-for="item in listItems" 
+              :key="item.id"
+              class="group cursor-pointer flex gap-6"
+            >
+              <!-- Small Thumbnail -->
+              <div class="flex-shrink-0 w-24 h-24 md:w-32 md:h-32 overflow-hidden rounded-xl shadow-sm">
+                <img 
+                  :src="item.thumbnail" 
+                  :alt="item.title" 
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                />
+              </div>
+              
+              <!-- List Item Content -->
+              <div class="flex flex-col justify-center gap-2">
+                <span class="text-[12px] font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ item.region }}</span>
+                <h4 
+                  class="group-hover:text-[#E87A5D] transition-colors duration-300 line-clamp-2"
+                  style="
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 17px;
+                    font-weight: 600;
+                    line-height: 1.4;
+                    color: #171717;
+                  "
+                >
+                  {{ item.title }}
+                </h4>
+                <div class="flex items-center gap-2 text-[13px] text-[#7A7571]">
+                  <span>{{ item.date }}</span>
+                  <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
+                  <span>{{ item.readTime }} read</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </Transition>
     </div>
   </section>
 </template>
@@ -172,6 +174,15 @@ const mockData = [
     readTime: '3 min',
     excerpt: '남미 대륙 전체를 위한 연합 기도 제목을 나눕니다. 각 지역의 상황과 함께 긴급한 기도 제목들을 확인해 주세요.',
     thumbnail: '/images/mock/mock04.webp' 
+  },
+  { 
+    id: 5, 
+    title: '볼리비아 의료 선교: 사랑의 인술을 전하다', 
+    region: 'General', 
+    date: 'Mar 15, 2026', 
+    readTime: '7 min',
+    excerpt: '볼리비아 오지 마을에서 진행된 의료 사역 보고입니다. 육신의 질병뿐만 아니라 마음의 상처까지 치유하시는 하나님의 은혜를 나누고 싶습니다.',
+    thumbnail: '/images/mock/mock05.webp' 
   }
 ];
 
@@ -217,4 +228,17 @@ onMounted(() => {
 <style scoped>
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.5s ease;
+}
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
 </style>

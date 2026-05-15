@@ -16,7 +16,7 @@
               color: #171717;
             "
           >
-            Latest <span class="text-primary">Stories</span>
+            Latest <span style="color: #E87A5D;">Stories</span>
           </h2>
         </div>
         <a href="#" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 20px; font-size: 14px;">
@@ -33,7 +33,7 @@
           v-for="filter in filters" :key="filter"
           @click="activeFilter = filter"
           class="pb-4 text-sm font-medium transition-all duration-300 relative whitespace-nowrap"
-          :class="activeFilter === filter ? 'text-primary' : 'text-[#7A7571] hover:text-[#171717]'"
+          :style="activeFilter === filter ? { color: '#E87A5D' } : { color: '#7A7571' }"
         >
           {{ filter }}
           <div 
@@ -60,7 +60,7 @@
             <div class="flex flex-col gap-3">
               <span class="text-sm font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ featuredItem.region }}</span>
               <h3 
-                class="group-hover:text-primary transition-colors duration-300"
+                class="group-hover:text-[#E87A5D] transition-colors duration-300"
                 style="
                   font-family: 'Outfit', sans-serif;
                   font-size: 28px;
@@ -103,7 +103,7 @@
             <div class="flex flex-col justify-center gap-2">
               <span class="text-[12px] font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ item.region }}</span>
               <h4 
-                class="group-hover:text-primary transition-colors duration-300 line-clamp-2"
+                class="group-hover:text-[#E87A5D] transition-colors duration-300 line-clamp-2"
                 style="
                   font-family: 'Outfit', sans-serif;
                   font-size: 17px;

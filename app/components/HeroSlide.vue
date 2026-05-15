@@ -1,130 +1,133 @@
 <template>
-  <section class="relative w-full bg-[#f3e6da] overflow-hidden flex items-center" style="min-height: 800px; height: 100vh;">
-    <!-- Background Decoration: World Map -->
-    <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none flex items-center justify-center">
-      <svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto max-w-none scale-150 lg:scale-110">
-        <path d="M150 200C180 150 250 150 300 180C350 210 400 150 450 160C500 170 550 250 600 240C650 230 700 150 750 160C800 170 850 220 900 210C950 200 1000 120 1050 130" stroke="#171717" stroke-width="2" stroke-dasharray="8 8" class="gs-path-anim" />
-        <!-- Simplified continent shapes as paths -->
-        <circle cx="200" cy="250" r="80" fill="currentColor" />
-        <circle cx="500" cy="350" r="120" fill="currentColor" />
-        <circle cx="850" cy="220" r="100" fill="currentColor" />
-        <circle cx="1000" cy="400" r="60" fill="currentColor" />
+  <section class="relative w-full bg-[#F5F1EB] overflow-hidden flex items-center min-h-[850px] lg:h-screen lg:min-h-[900px]">
+    
+    <!-- Background Texture/Decoration -->
+    <div class="absolute inset-0 z-0 opacity-40 pointer-events-none">
+      <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/20 to-transparent" />
+      <!-- Subtle dotted path decoration -->
+      <svg class="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 1440 900" fill="none">
+        <path d="M100 150 Q 500 50 900 400 T 1500 200" stroke="#E87A5D" stroke-width="1.2" stroke-dasharray="6 12" opacity="0.2" />
+        <path d="M-50 600 Q 400 900 800 600 T 1600 800" stroke="#E87A5D" stroke-width="1.2" stroke-dasharray="6 12" opacity="0.15" />
       </svg>
     </div>
 
-    <!-- Airplane Decoration -->
-    <div class="absolute top-1/4 right-1/4 z-10 opacity-20 gs-airplane">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 16.5L13 11.5V3.5C13 2.67 12.33 2 11.5 2C10.67 2 10 2.67 10 3.5V11.5L2 16.5V19L10 16.5V21L8 22.5V24L11.5 23L15 24V22.5L13 21V16.5L21 19V16.5Z" fill="#E87A5D"/>
-      </svg>
-    </div>
-
-    <!-- South America Map Background (Right Side) -->
-    <div class="absolute top-1/2 -translate-y-1/2 right-0 z-0 opacity-100 pointer-events-none gs-map-south h-full flex items-center justify-end">
-      <img 
-        src="/images/heroSection/south-america.png" 
-        alt="South America Map Background" 
-        class="w-[700px] lg:w-[1100px] max-h-[85vh] h-auto object-contain opacity-100"
-        style="filter: contrast(0.7);"
-      >
-    </div>
-
-    <!-- Main Content Container -->
-    <div class="container mx-auto max-w-[1600px] px-6 relative z-20">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <div class="container mx-auto max-w-[1600px] px-6 relative z-10 pt-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
-        <!-- Left Column: Text Content -->
-        <div class="flex flex-col items-start text-left">
-
-          <!-- Headline -->
-          <h1 
-            class="mb-6 gs-fade-text"
-            style="
-              font-family: 'Vujahday Script', cursive;
-              font-size: clamp(36px, 6vw, 58px);
-              font-weight: 700;
-              line-height: 1.2;
-              letter-spacing: 0;
-              text-shadow: 0.4px 0 0.1px currentColor, -0.4px 0 0.1px currentColor;
-              color: #171717;
-              max-width: 1000px;
-            "
-          >
-            "But you will receive power when the Holy Spirit comes on you; <br>
-            and you will be my <span class="text-highlight">witnesses</span> in Jerusalem, and in all Judea and Samaria, <br>
-            and to the ends of the earth."
-          </h1>
-
-          <!-- Description -->
-          <p 
-            class="mb-10 gs-fade-up text-[#7A7571]"
-            style="
-              font-size: 18px;
-              font-weight: 400;
-              line-height: 1.6;
-              max-width: 480px;
-            "
-          >
-            <span class="block mb-4 font-medium text-[#E87A5D]" style="font-family: 'Vujahday Script', cursive; font-size: 24px; font-weight: 700; text-shadow: 0.3px 0 0.1px currentColor;">Acts 1:8</span>
-            Reaching the heart of South America with God's love. 
-            We are dedicated to sharing the Gospel and 
-            discovering vision through the Word of God.
+        <!-- Left Content (Col 1-5) -->
+        <div class="lg:col-span-5 flex flex-col items-start pt-20 lg:pt-0">
+          <p class="gs-fade-up uppercase tracking-[0.25em] font-bold text-[11px] text-[#E87A5D] mb-8">
+            REACHING SOUTH AMERICA WITH THE GOSPEL
           </p>
+          
+          <div class="relative mb-6">
+            <h1 class="gs-fade-text" style="font-family: 'Playfair Display', serif; font-size: clamp(60px, 9vw, 104px); font-weight: 800; line-height: 0.9; color: #2D2A26; letter-spacing: -0.03em;">
+              You will be<br/>my witnesses
+            </h1>
+            <div class="relative mt-2">
+              <h2 class="gs-fade-up inline-block" style="font-family: 'Vujahday Script', cursive; font-size: clamp(40px, 6vw, 68px); color: #E87A5D; line-height: 1; transform: translateY(-5px);">
+                to the ends of the earth.
+              </h2>
+              <!-- Decorative Underline for Script -->
+              <svg class="absolute -bottom-4 left-0 w-full h-4 gs-fade-up" viewBox="0 0 400 20" preserveAspectRatio="none">
+                <path d="M5,15 Q100,5 200,15 T395,15" stroke="#E87A5D" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6" />
+              </svg>
+            </div>
+          </div>
 
-          <!-- CTA Button -->
-          <div class="gs-fade-btn">
-            <a href="#newsletter" class="btn-primary" style="padding: 16px 36px; font-size: 17px;">
+          <div class="gs-fade-up mb-12 mt-8">
+            <p class="text-[16px] font-bold text-[#2D2A26] mb-3">Acts 1:8</p>
+            <p class="text-[#7A7571] leading-relaxed max-w-[440px]" style="font-size: 17px;">
+              We are dedicated to sharing the Gospel and<br/>discovering vision through the Word of God.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-5 gs-fade-btn">
+            <a href="#newsletter" class="btn-primary shadow-lg shadow-[#E87A5D]/20" style="padding: 18px 40px; font-size: 16px; border-radius: 99px;">
               View Newsletters
+              <span class="ml-2">→</span>
             </a>
+            <a href="#lectures" class="btn-outline" style="padding: 18px 40px; font-size: 16px; border-radius: 99px; border: 1.5px solid #2D2A26; color: #2D2A26; font-weight: 500;">
+              Learn More
+            </a>
+          </div>
+
+          <!-- Stats Row (Horizontal) -->
+          <div class="flex items-center gap-12 mt-28 gs-fade-stats">
+            <div class="flex flex-col items-start">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="text-[#E87A5D]">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m12-10a4 4 0 11-8 0 4 4 0 018 0zm6 10v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75" />
+                  </svg>
+                </div>
+                <p class="text-[24px] font-bold text-[#2D2A26] leading-none">20+</p>
+              </div>
+              <p class="text-[12px] text-[#7A7571] font-medium uppercase tracking-wider">Years of Ministry</p>
+            </div>
+            <div class="flex flex-col items-start">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="text-[#E87A5D]">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5S19.832 5.477 21 6.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <p class="text-[24px] font-bold text-[#2D2A26] leading-none">1,000+</p>
+              </div>
+              <p class="text-[12px] text-[#7A7571] font-medium uppercase tracking-wider">Bible Lectures</p>
+            </div>
+            <div class="flex flex-col items-start">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="text-[#E87A5D]">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <p class="text-[24px] font-bold text-[#2D2A26] leading-none">Many</p>
+              </div>
+              <p class="text-[12px] text-[#7A7571] font-medium uppercase tracking-wider">Lives Impacted</p>
+            </div>
           </div>
         </div>
 
-        <!-- Right Column: Image Grid -->
-        <div class="relative gs-image-grid">
-          <div class="grid grid-cols-2 gap-4 lg:gap-6 relative z-10">
-            <!-- Large Main Image -->
-            <div class="gs-img-main rounded-[2rem] overflow-hidden shadow-2xl aspect-[3/4.5] transform lg:-translate-y-8">
+        <!-- Right Visual (Col 6-12) -->
+        <div class="lg:col-span-7 relative h-[800px] lg:h-[1000px] flex items-center justify-end">
+          <!-- South America Mask Image Container (Mask Temporarily Removed) -->
+          <div class="relative w-full h-full flex items-center justify-end gs-map-reveal pr-0 overflow-visible">
+            <div 
+              class="relative w-[600px] lg:w-[1100px] h-full"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <!-- Main Image: south-america2.webp -->
               <img 
-                :src="heroSlides[0].image" 
-                alt="Main Hero" 
-                class="w-full h-full object-cover"
-              >
+                src="/images/heroSection/south-america2.webp" 
+                alt="South America Ministry" 
+                class="w-full h-full object-contain"
+              />
             </div>
-            
-            <!-- Stacked Smaller Images -->
-            <div class="flex flex-col gap-4 lg:gap-6">
-              <div class="gs-img-sub1 rounded-[2rem] overflow-hidden shadow-xl aspect-square">
-                <img 
-                  :src="heroSlides[1].image" 
-                  alt="Sub Hero 1" 
-                  class="w-full h-full object-cover"
-                >
-              </div>
-              <div class="gs-img-sub2 rounded-[2rem] overflow-hidden shadow-xl aspect-square lg:aspect-[4/3]">
-                <img 
-                  :src="heroSlides[2].image" 
-                  alt="Sub Hero 2" 
-                  class="w-full h-full object-cover"
-                >
+
+            <!-- Overlapping Polaroid Photos -->
+            <!-- Polaroid 1: Mission Group -->
+            <div class="absolute right-[22%] top-[48%] lg:top-[45%] w-[260px] lg:w-[340px] bg-white p-3 pb-16 shadow-2xl rotate-[3deg] rounded-sm gs-polaroid-1 z-20">
+              <div class="aspect-square overflow-hidden bg-[#F2F2F2]">
+                <img src="/images/heroSection/hero_slide_02.webp" class="w-full h-full object-cover" />
               </div>
             </div>
-          </div>
-          
-          <!-- Floating decoration path (optional) -->
-          <div class="absolute -bottom-8 -left-8 w-32 h-32 opacity-20 pointer-events-none hidden lg:block z-20">
-            <svg viewBox="0 0 100 100" class="w-full h-full">
-              <path d="M10 90 Q 50 10 90 90" fill="none" stroke="#E87A5D" stroke-width="2" stroke-dasharray="4 4" />
-            </svg>
+
+            <!-- Polaroid 2: Cross at Sunset -->
+            <div class="absolute right-[8%] top-[65%] lg:top-[63%] w-[260px] lg:w-[380px] bg-white p-3 pb-20 shadow-2xl rotate-[-2deg] rounded-sm gs-polaroid-2 z-20">
+              <div class="aspect-video overflow-hidden bg-[#F2F2F2]">
+                <img src="/images/heroSection/hero_slide_03.webp" class="w-full h-full object-cover" />
+              </div>
+            </div>
           </div>
         </div>
 
       </div>
-    </div>
-
-    <!-- Scroll Hint -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 gs-scroll-hint">
-      <span class="text-[#7A7571]/60" style="font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;">Scroll</span>
-      <div class="w-px h-10 bg-gradient-to-b from-[#E87A5D] to-transparent" />
     </div>
   </section>
 </template>
@@ -134,68 +137,67 @@ import { onMounted } from 'vue';
 
 const { $gsap } = useNuxtApp();
 
-const heroSlides = [
-  { image: '/images/heroSection/hero_slide_01.webp' },
-  { image: '/images/heroSection/hero_slide_02.webp' },
-  { image: '/images/heroSection/hero_slide_03.webp' }
-];
-
 onMounted(() => {
   if ($gsap) {
     const tl = $gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    // Staggered entrance for all elements
+    // Entrance animations
     tl.fromTo('.gs-fade-text',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1 },
-      '-=0.5'
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.2 }
     ).fromTo('.gs-fade-up',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.15 },
+      '-=0.8'
+    ).fromTo('.gs-fade-btn',
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8 },
       '-=0.6'
-    ).fromTo('.gs-fade-btn',
-      { scale: 0.9, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.8 },
-      '-=0.5'
-    ).fromTo('.gs-img-main',
-      { clipPath: 'inset(100% 0% 0% 0%)', y: 50, opacity: 0 },
-      { clipPath: 'inset(0% 0% 0% 0%)', y: 0, opacity: 1, duration: 1.4, ease: 'power4.inOut' },
-      '-=1'
-    ).fromTo(['.gs-img-sub1', '.gs-img-sub2'],
-      { clipPath: 'inset(0% 100% 0% 0%)', x: 30, opacity: 0 },
-      { clipPath: 'inset(0% 0% 0% 0%)', x: 0, opacity: 1, duration: 1.2, stagger: 0.2, ease: 'power4.inOut' },
-      '-=1.1'
-    ).fromTo('.gs-scroll-hint',
+    ).fromTo('.gs-fade-stats',
       { opacity: 0 },
-      { opacity: 1, duration: 0.8 },
-      '-=0.5'
+      { opacity: 1, duration: 1 },
+      '-=0.4'
     );
 
-    // Airplane floating animation
-    $gsap.to('.gs-airplane', {
-      x: 100,
-      y: -50,
-      duration: 20,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut'
-    });
+    // Map and Polaroid reveal
+    $gsap.fromTo('.gs-map-reveal',
+      { scale: 0.95, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 1.5, delay: 0.4 }
+    );
+
+    $gsap.fromTo('.gs-polaroid-1',
+      { x: 100, y: 50, rotation: 15, opacity: 0 },
+      { x: 0, y: 0, rotation: 3, opacity: 1, duration: 1.2, delay: 1 }
+    );
+
+    $gsap.fromTo('.gs-polaroid-2',
+      { x: 80, y: 100, rotation: -10, opacity: 0 },
+      { x: 0, y: 0, rotation: -2, opacity: 1, duration: 1.2, delay: 1.3 }
+    );
   }
 });
 </script>
 
 <style scoped>
-.text-highlight::after {
-  height: 12px;
-  background-color: rgba(232, 122, 93, 0.25);
-  bottom: 4px;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+.map-mask-container {
+  /* Ensuring the mask works across browsers */
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  -webkit-mask-position: center;
 }
 
 @media (max-width: 1024px) {
-  section {
-    height: auto !important;
-    padding-top: 120px;
-    padding-bottom: 80px;
+  .map-mask-container {
+    width: 100% !important;
+    height: 500px !important;
+  }
+  .gs-polaroid-1, .gs-polaroid-2 {
+    width: 180px !important;
   }
 }
 </style>

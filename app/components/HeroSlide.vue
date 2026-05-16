@@ -158,8 +158,8 @@
 
           <!-- Right Visual -->
           <div class="col-span-7 relative h-[1000px] flex items-center justify-end">
-            <div class="relative w-[1250px] h-full flex items-center justify-center pointer-events-none">
-              <img src="/images/heroSection/south-america2.webp" alt="South America Ministry" class="w-full h-full object-contain" />
+            <div class="relative w-[2000px] h-[1500px] flex items-center justify-center pointer-events-none translate-x-[8%]">
+              <img src="/images/heroSection/south-america2.webp" alt="South America Ministry" class="w-full h-full object-contain opacity-90 lg:opacity-100" />
             </div>
             <!-- Desktop Polaroids -->
             <div class="absolute right-[8%] top-[45%] w-[280px] bg-white p-3 pb-12 shadow-2xl rotate-[3deg] rounded-sm gs-polaroid-1 z-20">

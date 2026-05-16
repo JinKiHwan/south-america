@@ -8,7 +8,7 @@
           <h2 
             class="scroll-title-lectures fill-from-left"
             style="
-              font-family: 'Outfit', sans-serif;
+              font-family: 'Noto Sans KR', 'Noto Sans Symbols', sans-serif;
               font-size: 42px;
               font-weight: 600;
               line-height: 1.1;
@@ -70,7 +70,7 @@
                 <h3 
                   class="line-clamp-1 text-[#171717] group-hover:text-[#E87A5D] transition-colors duration-300"
                   style="
-                    font-family: 'Outfit', sans-serif;
+                    font-family: 'Noto Sans KR', 'Noto Sans Symbols', sans-serif;
                     font-size: 20px;
                     font-weight: 600;
                     line-height: 1.3;

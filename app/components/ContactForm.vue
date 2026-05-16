@@ -13,7 +13,7 @@
         <h2 
           class="mb-4 scroll-title-contact fill-from-left"
           style="
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Noto Sans KR', 'Noto Sans Symbols', sans-serif;
             font-size: 48px;
             font-weight: 500;
             line-height: 1.1;

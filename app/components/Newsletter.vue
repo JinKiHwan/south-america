@@ -92,7 +92,7 @@
               class="group cursor-pointer flex gap-5"
             >
               <!-- Small Thumbnail -->
-              <div class="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-xl shadow-sm">
+              <div class="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-2xl shadow-sm">
                 <img 
                   :src="item.thumbnail" 
                   :alt="item.title" 

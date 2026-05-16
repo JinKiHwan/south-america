@@ -38,7 +38,7 @@
           backdrop-filter: blur(24px);
           -webkit-backdrop-filter: blur(24px);
           border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 24px;
+          border-radius: 16px;
           box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         "
       >
@@ -249,3 +249,21 @@ onMounted(() => {
   }
 });
 </script>
+
+<style scoped>
+@media (max-width: 1023px) {
+  section#contact {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .contact-form-wrap {
+    padding: 28px 24px !important;
+  }
+  .contact-form-wrap input,
+  .contact-form-wrap select,
+  .contact-form-wrap textarea {
+    padding: 10px 14px !important;
+    font-size: 15px !important;
+  }
+}
+</style>

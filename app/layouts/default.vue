@@ -63,54 +63,94 @@
           <a href="#contact" class="btn-primary px-6 py-2.5 text-[14px]" @click.prevent="scrollTo('#contact')">{{ $t('nav.support') }}</a>
         </div>
 
-        <!-- Mobile menu button -->
-        <button
-          class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5"
-          style="color: #171717; background: none; border: none; cursor: pointer;"
-          @click="mobileOpen = !mobileOpen"
-          aria-label="Menu"
-        >
-          <span
-            class="block w-5 h-px bg-current transition-all"
-            :style="mobileOpen ? 'transform: rotate(45deg) translateY(8px);' : ''"
-          />
-          <span
-            class="block w-5 h-px bg-current transition-all"
-            :style="mobileOpen ? 'opacity: 0;' : ''"
-          />
-          <span
-            class="block w-5 h-px bg-current transition-all"
-            :style="mobileOpen ? 'transform: rotate(-45deg) translateY(-8px);' : ''"
-          />
+      <!-- Mobile menu button -->
+      <button
+        class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 z-50"
+        style="color: #171717; background: none; border: none; cursor: pointer;"
+        @click="mobileOpen = !mobileOpen"
+        aria-label="Menu"
+      >
+        <span
+          class="block w-5 h-px bg-current transition-all"
+          :style="mobileOpen ? 'transform: rotate(45deg) translateY(8px);' : ''"
+        />
+        <span
+          class="block w-5 h-px bg-current transition-all"
+          :style="mobileOpen ? 'opacity: 0;' : ''"
+        />
+        <span
+          class="block w-5 h-px bg-current transition-all"
+          :style="mobileOpen ? 'transform: rotate(-45deg) translateY(-8px);' : ''"
+        />
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile nav sidebar -->
+  <Transition name="slide-right">
+    <div
+      v-if="mobileOpen"
+      class="fixed top-0 right-0 w-[75%] h-[100dvh] z-[100] flex flex-col p-8 md:hidden"
+      style="background-color: #F5F1EB; box-shadow: -10px 0 30px rgba(45, 42, 38, 0.1);"
+    >
+      <div class="flex justify-between items-center mb-16">
+        <span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 500;">Menu</span>
+        <button @click="mobileOpen = false" class="p-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
       </div>
 
-      <!-- Mobile nav -->
-      <div
-        v-if="mobileOpen"
-        class="md:hidden px-6 py-4 flex flex-col gap-4"
-        style="background-color: rgba(250, 247, 242, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #E8E3DD;"
-      >
-        <a href="#newsletter" class="nav-link" @click.prevent="scrollTo('#newsletter'); mobileOpen = false">{{ $t('nav.newsletters') }}</a>
-        <a href="#lectures" class="nav-link" @click.prevent="scrollTo('#lectures'); mobileOpen = false">{{ $t('nav.lectures') }}</a>
-        <a href="#contact" class="nav-link" @click.prevent="scrollTo('#contact'); mobileOpen = false">{{ $t('nav.contact') }}</a>
-        
-        <!-- Mobile Language Switcher -->
-        <div class="flex items-center gap-4 py-2 border-y border-[#E8E3DD]">
+      <nav class="flex flex-col gap-8 mb-auto">
+        <a href="#newsletter" class="text-3xl font-medium tracking-tight" style="font-family: 'Outfit', sans-serif;" @click.prevent="scrollTo('#newsletter'); mobileOpen = false">{{ $t('nav.newsletters') }}</a>
+        <a href="#lectures" class="text-3xl font-medium tracking-tight" style="font-family: 'Outfit', sans-serif;" @click.prevent="scrollTo('#lectures'); mobileOpen = false">{{ $t('nav.lectures') }}</a>
+        <a href="#contact" class="text-3xl font-medium tracking-tight" style="font-family: 'Outfit', sans-serif;" @click.prevent="scrollTo('#contact'); mobileOpen = false">{{ $t('nav.contact') }}</a>
+      </nav>
+      
+      <div class="flex flex-col gap-8 pt-8 border-t border-[#E8E3DD]">
+        <!-- Mobile Language Selector Drop-up -->
+        <div class="relative w-full">
           <button 
-            v-for="lang in locales" 
-            :key="lang.code"
-            @click="setLocale(lang.code); mobileOpen = false"
-            class="text-[12px] font-bold uppercase"
-            :class="locale === lang.code ? 'text-[#E87A5D]' : 'text-[#7A7571]'"
+            @click="mobileLangOpen = !mobileLangOpen"
+            class="flex items-center justify-between w-full px-4 py-4 bg-[#F0E8DD] rounded-xl text-[13px] font-bold uppercase tracking-widest text-[#7A7571]"
           >
-            {{ lang.name }}
+            <span>Language: {{ locale }}</span>
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" class="transition-transform" :class="{ 'rotate-180': mobileLangOpen }">
+              <path d="M1 5L5 1L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
+          
+          <Transition name="fade">
+            <div 
+              v-if="mobileLangOpen"
+              class="absolute bottom-full left-0 w-full mb-3 p-2 bg-white rounded-2xl shadow-2xl border border-[#E8E3DD] z-[110]"
+            >
+              <button 
+                v-for="lang in locales" 
+                :key="lang.code"
+                @click="setLocale(lang.code); mobileLangOpen = false"
+                class="w-full px-4 py-3 text-left text-[15px] font-semibold transition-colors hover:bg-[#F5F1EB] rounded-xl mb-1 last:mb-0"
+                :class="locale === lang.code ? 'text-[#E87A5D]' : 'text-[#7A7571]'"
+              >
+                {{ lang.name }}
+              </button>
+            </div>
+          </Transition>
         </div>
-
-        <a href="#contact" class="btn-primary" style="text-align: center;" @click.prevent="scrollTo('#contact'); mobileOpen = false">{{ $t('nav.support') }}</a>
+        <a href="#contact" class="btn-primary w-full text-center py-4 text-[16px]" @click.prevent="scrollTo('#contact'); mobileOpen = false">{{ $t('nav.support') }}</a>
       </div>
-    </header>
+    </div>
+  </Transition>
+
+  <!-- Overlay -->
+  <Transition name="fade">
+    <div 
+      v-if="mobileOpen" 
+      @click="mobileOpen = false" 
+      class="fixed inset-0 bg-black/10 backdrop-blur-sm z-[90] md:hidden"
+    ></div>
+  </Transition>
 
     <!-- Main Content -->
     <main class="flex-grow">
@@ -166,6 +206,7 @@ const { $lenis } = useNuxtApp();
 
 const isScrolled = ref(false);
 const mobileOpen = ref(false);
+const mobileLangOpen = ref(false);
 const langDropdownOpen = ref(false);
 
 const handleScroll = () => {
@@ -231,5 +272,15 @@ onUnmounted(() => {
 .fade-leave-to {
   opacity: 0;
   transform: translateY(-8px);
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-right-enter-from,
+.slide-right-leave-to {
+  transform: translateX(100%);
 }
 </style>

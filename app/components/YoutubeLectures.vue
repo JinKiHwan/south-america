@@ -1,6 +1,6 @@
 <template>
   <section id="lectures" class="py-24 overflow-hidden" style="background-color: transparent;">
-    <div class="mx-auto px-6 mb-12" style="max-width: 1600px;">
+    <div class="mx-auto px-6 mb-12" style="max-width: 1400px;">
       
       <!-- Header with Title and View All -->
       <div class="flex items-end justify-between">
@@ -16,14 +16,14 @@
               color: #171717;
             "
           >
-            YouTube <span style="color: #E87A5D;">Lectures</span>
+            {{ $t('youtube.title') }} <span style="color: #E87A5D;">{{ $t('youtube.highlight') }}</span>
           </h2>
           <p class="mt-4 text-[#7A7571]" style="font-size: 16px;">
-            성경의 진리를 깊이 있게 배우는 영상 강해 자료입니다.
+            {{ $t('hero.verse_text') }}
           </p>
         </div>
         <a href="#" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 24px; font-size: 14px;">
-          Explore all videos
+          {{ $t('youtube.view_all') }}
           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="group-hover:translate-x-1 transition-transform">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7M3 12h18"/>
           </svg>
@@ -32,7 +32,7 @@
     </div>
 
     <!-- Scroll carousel -->
-    <div class="relative pl-6 md:pl-[max(1.5rem,calc((100vw-1600px)/2+1.5rem))]">
+    <div class="relative pl-6 md:pl-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]">
       <div class="lecture-swiper-container">
         <swiper
           :modules="[FreeMode]"
@@ -48,7 +48,7 @@
                 <img 
                   :src="video.thumbnail" 
                   :alt="video.title" 
-                  class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" 
+                  class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" 
                 />
                 <!-- Play button overlay -->
                 <div class="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-transparent transition-colors duration-300">
@@ -68,13 +68,12 @@
               <!-- Card info -->
               <div class="flex flex-col gap-1.5 px-1">
                 <h3 
-                  class="line-clamp-1 group-hover:text-[#E87A5D] transition-colors duration-300"
+                  class="line-clamp-1 text-[#171717] group-hover:text-[#E87A5D] transition-colors duration-300"
                   style="
                     font-family: 'Outfit', sans-serif;
                     font-size: 20px;
                     font-weight: 600;
                     line-height: 1.3;
-                    color: #171717;
                   "
                 >
                   {{ video.title }}
@@ -116,17 +115,17 @@ onMounted(() => {
       { backgroundPosition: '100% 0' },
       {
         backgroundPosition: '0% 0',
-        duration: 1.2,
+        duration: 0.8,
         ease: 'power2.out',
         scrollTrigger: { trigger: '#lectures', start: 'top 85%' }
       }
     );
 
     $gsap.fromTo('.lecture-swiper',
-      { opacity: 0, x: 40 },
+      { opacity: 0, x: 20 },
       {
-        opacity: 1, x: 0, duration: 1, ease: 'power2.out',
-        scrollTrigger: { trigger: '#lectures', start: 'top 75%' }
+        opacity: 1, x: 0, duration: 0.6, ease: 'power2.out',
+        scrollTrigger: { trigger: '#lectures', start: 'top 80%' }
       }
     );
   }

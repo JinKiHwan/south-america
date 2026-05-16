@@ -1,0 +1,66 @@
+{
+  "site": {
+    "title": "Vision Thru the Bible Ministries",
+    "description": "그리스도로 충분합니다"
+  },
+  "nav": {
+    "newsletters": "소식지",
+    "lectures": "성경강의",
+    "contact": "문의하기",
+    "support": "동역 문의"
+  },
+  "hero": {
+    "eyebrow": "남미 복음화를 향한 발걸음",
+    "title1": "땅 끝까지 이르러",
+    "title2": "내 증인이 되리라",
+    "subtitle": "하신 말씀을 따라 나아갑니다.",
+    "verse": "사도행전 1:8",
+    "verse_text": "하나님의 말씀을 통해 비전을 발견하고, 남미 대륙에 복음의 씨앗을 심고 있습니다.",
+    "btn_news": "소식지 보기",
+    "btn_more": "더 알아보기",
+    "stats": {
+      "years": "사역 연수",
+      "lectures": "성경 강의",
+      "impact": "변화된 삶",
+      "many": "다수"
+    }
+  },
+  "newsletter": {
+    "title": "최신",
+    "highlight": "소식지",
+    "view_all": "전체 보기",
+    "filters": {
+      "all": "전체",
+      "brazil": "브라질",
+      "peru": "페루",
+      "mexico": "멕시코",
+      "general": "기타"
+    },
+    "read_time": "분"
+  },
+  "youtube": {
+    "title": "유튜브",
+    "highlight": "성경 강의",
+    "view_all": "더보기"
+  },
+  "contact": {
+    "title": "사역에",
+    "highlight": "함께하기",
+    "subtitle": "궁금한 점이 있으신가요? 언제든 연락 주세요.",
+    "form": {
+      "name": "성함",
+      "email": "이메일",
+      "type": "문의 유형",
+      "type_options": {
+        "materials": "자료 요청 (일대일 제자 양육 교재 PDF 등)",
+        "prayer": "기도 동역 문의",
+        "general": "일반 문의"
+      },
+      "message": "문의 내용",
+      "submit": "메시지 보내기",
+      "sending": "전송 중...",
+      "success": "성공적으로 전송되었습니다. 확인 후 연락 드리겠습니다.",
+      "error": "오류가 발생했습니다. 나중에 다시 시도해 주세요."
+    }
+  }
+}

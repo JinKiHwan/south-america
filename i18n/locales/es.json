@@ -1,0 +1,66 @@
+{
+  "site": {
+    "title": "Vision Thru the Bible Ministries",
+    "description": "Cristo Es Suficiente"
+  },
+  "nav": {
+    "newsletters": "Boletines",
+    "lectures": "Conferencias",
+    "contact": "Contacto",
+    "support": "Apóyanos"
+  },
+  "hero": {
+    "eyebrow": "LLEVANDO EL EVANGELIO A SUDAMÉRICA",
+    "title1": "Me seréis",
+    "title2": "testigos",
+    "subtitle": "hasta los confines de la tierra.",
+    "verse": "Hechos 1:8",
+    "verse_text": "Nos dedicamos a compartir el Evangelio y descubrir la visión a través de la Palabra de Dios.",
+    "btn_news": "Ver Boletines",
+    "btn_more": "Saber más",
+    "stats": {
+      "years": "Años de Ministerio",
+      "lectures": "Conferencias Bíblicas",
+      "impact": "Vidas Impactadas",
+      "many": "Muchos"
+    }
+  },
+  "newsletter": {
+    "title": "Últimos",
+    "highlight": "Boletines",
+    "view_all": "Ver todas las historias",
+    "filters": {
+      "all": "Todas",
+      "brazil": "Brasil",
+      "peru": "Perú",
+      "mexico": "México",
+      "general": "General"
+    },
+    "read_time": "min"
+  },
+  "youtube": {
+    "title": "Youtube",
+    "highlight": "Conferencias",
+    "view_all": "Ver más"
+  },
+  "contact": {
+    "title": "Ponte en",
+    "highlight": "Contacto",
+    "subtitle": "¿TIENE PREGUNTAS? NOS ENCANTARÍA SABER DE USTED.",
+    "form": {
+      "name": "Nombre",
+      "email": "Correo",
+      "type": "Tipo de consulta",
+      "type_options": {
+        "materials": "Solicitar materiales (PDF, etc.)",
+        "prayer": "Apoyo en oración",
+        "general": "Consulta general"
+      },
+      "message": "Su Mensaje",
+      "submit": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "success": "Enviado con éxito. Nos pondremos en contacto pronto.",
+      "error": "Ocurrió un error. Inténtelo de nuevo más tarde."
+    }
+  }
+}

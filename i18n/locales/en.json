@@ -1,0 +1,66 @@
+{
+  "site": {
+    "title": "Vision Thru the Bible Ministries",
+    "description": "Christ is Sufficient"
+  },
+  "nav": {
+    "newsletters": "Newsletters",
+    "lectures": "Lectures",
+    "contact": "Contact",
+    "support": "Support Us"
+  },
+  "hero": {
+    "eyebrow": "REACHING SOUTH AMERICA WITH THE GOSPEL",
+    "title1": "You will be",
+    "title2": "my witnesses",
+    "subtitle": "to the ends of the earth.",
+    "verse": "Acts 1:8",
+    "verse_text": "We are dedicated to sharing the Gospel and discovering vision through the Word of God.",
+    "btn_news": "View Newsletters",
+    "btn_more": "Learn More",
+    "stats": {
+      "years": "Years of Ministry",
+      "lectures": "Bible Lectures",
+      "impact": "Lives Impacted",
+      "many": "Many"
+    }
+  },
+  "newsletter": {
+    "title": "Latest",
+    "highlight": "Newsletters",
+    "view_all": "View all stories",
+    "filters": {
+      "all": "All News",
+      "brazil": "Brazil",
+      "peru": "Peru",
+      "mexico": "Mexico",
+      "general": "General"
+    },
+    "read_time": "read"
+  },
+  "youtube": {
+    "title": "Youtube",
+    "highlight": "Lectures",
+    "view_all": "Watch more"
+  },
+  "contact": {
+    "title": "Get in",
+    "highlight": "Touch",
+    "subtitle": "HAVE QUESTIONS? WE'D LOVE TO HEAR FROM YOU.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "type": "Inquiry Type",
+      "type_options": {
+        "materials": "Request Materials (PDF, etc.)",
+        "prayer": "Prayer Support",
+        "general": "General Inquiry"
+      },
+      "message": "Your Message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Sent successfully. We will contact you soon.",
+      "error": "An error occurred. Please try again later."
+    }
+  }
+}

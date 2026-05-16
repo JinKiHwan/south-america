@@ -1,6 +1,6 @@
 <template>
   <section id="newsletter" class="py-24 bg-transparent">
-    <div class="mx-auto px-6" style="max-width: 1600px;">
+    <div class="mx-auto px-6" style="max-width: 1400px;">
 
       <!-- Header with Title and View All -->
       <div class="flex items-end justify-between mb-8">
@@ -16,11 +16,11 @@
               color: #171717;
             "
           >
-            Latest <span style="color: #E87A5D;">Newsletters</span>
+            {{ $t('newsletter.title') }} <span style="color: #E87A5D;">{{ $t('newsletter.highlight') }}</span>
           </h2>
         </div>
         <a href="#" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 20px; font-size: 14px;">
-          View all stories
+          {{ $t('newsletter.view_all') }}
           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="group-hover:translate-x-1 transition-transform">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7M3 12h18"/>
           </svg>
@@ -30,14 +30,14 @@
       <!-- Filter Tabs directly below Title -->
       <div class="flex gap-6 mb-12 border-b border-[#E8E3DD] overflow-x-auto hide-scrollbar">
         <button 
-          v-for="filter in filters" :key="filter"
-          @click="activeFilter = filter"
+          v-for="filterKey in filterKeys" :key="filterKey"
+          @click="activeFilter = filterKey"
           class="pb-4 text-sm font-medium transition-all duration-300 relative whitespace-nowrap"
-          :style="activeFilter === filter ? { color: '#E87A5D' } : { color: '#7A7571' }"
+          :style="activeFilter === filterKey ? { color: '#E87A5D' } : { color: '#7A7571' }"
         >
-          {{ filter }}
+          {{ $t(`newsletter.filters.${filterKey}`) }}
           <div 
-            v-if="activeFilter === filter" 
+            v-if="activeFilter === filterKey" 
             class="absolute bottom-0 left-0 w-full h-[2px] transition-all duration-300"
             style="background-color: #E87A5D;"
           ></div>
@@ -49,35 +49,35 @@
         <div :key="activeFilter" class="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           <!-- Left: Featured (Latest) Item -->
-          <div class="lg:col-span-7 news-featured-wrap">
-            <div v-if="featuredItem" class="group cursor-pointer">
-              <div class="relative overflow-hidden rounded-2xl mb-6 shadow-sm" style="aspect-ratio: 16/10;">
+          <div class="lg:col-span-7 news-featured-wrap h-full">
+            <div v-if="featuredItem" class="group cursor-pointer h-full flex flex-col">
+              <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 21/9;">
                 <img 
                   :src="featuredItem.thumbnail" 
                   :alt="featuredItem.title" 
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
                 />
               </div>
-              <div class="flex flex-col gap-3">
-                <span class="text-sm font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ featuredItem.region }}</span>
+              <div class="flex flex-col gap-2 flex-grow">
+                <span class="text-[12px] font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ featuredItem.region }}</span>
                 <h3 
-                  class="group-hover:text-[#E87A5D] transition-colors duration-300"
+                  class="text-[#171717] group-hover:text-[#E87A5D] transition-colors duration-300"
                   style="
                     font-family: 'Outfit', sans-serif;
-                    font-size: 28px;
+                    font-size: 24px;
                     font-weight: 600;
                     line-height: 1.3;
-                    color: #171717;
+                    max-width: 100%;
                   "
                 >
                   {{ featuredItem.title }}
                 </h3>
-                <div class="flex items-center gap-3 text-sm text-[#7A7571] mb-2">
+                <div class="flex items-center gap-3 text-[13px] text-[#7A7571] mb-1">
                   <span>{{ featuredItem.date }}</span>
                   <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
-                  <span>{{ featuredItem.readTime }} read</span>
+                  <span>{{ featuredItem.readTime }} {{ $t('newsletter.read_time') }}</span>
                 </div>
-                <p class="text-[#7A7571] leading-relaxed line-clamp-2" style="font-size: 16px;">
+                <p class="text-[#7A7571] leading-relaxed line-clamp-2" style="font-size: 15px;">
                   {{ featuredItem.excerpt }}
                 </p>
               </div>
@@ -85,40 +85,39 @@
           </div>
 
           <!-- Right: List of Subsequent Items -->
-          <div class="lg:col-span-5 flex flex-col gap-8 news-list-wrap">
+          <div class="lg:col-span-5 flex flex-col justify-between gap-6 lg:gap-0 news-list-wrap h-full">
             <div 
               v-for="item in listItems" 
               :key="item.id"
-              class="group cursor-pointer flex gap-6"
+              class="group cursor-pointer flex gap-5"
             >
               <!-- Small Thumbnail -->
-              <div class="flex-shrink-0 w-24 h-24 md:w-32 md:h-32 overflow-hidden rounded-xl shadow-sm">
+              <div class="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-xl shadow-sm">
                 <img 
                   :src="item.thumbnail" 
                   :alt="item.title" 
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
                 />
               </div>
               
               <!-- List Item Content -->
-              <div class="flex flex-col justify-center gap-2">
-                <span class="text-[12px] font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ item.region }}</span>
+              <div class="flex flex-col justify-center gap-1.5">
+                <span class="text-[11px] font-semibold uppercase tracking-wider" style="color: #E87A5D;">{{ item.region }}</span>
                 <h4 
-                  class="group-hover:text-[#E87A5D] transition-colors duration-300 line-clamp-2"
+                  class="text-[#171717] group-hover:text-[#E87A5D] transition-colors duration-300 line-clamp-2"
                   style="
                     font-family: 'Outfit', sans-serif;
-                    font-size: 17px;
+                    font-size: 16px;
                     font-weight: 600;
                     line-height: 1.4;
-                    color: #171717;
                   "
                 >
                   {{ item.title }}
                 </h4>
-                <div class="flex items-center gap-2 text-[13px] text-[#7A7571]">
+                <div class="flex items-center gap-2 text-[12px] text-[#7A7571]">
                   <span>{{ item.date }}</span>
                   <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
-                  <span>{{ item.readTime }} read</span>
+                  <span>{{ item.readTime }} {{ $t('newsletter.read_time') }}</span>
                 </div>
               </div>
             </div>
@@ -134,9 +133,10 @@
 import { ref, computed, onMounted } from 'vue';
 
 const { $gsap, $ScrollTrigger } = useNuxtApp();
+const { t } = useI18n();
 
-const filters = ['All News', 'Brazil', 'Peru', 'Mexico', 'General'];
-const activeFilter = ref('All News');
+const filterKeys = ['all', 'brazil', 'peru', 'mexico', 'general'];
+const activeFilter = ref('all');
 
 const mockData = [
   { 
@@ -187,8 +187,8 @@ const mockData = [
 ];
 
 const filteredItems = computed(() => {
-  if (activeFilter.value === 'All News') return mockData;
-  return mockData.filter(item => item.region === activeFilter.value);
+  if (activeFilter.value === 'all') return mockData;
+  return mockData.filter(item => item.region.toLowerCase() === activeFilter.value);
 });
 
 const featuredItem = computed(() => filteredItems.value[0]);
@@ -207,18 +207,18 @@ onMounted(() => {
     );
 
     $gsap.fromTo('.news-featured-wrap',
-      { x: -30, opacity: 0 },
+      { x: -15, opacity: 0 },
       {
-        x: 0, opacity: 1, duration: 1, ease: 'power2.out',
-        scrollTrigger: { trigger: '.news-featured-wrap', start: 'top 80%' }
+        x: 0, opacity: 1, duration: 0.6, ease: 'power2.out',
+        scrollTrigger: { trigger: '.news-featured-wrap', start: 'top 85%' }
       }
     );
 
     $gsap.fromTo('.news-list-wrap > div',
-      { x: 30, opacity: 0 },
+      { x: 15, opacity: 0 },
       {
-        x: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out',
-        scrollTrigger: { trigger: '.news-list-wrap', start: 'top 80%' }
+        x: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power2.out',
+        scrollTrigger: { trigger: '.news-list-wrap', start: 'top 85%' }
       }
     );
   }

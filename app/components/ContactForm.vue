@@ -9,7 +9,7 @@
 
       <!-- Section header -->
       <div class="text-center mb-16">
-        <div class="tag-soft mb-5 contact-eyebrow" style="background-color: rgba(255, 255, 255, 0.1); color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.2);">동역 문의</div>
+        <div class="tag-soft mb-5 contact-eyebrow" style="background-color: rgba(255, 255, 255, 0.1); color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.2);">{{ $t('nav.support') }}</div>
         <h2 
           class="mb-4 scroll-title-contact fill-from-left"
           style="
@@ -21,10 +21,10 @@
             background-image: linear-gradient(to right, #FFFFFF 50%, rgba(255, 255, 255, 0.4) 50%);
           "
         >
-          Support &amp; Contact
+          {{ $t('contact.title') }} &amp; {{ $t('contact.highlight') }}
         </h2>
         <p style="font-size: 18px; font-weight: 400; line-height: 1.6; color: rgba(255, 255, 255, 0.8);">
-          기도 동역 및 일대일 제자 양육 교재 자료 요청을 남겨주시면 정성껏 안내해 드립니다.
+          {{ $t('contact.subtitle') }}
         </p>
       </div>
 
@@ -46,7 +46,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div class="form-group">
             <label class="block mb-2 text-sm font-semibold text-white opacity-90">
-              이름 (Name)
+              {{ $t('contact.form.name') }}
             </label>
             <input 
               type="text" 
@@ -68,7 +68,7 @@
           </div>
           <div class="form-group">
             <label class="block mb-2 text-sm font-semibold text-white opacity-90">
-              이메일 (Email)
+              {{ $t('contact.form.email') }}
             </label>
             <input 
               type="email" 
@@ -93,7 +93,7 @@
         <!-- Inquiry type -->
         <div class="mb-8">
           <label class="block mb-2 text-sm font-semibold text-white opacity-90">
-            문의 유형 (Inquiry Type)
+            {{ $t('contact.form.type') }}
           </label>
           <div class="relative">
             <select 
@@ -111,9 +111,9 @@
               onfocus="this.style.borderColor='rgba(232, 122, 93, 0.6)'; this.style.background='rgba(255, 255, 255, 0.1)';"
               onblur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.background='rgba(255, 255, 255, 0.05)';"
             >
-              <option value="materials" style="background: #171717;">자료 요청 (일대일 제자 양육 교재 PDF 등)</option>
-              <option value="prayer" style="background: #171717;">기도 동역 문의</option>
-              <option value="general" style="background: #171717;">일반 문의</option>
+              <option value="materials" style="background: #171717;">{{ $t('contact.form.type_options.materials') }}</option>
+              <option value="prayer" style="background: #171717;">{{ $t('contact.form.type_options.prayer') }}</option>
+              <option value="general" style="background: #171717;">{{ $t('contact.form.type_options.general') }}</option>
             </select>
             <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white opacity-60">
               <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -126,7 +126,7 @@
         <!-- Message -->
         <div class="mb-10">
           <label class="block mb-2 text-sm font-semibold text-white opacity-90">
-            메시지 (Message)
+            {{ $t('contact.form.message') }}
           </label>
           <textarea 
             v-model="form.message" 
@@ -155,7 +155,7 @@
           class="w-full py-4 text-lg font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 text-white"
           :style="isSubmitting ? { background: '#E87A5D', opacity: '0.6', cursor: 'not-allowed' } : { background: '#E87A5D', boxShadow: '0 10px 20px rgba(232, 122, 93, 0.2)' }"
         >
-          <span>{{ isSubmitting ? '전송 중...' : '메시지 보내기' }}</span>
+          <span>{{ isSubmitting ? $t('contact.form.sending') : $t('contact.form.submit') }}</span>
           <svg v-if="!isSubmitting" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="stroke-width: 2.5;">
             <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7-7 7M3 12h18"/>
           </svg>
@@ -167,14 +167,14 @@
           class="mt-6 text-center font-medium" 
           style="font-size: 15px; color: #4ADE80;"
         >
-          성공적으로 전송되었습니다. 확인 후 연락 드리겠습니다.
+          {{ $t('contact.form.success') }}
         </p>
         <p 
           v-if="submitStatus === 'error'" 
           class="mt-6 text-center font-medium" 
           style="font-size: 15px; color: #F87171;"
         >
-          오류가 발생했습니다. 나중에 다시 시도해 주세요.
+          {{ $t('contact.form.error') }}
         </p>
       </form>
     </div>

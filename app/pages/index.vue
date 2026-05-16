@@ -8,11 +8,12 @@
 </template>
 
 <script setup>
-// Components will be auto-imported by Nuxt 3
+const { t } = useI18n();
+
 useHead({
-  title: 'Vision Thru the Bible Ministries',
+  title: t('site.title'),
   meta: [
-    { name: 'description', content: 'Cristo Es Suficiente para mi' }
+    { name: 'description', content: t('site.description') }
   ]
 })
 </script>

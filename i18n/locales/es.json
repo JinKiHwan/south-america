@@ -62,5 +62,15 @@
       "success": "Enviado con éxito. Nos pondremos en contacto pronto.",
       "error": "Ocurrió un error. Inténtelo de nuevo más tarde."
     }
+  },
+  "missionary": {
+    "title": "Nuestros",
+    "highlight": "Misioneros",
+    "name": "Misionero Cheonsik Kim y Hyeyoung Lee",
+    "role": "Vision Thru the Bible Ministries Sudamérica",
+    "description1": "Durante más de 20 años, nos hemos dedicado a compartir el Evangelio en Sudamérica. Desde aldeas remotas de la Amazonia en Brasil hasta los campus de Lima en Perú y seminarios en México, seguimos la guía de Dios para formar discípulos y equipar líderes locales.",
+    "description2": "Con la confesión 'Cristo es Suficiente', nuestra visión central es apoyar a los líderes locales en la plantación de iglesias autosuficientes. Le invitamos a unirse a nosotros como socios de oración en este viaje de fe.",
+    "btn_contact": "Cooperar con nosotros"
   }
 }
+

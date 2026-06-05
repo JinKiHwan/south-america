@@ -1,5 +1,5 @@
 <template>
-  <section class="relative w-full bg-[#F5F1EB] overflow-visible h-[100dvh] lg:h-screen lg:min-h-[900px]">
+  <section class="relative z-0 w-full bg-[#F5F1EB] overflow-visible h-[100dvh] lg:h-screen lg:min-h-[900px]">
     
     <!-- Background Texture/Decoration -->
     <div class="absolute inset-0 z-0 opacity-40 pointer-events-none">
@@ -75,23 +75,11 @@
         </div>
       </div>
 
-      <!-- Mobile: Polaroid row — pinned to bottom -->
-      <div class="relative z-10 px-6 pb-6 flex items-end gap-3">
-        <div class="flex-1 bg-white p-2 pb-8 shadow-xl rotate-[-1deg] rounded-sm gs-polaroid-1">
-          <div class="aspect-square overflow-hidden bg-[#F2F2F2]">
-            <img src="/images/heroSection/hero_slide_02.webp" class="w-full h-full object-cover brightness-[0.85]" />
-          </div>
-        </div>
-        <div class="flex-1 bg-white p-2 pb-8 shadow-xl rotate-[1.5deg] rounded-sm gs-polaroid-2 mb-2">
-          <div class="aspect-video overflow-hidden bg-[#F2F2F2]">
-            <img src="/images/heroSection/hero_slide_03.webp" class="w-full h-full object-cover brightness-[0.85]" />
-          </div>
-        </div>
-      </div>
+
     </div>
 
     <!-- ===== DESKTOP LAYOUT (hidden on mobile) ===== -->
-    <div class="hidden lg:flex items-center h-full">
+    <div class="hidden lg:flex items-center h-full fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
       <div class="container mx-auto max-w-[1400px] px-6 relative z-10">
         <div class="grid grid-cols-12 gap-8 items-center">
 
@@ -161,17 +149,7 @@
             <div class="relative w-[2000px] h-[1500px] flex items-center justify-center pointer-events-none translate-x-[8%]">
               <img src="/images/heroSection/south-america2.webp" alt="South America Ministry" class="w-full h-full object-contain opacity-90 lg:opacity-100" />
             </div>
-            <!-- Desktop Polaroids -->
-            <div class="absolute right-[8%] top-[45%] w-[280px] bg-white p-3 pb-12 shadow-2xl rotate-[3deg] rounded-sm gs-polaroid-1 z-20">
-              <div class="aspect-square overflow-hidden bg-[#F2F2F2]">
-                <img src="/images/heroSection/hero_slide_02.webp" class="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div class="absolute right-[0%] top-[63%] w-[320px] bg-white p-3 pb-14 shadow-2xl rotate-[-2deg] rounded-sm gs-polaroid-2 z-20">
-              <div class="aspect-video overflow-hidden bg-[#F2F2F2]">
-                <img src="/images/heroSection/hero_slide_03.webp" class="w-full h-full object-cover" />
-              </div>
-            </div>
+
           </div>
 
         </div>
@@ -262,15 +240,6 @@ onMounted(() => {
       { scale: 1, opacity: 1, duration: 1, delay: 0.2 }
     );
 
-    $gsap.fromTo('.gs-polaroid-1',
-      { x: 30, y: 20, rotation: 10, opacity: 0 },
-      { x: 0, y: 0, rotation: 3, opacity: 1, duration: 0.8, delay: 0.6 }
-    );
-
-    $gsap.fromTo('.gs-polaroid-2',
-      { x: 20, y: 30, rotation: -8, opacity: 0 },
-      { x: 0, y: 0, rotation: -2, opacity: 1, duration: 0.8, delay: 0.8 }
-    );
   }
 });
 </script>
@@ -293,8 +262,6 @@ onMounted(() => {
     width: 100% !important;
     height: 500px !important;
   }
-  .gs-polaroid-1, .gs-polaroid-2 {
-    width: 180px !important;
-  }
+
 }
 </style>

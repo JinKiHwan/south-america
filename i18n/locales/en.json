@@ -62,5 +62,15 @@
       "success": "Sent successfully. We will contact you soon.",
       "error": "An error occurred. Please try again later."
     }
+  },
+  "missionary": {
+    "title": "Meet Our",
+    "highlight": "Missionaries",
+    "name": "Missionary Cheonsik Kim & Hyeyoung Lee",
+    "role": "Vision Thru the Bible Ministries South America Branch",
+    "description1": "For over 20 years, we have dedicated our lives to sharing the Gospel in South America. From remote Amazon villages in Brazil to the campuses of Lima, Peru, and seminaries in Mexico, we follow God's guidance to raise disciples and equip local leaders.",
+    "description2": "With the confession 'Christ is Sufficient', our core vision is to support local leaders in planting self-sustaining churches. We invite you to join us as partners in prayer for this journey of faith.",
+    "btn_contact": "Partner with Us"
   }
 }
+

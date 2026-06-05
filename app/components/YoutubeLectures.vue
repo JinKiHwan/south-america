@@ -1,5 +1,5 @@
 <template>
-  <section id="lectures" class="py-24 overflow-hidden" style="background-color: transparent;">
+  <section id="lectures" class="relative z-0 py-24 overflow-hidden bg-[#faf5f2]">
     <div class="mx-auto px-6 mb-12" style="max-width: 1400px;">
       
       <!-- Header with Title and View All -->

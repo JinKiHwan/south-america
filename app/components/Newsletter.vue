@@ -1,5 +1,5 @@
 <template>
-  <section id="newsletter" class="py-24 bg-transparent">
+  <section id="newsletter" class="relative z-0 py-28 bg-[#faf5f2] overflow-visible">
     <div class="mx-auto px-6" style="max-width: 1400px;">
 
       <!-- Header with Title and View All -->

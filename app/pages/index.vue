@@ -1,6 +1,7 @@
 <template>
   <div class="overflow-hidden">
     <HeroSlide />
+    <MissionaryIntro />
     <Newsletter />
     <YoutubeLectures />
     <ContactForm />

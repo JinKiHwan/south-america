@@ -8,7 +8,7 @@
       </svg>
     </div>
 
-    <!-- Background is handled by body in tailwind.css (#F5F1EB) -->
+    <!-- Background is handled by body in tailwind.css (#F8F3EC) -->
 
     <!-- Header -->
     <header
@@ -52,7 +52,7 @@
                   v-for="lang in locales" 
                   :key="lang.code"
                   @click="setLocale(lang.code); langDropdownOpen = false"
-                  class="w-full px-4 py-2 text-left text-[12px] font-semibold transition-colors hover:bg-[#F5F1EB]"
+                  class="w-full px-4 py-2 text-left text-[12px] font-semibold transition-colors hover:bg-[#F5EBE0]"
                   :class="locale === lang.code ? 'text-[#E87A5D]' : 'text-[#7A7571]'"
                 >
                   {{ lang.name }}
@@ -91,7 +91,7 @@
     <div
       v-if="mobileOpen"
       class="fixed top-0 right-0 w-[75%] h-[100dvh] z-[100] flex flex-col p-8 md:hidden"
-      style="background-color: #F5F1EB; box-shadow: -10px 0 30px rgba(45, 42, 38, 0.1);"
+      style="background-color: #F8F3EC; box-shadow: -10px 0 30px rgba(45, 42, 38, 0.1);"
     >
       <div class="flex justify-between items-center mb-16">
         <span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 500;">Menu</span>
@@ -130,7 +130,7 @@
                 v-for="lang in locales" 
                 :key="lang.code"
                 @click="setLocale(lang.code); mobileLangOpen = false"
-                class="w-full px-4 py-3 text-left text-[15px] font-semibold transition-colors hover:bg-[#F5F1EB] rounded-xl mb-1 last:mb-0"
+                class="w-full px-4 py-3 text-left text-[15px] font-semibold transition-colors hover:bg-[#F5EBE0] rounded-xl mb-1 last:mb-0"
                 :class="locale === lang.code ? 'text-[#E87A5D]' : 'text-[#7A7571]'"
               >
                 {{ lang.name }}

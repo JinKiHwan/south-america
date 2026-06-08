@@ -1,5 +1,5 @@
 <template>
-  <section id="missionary" class="relative z-0 py-24 lg:py-28 bg-[#F5F1EB] overflow-hidden">
+  <section id="missionary" class="relative z-10 py-24 lg:py-28 bg-[#F5EBE0] overflow-hidden rounded-t-[32px] md:rounded-t-[48px] shadow-[0_-20px_40px_rgba(45,42,38,0.07)]">
     <!-- Subtle dotted path decoration in background -->
     <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
       <svg class="w-full h-full" viewBox="0 0 1440 600" fill="none" xmlns="http://www.w3.org/2000/svg">

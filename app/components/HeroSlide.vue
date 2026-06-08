@@ -1,5 +1,5 @@
 <template>
-  <section class="relative z-0 w-full bg-[#F5F1EB] overflow-visible h-[100dvh] lg:h-screen lg:min-h-[900px]">
+  <section class="relative z-0 w-full bg-[#F8F3EC] overflow-visible h-[100dvh] lg:h-screen lg:min-h-[900px]">
     
     <!-- Background Texture/Decoration -->
     <div class="absolute inset-0 z-0 opacity-40 pointer-events-none">

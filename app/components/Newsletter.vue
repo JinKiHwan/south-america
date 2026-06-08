@@ -19,12 +19,12 @@
             {{ $t('newsletter.title') }} <span style="color: #E87A5D;">{{ $t('newsletter.highlight') }}</span>
           </h2>
         </div>
-        <a href="#" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 20px; font-size: 14px;">
+        <NuxtLink :to="localePath('/newsletter')" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 20px; font-size: 14px; text-decoration: none;">
           {{ $t('newsletter.view_all') }}
           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="group-hover:translate-x-1 transition-transform">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7M3 12h18"/>
           </svg>
-        </a>
+        </NuxtLink>
       </div>
 
       <!-- Filter Tabs directly below Title -->
@@ -50,7 +50,7 @@
           
           <!-- Left: Featured (Latest) Item -->
           <div class="lg:col-span-7 news-featured-wrap h-full">
-            <div v-if="featuredItem" class="group cursor-pointer h-full flex flex-col">
+            <div v-if="featuredItem" @click="navigateTo(localePath('/newsletter?id=' + featuredItem.id))" class="group cursor-pointer h-full flex flex-col">
               <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 21/9;">
                 <img 
                   :src="featuredItem.thumbnail" 
@@ -89,10 +89,11 @@
             <div 
               v-for="item in listItems" 
               :key="item.id"
+              @click="navigateTo(localePath('/newsletter?id=' + item.id))"
               class="group cursor-pointer flex gap-5"
             >
               <!-- Small Thumbnail -->
-              <div class="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-2xl shadow-sm">
+              <div class="flex-shrink-0 w-24 h-24 md:w-28 md:h-28 overflow-hidden rounded-2xl shadow-sm">
                 <img 
                   :src="item.thumbnail" 
                   :alt="item.title" 
@@ -134,6 +135,7 @@ import { ref, computed, onMounted } from 'vue';
 
 const { $gsap, $ScrollTrigger } = useNuxtApp();
 const { t } = useI18n();
+const localePath = useLocalePath();
 
 const filterKeys = ['all', 'brazil', 'peru', 'mexico', 'general'];
 const activeFilter = ref('all');

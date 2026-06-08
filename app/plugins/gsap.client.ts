@@ -27,6 +27,11 @@ export default defineNuxtPlugin((nuxtApp) => {
     // ScrollTrigger가 Lenis의 스크롤 위치를 인식하도록 연결
     lenis.on('scroll', ScrollTrigger.update);
 
+    // 페이지 이동 시 스크롤 위치를 맨 위로 리셋
+    nuxtApp.hook('page:finish', () => {
+      lenis.scrollTo(0, { immediate: true });
+    });
+
     return {
       provide: {
         gsap,

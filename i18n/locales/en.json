@@ -36,7 +36,18 @@
       "mexico": "Mexico",
       "general": "General"
     },
-    "read_time": "read"
+    "read_time": "read",
+    "subpage_title": "Mission Newsletters",
+    "subpage_subtitle": "Updates on God's work and ministry across South America",
+    "write_btn": "Write Newsletter",
+    "search_placeholder": "Search by title or content...",
+    "no_results": "No newsletters found matching your search.",
+    "load_more": "Load More Stories",
+    "back_to_list": "Back to List",
+    "prev_post": "Previous",
+    "next_post": "Next",
+    "cta_title": "Join Us in Prayer",
+    "cta_desc": "You can participate in Missionary Cheonsik Kim's ministry in South America through prayer. If you have questions or want to partner, please contact us."
   },
   "youtube": {
     "title": "Youtube",

@@ -3,7 +3,7 @@
   <section 
     id="contact" 
     class="py-32 relative z-0 overflow-hidden bg-cover bg-center bg-fixed" 
-    style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/contact/contact_bg.webp'); background-attachment: fixed;"
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/contact/contact_bg2.jpg'); background-attachment: fixed;"
   >
     <div class="mx-auto px-6 relative z-10" style="max-width: 1000px;">
 

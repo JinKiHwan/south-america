@@ -28,3 +28,5 @@ export default defineNuxtConfig({
     transpile: ['gsap']
   }
 })
+// Trigger dev server reload to pick up new /newsletter route
+

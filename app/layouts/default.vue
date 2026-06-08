@@ -13,24 +13,34 @@
     <!-- Header -->
     <header
       class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
-      :style="isScrolled
-        ? 'background-color: rgba(250, 247, 242, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #E8E3DD; box-shadow: 0 4px 12px rgba(45, 42, 38, 0.04);'
+      :style="showSolidHeader
+        ? 'background-color: rgba(250, 247, 242, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid #E8E3DD; box-shadow: 0 4px 12px rgba(45, 42, 38, 0.04);'
         : 'background-color: transparent;'"
     >
       <div class="mx-auto px-6 h-16 flex items-center justify-between" style="max-width: 1400px;">
-        <NuxtLink :to="localePath('/')" class="flex items-center gap-2" style="text-decoration: none;">
+        <NuxtLink :to="localePath('/')" class="flex items-center gap-2" style="text-decoration: none;" @click="handleLogoClick">
           <span style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.01em; color: #171717;">
             Vision Thru the Bible
           </span>
         </NuxtLink>
 
         <nav class="hidden md:flex items-center gap-8">
-          <a href="#newsletter" class="nav-link" @click.prevent="scrollTo('#newsletter')">{{ $t('nav.newsletters') }}</a>
-          <a href="#lectures" class="nav-link" @click.prevent="scrollTo('#lectures')">{{ $t('nav.lectures') }}</a>
-          <a href="#contact" class="nav-link" @click.prevent="scrollTo('#contact')">{{ $t('nav.contact') }}</a>
+          <NuxtLink :to="localePath('/newsletter')" class="nav-link">{{ $t('nav.newsletters') }}</NuxtLink>
+          <NuxtLink :to="localePath('/') + '#lectures'" class="nav-link" @click="scrollToSection('#lectures', $event)">{{ $t('nav.lectures') }}</NuxtLink>
+          <NuxtLink :to="localePath('/') + '#contact'" class="nav-link" @click="scrollToSection('#contact', $event)">{{ $t('nav.contact') }}</NuxtLink>
         </nav>
 
         <div class="hidden md:flex items-center gap-6">
+          <!-- Facebook SNS -->
+          <a
+            href="https://www.facebook.com/missionamazon"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center w-8 h-8 rounded-full hover:opacity-70 transition-opacity"
+            aria-label="Facebook"
+          >
+            <img src="/images/common/facebook.svg" alt="Facebook" class="w-6 h-6" />
+          </a>
           <!-- Language Switcher Dropdown -->
           <div class="relative lang-switcher-container">
             <button 
@@ -60,7 +70,7 @@
               </div>
             </Transition>
           </div>
-          <a href="#contact" class="btn-primary px-6 py-2.5 text-[14px]" @click.prevent="scrollTo('#contact')">{{ $t('nav.support') }}</a>
+          <NuxtLink :to="localePath('/') + '#contact'" class="btn-primary px-6 py-2.5 text-[14px]" style="text-decoration: none;" @click="scrollToSection('#contact', $event)">{{ $t('nav.support') }}</NuxtLink>
         </div>
 
       <!-- Mobile menu button -->
@@ -103,9 +113,9 @@
       </div>
 
       <nav class="flex flex-col gap-8 mb-auto">
-        <a href="#newsletter" class="text-3xl font-medium tracking-tight" style="font-family: 'Outfit', sans-serif;" @click.prevent="scrollTo('#newsletter'); mobileOpen = false">{{ $t('nav.newsletters') }}</a>
-        <a href="#lectures" class="text-3xl font-medium tracking-tight" style="font-family: 'Outfit', sans-serif;" @click.prevent="scrollTo('#lectures'); mobileOpen = false">{{ $t('nav.lectures') }}</a>
-        <a href="#contact" class="text-3xl font-medium tracking-tight" style="font-family: 'Outfit', sans-serif;" @click.prevent="scrollTo('#contact'); mobileOpen = false">{{ $t('nav.contact') }}</a>
+        <NuxtLink :to="localePath('/newsletter')" class="text-3xl font-medium tracking-tight" style="font-family: 'Outfit', sans-serif; text-decoration: none;" @click="mobileOpen = false">{{ $t('nav.newsletters') }}</NuxtLink>
+        <NuxtLink :to="localePath('/') + '#lectures'" class="text-3xl font-medium tracking-tight" style="font-family: 'Outfit', sans-serif; text-decoration: none;" @click="scrollToSection('#lectures', $event); mobileOpen = false">{{ $t('nav.lectures') }}</NuxtLink>
+        <NuxtLink :to="localePath('/') + '#contact'" class="text-3xl font-medium tracking-tight" style="font-family: 'Outfit', sans-serif; text-decoration: none;" @click="scrollToSection('#contact', $event); mobileOpen = false">{{ $t('nav.contact') }}</NuxtLink>
       </nav>
       
       <div class="flex flex-col gap-8 pt-8 border-t border-[#E8E3DD]">
@@ -138,7 +148,18 @@
             </div>
           </Transition>
         </div>
-        <a href="#contact" class="btn-primary w-full text-center py-4 text-[16px]" @click.prevent="scrollTo('#contact'); mobileOpen = false">{{ $t('nav.support') }}</a>
+        <!-- Mobile Facebook SNS -->
+        <a
+          href="https://www.facebook.com/missionamazon"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-3 text-[14px] font-semibold text-[#7A7571]"
+          @click="mobileOpen = false"
+        >
+          <img src="/images/common/facebook.svg" alt="Facebook" class="w-6 h-6" />
+          Facebook
+        </a>
+        <NuxtLink :to="localePath('/') + '#contact'" class="btn-primary w-full text-center py-4 text-[16px]" style="text-decoration: none;" @click="scrollToSection('#contact', $event); mobileOpen = false">{{ $t('nav.support') }}</NuxtLink>
       </div>
     </div>
   </Transition>
@@ -158,7 +179,7 @@
     </main>
 
     <!-- Footer -->
-    <footer style="border-top: 1px solid #E8E3DD; background-color: rgba(242, 239, 233, 0.6); backdrop-filter: blur(4px);">
+    <footer style="border-top: 1px solid #C9B394; background-color: #D9C4A8; position: relative; z-index: 0;">
       <div class="mx-auto px-6 py-20" style="max-width: 1400px;">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
@@ -172,8 +193,8 @@
           <div>
             <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: #7A7571; margin-bottom: 16px;">{{ $t('nav.newsletters') }} / {{ $t('nav.lectures') }}</p>
             <div class="flex flex-col gap-3">
-              <a href="#newsletter" class="footer-link">{{ $t('nav.newsletters') }}</a>
-              <a href="#lectures" class="footer-link">{{ $t('nav.lectures') }}</a>
+              <NuxtLink :to="localePath('/newsletter')" class="footer-link">{{ $t('nav.newsletters') }}</NuxtLink>
+              <NuxtLink :to="localePath('/') + '#lectures'" class="footer-link" @click="scrollToSection('#lectures', $event)">{{ $t('nav.lectures') }}</NuxtLink>
             </div>
           </div>
           <div>
@@ -198,11 +219,34 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { useRoute } from 'vue-router';
 
 const { locale, locales, setLocale } = useI18n();
 const localePath = useLocalePath();
 const { $lenis } = useNuxtApp();
+const route = useRoute();
+
+const isSubpage = computed(() => route.path !== localePath('/'));
+const showSolidHeader = computed(() => isScrolled.value || isSubpage.value);
+
+const scrollToSection = (target, event) => {
+  if (route.path === localePath('/')) {
+    if (event) event.preventDefault();
+    scrollTo(target);
+  }
+};
+
+const handleLogoClick = (event) => {
+  if (route.path === localePath('/')) {
+    event.preventDefault();
+    if ($lenis) {
+      $lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+};
 
 const isScrolled = ref(false);
 const mobileOpen = ref(false);

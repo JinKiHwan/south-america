@@ -156,16 +156,13 @@
                 ></textarea>
               </div>
 
-              <!-- Body Text (KO) -->
+              <!-- Body Text (KO) - Tiptap Rich Text Editor -->
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-[#7A7571] mb-2">상세 사역 보고 본문 (Body)</label>
-                <textarea 
-                  v-model="form.ko.bodyText" 
-                  rows="6" 
-                  placeholder="사역 현장의 소식을 단락별로 엔터(줄바꿈)하여 작성해주세요."
-                  class="w-full bg-[#FDFBF9] border border-[#E8E3DD] rounded-xl py-2.5 px-3.5 text-sm text-[#171717] focus:outline-none focus:border-[#E87A5D] focus:ring-1 focus:ring-[#E87A5D] transition-all"
-                  required
-                ></textarea>
+                <TiptapEditor
+                  v-model="form.ko.bodyText"
+                  placeholder="사역 현장의 소식을 자유롭게 작성해주세요. 굵게, 기울임, 목록, 인용 등 서식을 사용할 수 있습니다."
+                />
               </div>
 
               <!-- Quote (KO) -->
@@ -456,13 +453,21 @@ const removePrayer = (idx) => {
   }
 };
 
+// HTML이 실질적으로 비어있는지 확인 (Tiptap은 빈 상태에서 <p></p> 반환)
+const isBodyFilled = computed(() => {
+  const raw = form.value.ko.bodyText;
+  if (!raw || raw === '<p></p>' || raw === '<p><br></p>') return false;
+  // Strip tags and check if any text remains
+  return raw.replace(/<[^>]*>/g, '').trim().length > 0;
+});
+
 // Validate Korean section fields and image upload to enable Auto-Translate button
 const isKoFormValid = computed(() => {
   const f = form.value.ko;
   return form.value.thumbnail.length > 0 &&
          f.title.trim().length > 0 &&
          f.excerpt.trim().length > 0 &&
-         f.bodyText.trim().length > 0 &&
+         isBodyFilled.value &&
          f.prayers.every(prayer => prayer.trim().length > 0);
 });
 
@@ -544,8 +549,9 @@ const submitPost = () => {
   isSubmitting.value = true;
   
   try {
-    // Determine readTime (word count heuristic: 1 min per 150 Korean words)
-    const wordCount = form.value.ko.bodyText.split(/\s+/).length;
+    // Determine readTime from HTML body (strip tags → word count)
+    const strippedBody = form.value.ko.bodyText.replace(/<[^>]*>/g, ' ').trim();
+    const wordCount = strippedBody.split(/\s+/).filter(w => w).length;
     const calcReadTime = Math.max(1, Math.ceil(wordCount / 120));
     
     // Retrieve custom newsletters from LocalStorage
@@ -575,7 +581,15 @@ const submitPost = () => {
         date: autoDate,
         title: form.value.ko.title,
         excerpt: form.value.ko.excerpt,
-        body: form.value.ko.bodyText.split('\n').map(p => p.trim()).filter(p => p),
+        // HTML 본문을 단락 배열로 변환 (p, h2, h3, li, blockquote → 텍스트 줄)
+        body: (() => {
+          const temp = typeof document !== 'undefined' ? document.createElement('div') : null;
+          if (!temp) return [form.value.ko.bodyText];
+          temp.innerHTML = form.value.ko.bodyText;
+          const blocks = Array.from(temp.querySelectorAll('p, h2, h3, li, blockquote'));
+          const result = blocks.map(el => el.textContent?.trim()).filter(t => t);
+          return result.length > 0 ? result : [strippedBody];
+        })(),
         quote: form.value.ko.quote,
         prayers: form.value.ko.prayers
       },

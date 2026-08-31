@@ -54,4 +54,3 @@ Firebase 서버 인증은 위 OAuth와 별개입니다. Firestore/Storage 및 �
 - [Drive 다운로드 및 Range](https://developers.google.com/workspace/drive/api/guides/manage-downloads)
 - [OAuth refresh token 만료](https://developers.google.com/identity/protocols/oauth2#expiration)
 - [Vercel 함수 제한](https://vercel.com/docs/functions/limitations)
-

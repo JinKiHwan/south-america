@@ -43,14 +43,19 @@
     "subpage_title": "선교 소식지",
     "subpage_subtitle": "남미 대륙 곳곳에서 전해지는 하나님의 역사와 사역 소식",
     "write_btn": "새 소식 작성",
-    "search_placeholder": "소식지 제목 또는 내용 검색...",
+    "search_placeholder": "소식지 제목 또는 요약 검색...",
     "no_results": "검색 결과와 일치하는 소식지가 없습니다.",
     "load_more": "소식물 더보기",
-    "back_to_list": "목록으로",
+    "back_to_list": "소식지 목록",
     "prev_post": "이전 글",
     "next_post": "다음 글",
     "cta_title": "사역을 위해 함께 기도해 주세요",
-    "cta_desc": "김천식 선교사님의 남미 사역에 기도로 동참하실 수 있습니다. 궁금한 점이 있으시거나 동역을 원하시면 언제든 문의해 주세요."
+    "cta_desc": "김천식 선교사님의 남미 사역에 기도로 동참하실 수 있습니다. 궁금한 점이 있으시거나 동역을 원하시면 언제든 문의해 주세요.",
+    "read_more": "내용 읽기",
+    "pdf_attachment": "첨부된 소식지",
+    "download_pdf": "PDF 다운로드",
+    "load_error": "소식지를 불러오지 못했습니다.",
+    "retry": "다시 시도"
   },
   "youtube": {
     "title": "유튜브",

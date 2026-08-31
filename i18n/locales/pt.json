@@ -43,14 +43,19 @@
     "subpage_title": "Boletins Missionários",
     "subpage_subtitle": "Notícias do trabalho de Deus e do ministério na América do Sul",
     "write_btn": "Escrever Boletim",
-    "search_placeholder": "Buscar por título ou conteúdo...",
+    "search_placeholder": "Buscar por título ou resumo...",
     "no_results": "Nenhum boletim encontrado correspondente à sua busca.",
     "load_more": "Carregar mais histórias",
-    "back_to_list": "Voltar à lista",
+    "back_to_list": "Todos os boletins",
     "prev_post": "Anterior",
     "next_post": "Próximo",
     "cta_title": "Junte-se a nós em oração",
-    "cta_desc": "Você pode participar do ministério do missionário Cheonsik Kim na América do Sul por meio da oração. Se você tiver dúvidas ou quiser fazer parceria, entre em contato."
+    "cta_desc": "Você pode participar do ministério do missionário Cheonsik Kim na América do Sul por meio da oração. Se você tiver dúvidas ou quiser fazer parceria, entre em contato.",
+    "read_more": "Ler a carta",
+    "pdf_attachment": "Boletim anexado",
+    "download_pdf": "Baixar PDF",
+    "load_error": "Não foi possível carregar os boletins.",
+    "retry": "Tentar novamente"
   },
   "youtube": {
     "title": "Youtube",

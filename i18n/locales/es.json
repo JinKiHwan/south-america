@@ -43,14 +43,19 @@
     "subpage_title": "Boletines Misioneros",
     "subpage_subtitle": "Noticias de la obra de Dios y del ministerio en Sudamérica",
     "write_btn": "Escribir Boletín",
-    "search_placeholder": "Buscar por título o contenido...",
+    "search_placeholder": "Buscar por título o resumen...",
     "no_results": "No se encontraron boletines que coincidan con su búsqueda.",
     "load_more": "Cargar más historias",
-    "back_to_list": "Volver a la lista",
+    "back_to_list": "Todos los boletines",
     "prev_post": "Anterior",
     "next_post": "Siguiente",
     "cta_title": "Únase a nosotros en oración",
-    "cta_desc": "Puede participar en el ministerio del misionero Cheonsik Kim en Sudamérica a través de la oración. Si tiene preguntas o desea colaborar, contáctenos."
+    "cta_desc": "Puede participar en el ministerio del misionero Cheonsik Kim en Sudamérica a través de la oración. Si tiene preguntas o desea colaborar, contáctenos.",
+    "read_more": "Leer la carta",
+    "pdf_attachment": "Boletín adjunto",
+    "download_pdf": "Descargar PDF",
+    "load_error": "No se pudieron cargar los boletines.",
+    "retry": "Reintentar"
   },
   "youtube": {
     "title": "Youtube",

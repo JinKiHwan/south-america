@@ -43,14 +43,19 @@
     "subpage_title": "Mission Newsletters",
     "subpage_subtitle": "Updates on God's work and ministry across South America",
     "write_btn": "Write Newsletter",
-    "search_placeholder": "Search by title or content...",
+    "search_placeholder": "Search by title or summary...",
     "no_results": "No newsletters found matching your search.",
     "load_more": "Load More Stories",
-    "back_to_list": "Back to List",
+    "back_to_list": "All newsletters",
     "prev_post": "Previous",
     "next_post": "Next",
     "cta_title": "Join Us in Prayer",
-    "cta_desc": "You can participate in Missionary Cheonsik Kim's ministry in South America through prayer. If you have questions or want to partner, please contact us."
+    "cta_desc": "You can participate in Missionary Cheonsik Kim's ministry in South America through prayer. If you have questions or want to partner, please contact us.",
+    "read_more": "Read the letter",
+    "pdf_attachment": "Attached newsletter",
+    "download_pdf": "Download PDF",
+    "load_error": "Could not load newsletters.",
+    "retry": "Try again"
   },
   "youtube": {
     "title": "Youtube",

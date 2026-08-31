@@ -16,6 +16,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
+      prevent: (node) => Boolean(node.closest('[data-admin-app]')),
     });
 
     // GSAP ticker에 Lenis RAF를 등록 → ScrollTrigger와 자동 동기화

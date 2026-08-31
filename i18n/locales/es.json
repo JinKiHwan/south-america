@@ -10,6 +10,9 @@
     "support": "Apóyanos"
   },
   "hero": {
+    "main_title": "Me seréis testigos\nhasta los confines de la tierra.",
+    "description": "Nos dedicamos a compartir el Evangelio y descubrir la visión a través de la Palabra de Dios.",
+    "image_alt": "Personas reunidas en un encuentro misionero en Sudamérica",
     "eyebrow": "LLEVANDO EL EVANGELIO A SUDAMÉRICA",
     "title1": "Me seréis",
     "title2": "testigos",
@@ -84,4 +87,3 @@
     "btn_contact": "Cooperar con nosotros"
   }
 }
-

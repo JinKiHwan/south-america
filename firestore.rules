@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // All homepage and admin access goes through authenticated server endpoints.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

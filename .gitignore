@@ -22,3 +22,12 @@ logs
 .env
 .env.*
 !.env.example
+
+# Firebase server credentials and local emulator state
+.secrets/
+*-firebase-adminsdk-*.json
+service-account*.json
+firebase-debug.log
+firestore-debug.log
+storage-debug.log
+.vercel

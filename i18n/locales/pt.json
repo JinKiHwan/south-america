@@ -10,6 +10,9 @@
     "support": "Apoie-nos"
   },
   "hero": {
+    "main_title": "Serão minhas testemunhas\naté os confins da terra.",
+    "description": "Dedicamo-nos a compartilhar o Evangelho e descobrir a visão através da Palavra de Deus.",
+    "image_alt": "Pessoas reunidas em um encontro missionário na América do Sul",
     "eyebrow": "LEVANDO O EVANGELHO À AMÉRICA DO SUL",
     "title1": "Serão minhas",
     "title2": "testemunhas",
@@ -84,4 +87,3 @@
     "btn_contact": "Cooperar conosco"
   }
 }
-

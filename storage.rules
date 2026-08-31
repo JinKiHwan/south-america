@@ -1,0 +1,9 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Images are uploaded and served by the server; clients never receive admin credentials.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

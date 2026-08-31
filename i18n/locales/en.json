@@ -10,6 +10,9 @@
     "support": "Support Us"
   },
   "hero": {
+    "main_title": "You will be my witnesses\nto the ends of the earth.",
+    "description": "We are dedicated to sharing the Gospel and discovering vision through the Word of God.",
+    "image_alt": "People gathered at a ministry event in South America",
     "eyebrow": "REACHING SOUTH AMERICA WITH THE GOSPEL",
     "title1": "You will be",
     "title2": "my witnesses",
@@ -84,4 +87,3 @@
     "btn_contact": "Partner with Us"
   }
 }
-

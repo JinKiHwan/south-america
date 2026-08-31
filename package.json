@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "admin:seed": "node --env-file=.env --import tsx scripts/seed-admin.ts"
   },
   "dependencies": {
     "@nuxtjs/i18n": "^10.3.0",
@@ -15,16 +17,20 @@
     "@tiptap/pm": "^3.26.0",
     "@tiptap/starter-kit": "^3.26.0",
     "@tiptap/vue-3": "^3.26.0",
+    "firebase-admin": "^14.3.0",
     "gsap": "^3.15.0",
     "lenis": "^1.3.23",
     "nodemailer": "^8.0.7",
     "nuxt": "^4.4.4",
+    "sharp": "^0.35.4",
     "swiper": "^12.1.4",
     "vue": "^3.5.33",
-    "vue-router": "^5.0.6"
+    "vue-router": "^5.0.6",
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.14.0",
-    "@types/nodemailer": "^8.0.0"
+    "@types/nodemailer": "^8.0.0",
+    "tsx": "^4.23.13"
   }
 }

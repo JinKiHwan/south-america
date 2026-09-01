@@ -1436,3 +1436,285 @@
     margin-bottom: 20px;
   }
 }
+
+/* Neutral admin theme: white surfaces with restrained brand accents. */
+.admin-app {
+  --admin-ink: #171717;
+  --admin-muted: #737373;
+  --admin-line: #e5e5e5;
+  --admin-accent: #c45f40;
+  background: #fff;
+}
+
+.admin-sidebar,
+.admin-topbar,
+.admin-card,
+.news-stats > div,
+.news-admin-row,
+.admin-login-card {
+  background: #fff;
+}
+
+.admin-sidebar {
+  border-right-color: var(--admin-line);
+}
+
+.admin-brand-mark {
+  color: var(--admin-accent);
+  background: #fff;
+  border: 1px solid #dedede;
+}
+
+.admin-brand small,
+.admin-nav-label,
+.admin-sidebar-bottom p,
+.admin-sidebar-bottom small,
+.admin-topbar,
+.admin-breadcrumb-divider,
+.admin-account button,
+.admin-eyebrow,
+.admin-save-bar,
+.admin-card-heading p,
+.admin-field-hint,
+.admin-upload-details p,
+.admin-preview-heading > span:last-child,
+.news-row-content > small,
+.news-row-meta,
+.news-count {
+  color: #8a8a8a;
+}
+
+.admin-nav a {
+  color: #5f5f5f;
+}
+
+.admin-nav a:hover {
+  color: var(--admin-ink);
+  background: #f7f7f7;
+}
+
+.admin-nav a.is-active {
+  color: var(--admin-accent);
+  background: #fff5f1;
+  box-shadow: inset 3px 0 0 var(--admin-accent);
+}
+
+.admin-site-link,
+.admin-topbar strong,
+.admin-account,
+.admin-save-bar strong,
+.admin-card-heading h2,
+.admin-upload-details strong,
+.admin-field,
+.admin-preview-heading h2,
+.news-row-content > a,
+.news-row-content > strong,
+.news-country-card > h2,
+.news-write-aside h2 {
+  color: #343434;
+}
+
+.admin-account small,
+.admin-step,
+.admin-editor-note > span {
+  color: #666;
+  background: #f3f3f3;
+}
+
+.admin-account-dot,
+.admin-live-dot {
+  background: var(--admin-accent);
+}
+
+.admin-button.is-primary {
+  box-shadow: none;
+}
+
+.admin-button.is-primary:hover:not(:disabled) {
+  background: #a94f35;
+}
+
+.admin-button.is-secondary {
+  color: #444;
+  background: #fff;
+  border-color: #d9d9d9;
+}
+
+.admin-button.is-secondary:hover {
+  background: #f7f7f7;
+}
+
+.admin-card,
+.news-stats > div,
+.news-admin-row {
+  border-color: var(--admin-line);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
+}
+
+.admin-ratio-badge {
+  color: #777;
+  border-color: #dedede;
+}
+
+.admin-upload-area,
+.admin-preview-browser,
+.news-no-image,
+.news-country-chips > span,
+.news-thumbnail,
+.news-pdf-file {
+  background: #fafafa;
+  border-color: #dedede;
+}
+
+.admin-upload-image {
+  border-color: #e5e5e5;
+}
+
+.admin-upload-check,
+.admin-preview-caption strong,
+.admin-preview-caption p,
+.admin-editor-note,
+.admin-editor-note strong,
+.admin-preview-link,
+.news-empty > span,
+.news-empty p,
+.news-country-chips > span,
+.news-back,
+.news-pdf-heading span,
+.news-thumbnail > span,
+.news-pdf-file small,
+.news-upload-progress small {
+  color: #777;
+}
+
+.admin-locale-tabs button,
+.news-status-tabs button {
+  color: #777;
+}
+
+.admin-locale-tabs button.is-active {
+  color: var(--admin-accent);
+  border-bottom-color: var(--admin-accent);
+}
+
+.news-status-tabs button.is-active {
+  color: var(--admin-accent);
+  background: #fff5f1;
+}
+
+.admin-field-label small,
+.news-inline-link,
+.news-text-button {
+  color: var(--admin-accent);
+}
+
+.admin-field input,
+.admin-field textarea,
+.admin-field select,
+.news-search {
+  color: #262626;
+  background: #fff;
+  border-color: #d9d9d9;
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus,
+.admin-field select:focus,
+.news-search:focus {
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px rgb(196 95 64 / 12%);
+  outline: none;
+}
+
+.admin-field input::placeholder,
+.admin-field textarea::placeholder {
+  color: #aaa;
+}
+
+.admin-alignment button {
+  color: #777;
+  background: #fff;
+  border-color: #dedede;
+}
+
+.admin-alignment button.is-active {
+  color: var(--admin-accent);
+  background: #fff5f1;
+  border-color: var(--admin-accent);
+}
+
+.admin-preview-browser {
+  border-top-color: #ececec;
+  border-bottom-color: #ececec;
+}
+
+.admin-preview-browser i {
+  background: #d6d6d6;
+}
+
+.admin-auth {
+  background: #fff;
+}
+
+.admin-login-brand,
+.admin-login-card h1 {
+  color: var(--admin-ink);
+}
+
+.admin-login-brand span,
+.admin-login-description,
+.admin-login-security,
+.admin-login-back,
+.admin-password-input button {
+  color: #888;
+}
+
+.admin-login-card {
+  border-color: var(--admin-line);
+  box-shadow: 0 18px 55px rgb(0 0 0 / 8%);
+}
+
+.admin-login-icon {
+  color: var(--admin-accent);
+  background: #fff5f1;
+}
+
+.admin-login-form .admin-field input {
+  background: #fff;
+}
+
+.news-stats span {
+  color: #777;
+}
+
+.news-stats strong {
+  color: var(--admin-ink);
+}
+
+.news-state {
+  color: #666;
+  background: #f2f2f2;
+}
+
+.news-state.is-published {
+  color: #4f6f55;
+  background: #eef6ef;
+}
+
+.news-state.is-deleted {
+  color: #9f4f43;
+  background: #fff0ed;
+}
+
+.news-row-actions {
+  color: #666;
+}
+
+.news-row-actions .is-danger {
+  color: #b24f40;
+}
+
+.news-pdf-icon {
+  color: #666;
+  background: #ededed;
+}

@@ -83,6 +83,22 @@ test('Drive resumable requests cannot be redirected to arbitrary hosts', () => {
 });
 
 test('Drive adapter keeps authentication server-side and handles resumable and streamed responses', async (t) => {
+  const driveEnvironment = {
+    GOOGLE_DRIVE_CLIENT_ID: 'test.apps.googleusercontent.com',
+    GOOGLE_DRIVE_CLIENT_SECRET: 'test-client-secret',
+    GOOGLE_DRIVE_REFRESH_TOKEN: 'test-refresh-token',
+    GOOGLE_DRIVE_PDF_FOLDER_ID: 'test-folder-id',
+  };
+  const previousEnvironment = Object.fromEntries(
+    Object.keys(driveEnvironment).map((key) => [key, process.env[key]]),
+  );
+  Object.assign(process.env, driveEnvironment);
+  t.after(() => {
+    for (const [key, value] of Object.entries(previousEnvironment)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  });
   const session =
     'https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable&upload_id=test';
   const record: PdfUploadRecord = {
@@ -113,6 +129,7 @@ test('Drive adapter keeps authentication server-side and handles resumable and s
       assert.match(url, /uploadType=resumable/);
       assert.equal(options.headers.Authorization, 'Bearer test-access-token');
       assert.equal(JSON.parse(options.body).mimeType, 'application/pdf');
+      assert.deepEqual(JSON.parse(options.body).parents, ['test-folder-id']);
       return new Response(null, {
         status: 200,
         headers: { Location: session },

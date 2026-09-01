@@ -166,12 +166,12 @@
           >
             이미지 제거
           </button>
-          <p class="admin-field-hint">JPG, PNG, WebP · 최대 4MB · 16:9 권장</p>
+          <p class="admin-field-hint">JPG, PNG, WebP · 원본 용량 제한 없음 · 1MB 이하 WebP 자동 최적화 · 16:9 권장</p>
         </section>
         <section class="admin-card news-pdf-card">
           <div class="news-pdf-heading">
             <h2>PDF 첨부</h2>
-            <span>GOOGLE DRIVE</span>
+            <span>{{ pdfStatus?.provider === 'emulator' ? 'LOCAL STORAGE' : 'GOOGLE DRIVE' }}</span>
           </div>
           <p v-if="!pdfStatus?.configured" class="admin-alert is-warning">
             Google Drive 연결이 필요합니다. PDF 없이 글을 먼저 저장할 수
@@ -181,7 +181,7 @@
             v-else-if="pdfStatus.provider === 'emulator'"
             class="admin-field-hint"
           >
-            테스트용 로컬 저장소입니다. 실제 Google Drive에는 전송되지 않습니다.
+            로컬 확인용 저장소에 첨부됩니다. 배포 환경에서는 Google Drive 연결이 필요합니다.
           </p>
           <div v-if="attachment" class="news-pdf-file">
             <span class="news-pdf-icon">PDF</span>
@@ -277,6 +277,7 @@ import {
   localeNames,
   type SiteLocale,
 } from '#shared/site-content';
+import { prepareImageUpload } from '~/utils/image-upload';
 const props = defineProps<{ id?: string }>();
 const route = useRoute();
 const router = useRouter();
@@ -399,23 +400,19 @@ async function uploadThumbnail(event: Event) {
   const input = event.target as HTMLInputElement;
   const file = input.files?.[0];
   if (!file) return;
-  if (file.size > 4 * 1024 * 1024) {
-    errorMessage.value = '썸네일은 4MB 이하로 선택해주세요.';
-    input.value = '';
-    return;
-  }
   imageUploading.value = true;
   errorMessage.value = '';
   try {
+    const prepared = await prepareImageUpload(file);
     const result = await $fetch<{ imageUrl: string }>('/api/admin/upload', {
       method: 'POST',
-      body: file,
-      headers: { 'Content-Type': file.type },
+      body: prepared,
+      headers: { 'Content-Type': 'image/webp' },
     });
     draft.value.thumbnail = result.imageUrl;
   } catch (error: any) {
     errorMessage.value =
-      error.data?.statusMessage || '이미지를 업로드하지 못했습니다.';
+      error.data?.statusMessage || error.message || '이미지를 업로드하지 못했습니다.';
   } finally {
     imageUploading.value = false;
     input.value = '';

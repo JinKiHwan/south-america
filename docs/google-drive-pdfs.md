@@ -12,7 +12,7 @@
 - 방문자가 다운로드할 때 서버가 글의 공개 상태를 확인하고 비공개 Drive 파일을 스트리밍합니다. `Range` 요청도 지원합니다. 숨김·삭제한 글은 같은 다운로드 URL로 다시 요청해도 404를 반환합니다. 이미 완료된 다운로드를 회수하거나 이미 시작된 전송을 중단하는 기능은 아닙니다.
 - 삭제는 휴지통 이동입니다. 복원할 수 있으며 Drive 원본도 보존합니다. 교체·미첨부 PDF와 업로드 기록은 자동 삭제하지 않습니다.
 
-**실제 Drive 업로드는 아직 검증하지 않았습니다.** 로컬 에뮬레이터에서는 `.data/newsletter-pdfs`에 저장하며 화면에 테스트 모드라고 표시합니다. 운영 환경에서 Drive 설정이 없으면 PDF 업로드만 비활성화되고 글 작성은 가능합니다.
+2026-09-01에 실제 Google Drive OAuth 연결로 업로드, 소식지 첨부, 비공개 파일 재다운로드와 원본 일치를 검증했습니다. Drive 설정이 없는 로컬 개발 환경에서는 `.data/newsletter-pdfs`에 저장하며 화면에 테스트 모드라고 표시합니다. 운영 환경에서 Drive 설정이 없으면 PDF 업로드만 비활성화되고 글 작성은 가능합니다.
 
 ## 실제 계정 연결에 필요한 설정
 
@@ -28,6 +28,8 @@ GOOGLE_DRIVE_CLIENT_SECRET=
 GOOGLE_DRIVE_REFRESH_TOKEN=
 GOOGLE_DRIVE_PDF_FOLDER_ID=
 ```
+
+로컬에서는 OAuth 클라이언트 JSON으로 `npm run drive:connect -- <파일경로>`를 실행하면 `.secrets/google-drive.json`이 생성됩니다. 이 경우 `.env`에는 `GOOGLE_DRIVE_CREDENTIALS=.secrets/google-drive.json`만 지정하며, 해당 비밀 파일은 Git에 포함하지 않습니다.
 
 개인 Google 계정용 External OAuth 앱이 Testing 상태이면 Drive 범위의 refresh token은 일반적으로 7일 후 만료됩니다. 장기 운영 전 게시 상태와 계정 유형에 맞는 Google 요구 사항을 확인해야 합니다. Production 상태여도 사용자가 권한을 취소하거나 Google 정책에 의해 토큰이 만료되면 재연결이 필요합니다.
 

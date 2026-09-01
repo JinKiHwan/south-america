@@ -32,7 +32,7 @@
             <div class="admin-upload-details">
               <span class="admin-upload-check">현재 적용할 이미지</span>
               <strong>{{ isHero ? '메인 비주얼 이미지' : '선교사 소개 이미지' }}</strong>
-              <p>JPG, PNG, WebP · 최대 4MB<br>선택한 사진은 비율에 맞춰 잘립니다.</p>
+              <p>JPG, PNG, WebP · 원본 용량 제한 없음<br>자동으로 1MB 이하 WebP로 최적화됩니다.</p>
               <label class="admin-button is-secondary admin-file-button">
                 {{ uploading ? '업로드 중…' : '이미지 변경' }}
                 <input type="file" accept="image/jpeg,image/png,image/webp" :disabled="uploading || saving" aria-label="이미지 업로드" @change="uploadImage">
@@ -88,6 +88,7 @@
 
 <script setup lang="ts">
 import { createDefaultContent, heroSchema, missionarySchema, siteLocales, localeNames, type ContentSection, type SiteContent, type HeroContent, type MissionaryContent, type SiteLocale } from '#shared/site-content';
+import { prepareImageUpload } from '~/utils/image-upload';
 
 const props = defineProps<{ section: ContentSection }>();
 const { session: adminSession } = useAdminSession();
@@ -141,19 +142,15 @@ async function uploadImage(event: Event) {
   if (!file) return;
   errorMessage.value = '';
   successMessage.value = '';
-  if (file.size > 4 * 1024 * 1024) {
-    errorMessage.value = '4MB 이하의 이미지를 선택해주세요.';
-    input.value = '';
-    return;
-  }
   uploading.value = true;
   try {
+    const prepared = await prepareImageUpload(file);
     const result = await $fetch<{ imageUrl: string }>('/api/admin/upload', {
-      method: 'POST', body: file, headers: { 'Content-Type': file.type },
+      method: 'POST', body: prepared, headers: { 'Content-Type': 'image/webp' },
     });
     draft.value.imageUrl = result.imageUrl;
   } catch (error: any) {
-    errorMessage.value = error.data?.statusMessage || '이미지 업로드에 실패했습니다.';
+    errorMessage.value = error.data?.statusMessage || error.message || '이미지 업로드에 실패했습니다.';
   } finally {
     uploading.value = false;
     input.value = '';

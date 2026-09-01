@@ -211,7 +211,10 @@
           <p style="font-size: 14px; font-weight: 400; color: #7A7571;">
             © {{ new Date().getFullYear() }} Vision Thru the Bible Ministries. All rights reserved.
           </p>
-          <p style="font-size: 14px; color: #7A7571; font-family: 'Outfit', sans-serif;">Cristo Es Suficiente</p>
+          <div class="flex items-center gap-5">
+            <NuxtLink :to="localePath('/privacy')" class="footer-link">{{ $t('footer.privacy') }}</NuxtLink>
+            <p style="font-size: 14px; color: #7A7571; font-family: 'Outfit', sans-serif;">Cristo Es Suficiente</p>
+          </div>
         </div>
       </div>
     </footer>

@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "node --import tsx --test tests/*.test.ts",
-    "admin:seed": "node --env-file=.env --import tsx scripts/seed-admin.ts"
+    "admin:seed": "node --env-file=.env --import tsx scripts/seed-admin.ts",
+    "drive:connect": "node --env-file=.env --import tsx scripts/connect-google-drive.ts"
   },
   "dependencies": {
     "@nuxtjs/i18n": "^10.3.0",

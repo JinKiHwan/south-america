@@ -1,4 +1,4 @@
-import { getImageBucket } from '../../lib/firebase';
+import { readSiteImage } from '../../lib/image-storage';
 
 export default defineEventHandler(async event => {
   const filename = getRouterParam(event, 'filename') || '';
@@ -6,7 +6,7 @@ export default defineEventHandler(async event => {
     throw createError({ statusCode: 404, statusMessage: '이미지를 찾을 수 없습니다.' });
   }
   try {
-    const [image] = await getImageBucket().file('site-images/' + filename).download();
+    const image = await readSiteImage(filename);
     setHeader(event, 'Content-Type', 'image/webp');
     setHeader(event, 'Cache-Control', 'public, max-age=31536000, immutable');
     setHeader(event, 'X-Content-Type-Options', 'nosniff');

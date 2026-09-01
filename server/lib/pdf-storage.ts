@@ -1,4 +1,4 @@
-import { createReadStream } from 'node:fs';
+import { createReadStream, readFileSync } from 'node:fs';
 import { mkdir, open, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { Readable } from 'node:stream';
@@ -21,24 +21,58 @@ export interface PdfUploadRecord {
   leaseUntil?: number;
   leaseId?: string;
 }
-export function pdfStorageProvider(): PdfProvider | null {
+interface DriveConfig {
+  clientId: string;
+  clientSecret: string;
+  refreshToken: string;
+  folderId: string;
+}
+function driveConfig(): DriveConfig | null {
   if (
     process.env.GOOGLE_DRIVE_CLIENT_ID &&
     process.env.GOOGLE_DRIVE_CLIENT_SECRET &&
     process.env.GOOGLE_DRIVE_REFRESH_TOKEN &&
     process.env.GOOGLE_DRIVE_PDF_FOLDER_ID
-  )
-    return 'drive';
-  if (
-    !process.env.VERCEL &&
-    process.env.FIREBASE_PROJECT_ID?.startsWith('demo-') &&
-    /^127\.0\.0\.1:\d+$/.test(process.env.FIRESTORE_EMULATOR_HOST || '')
-  )
+  ) {
+    return {
+      clientId: process.env.GOOGLE_DRIVE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_DRIVE_CLIENT_SECRET,
+      refreshToken: process.env.GOOGLE_DRIVE_REFRESH_TOKEN,
+      folderId: process.env.GOOGLE_DRIVE_PDF_FOLDER_ID,
+    };
+  }
+  if (!process.env.GOOGLE_DRIVE_CREDENTIALS) return null;
+  try {
+    const value = JSON.parse(
+      readFileSync(
+        resolve(process.cwd(), process.env.GOOGLE_DRIVE_CREDENTIALS),
+        'utf8',
+      ),
+    );
+    if (
+      typeof value.clientId !== 'string' ||
+      typeof value.clientSecret !== 'string' ||
+      typeof value.refreshToken !== 'string' ||
+      typeof value.folderId !== 'string' ||
+      !value.clientId.endsWith('.apps.googleusercontent.com') ||
+      !/^[a-zA-Z0-9_-]+$/.test(value.folderId)
+    )
+      return null;
+    return value;
+  } catch {
+    return null;
+  }
+}
+export function pdfStorageProvider(): PdfProvider | null {
+  if (driveConfig()) return 'drive';
+  // Local development keeps PDFs on disk so attachment testing does not
+  // depend on production Drive credentials. Production never uses this path.
+  if (!process.env.VERCEL && process.env.NODE_ENV !== 'production')
     return 'emulator';
   return null;
 }
 function localPath(id: string) {
-  if (pdfStorageProvider() !== 'emulator' || !/^[a-f0-9-]{36}$/.test(id))
+  if (!/^[a-f0-9-]{36}$/.test(id))
     throw createError({
       statusCode: 503,
       statusMessage: '로컬 PDF 저장소에 접근할 수 없습니다.',
@@ -52,13 +86,19 @@ async function driveAccessToken() {
   if (accessToken && expiresAt > Date.now() + 60_000) return accessToken;
   if (refreshPromise) return refreshPromise;
   refreshPromise = (async () => {
+    const config = driveConfig();
+    if (!config)
+      throw createError({
+        statusCode: 503,
+        statusMessage: 'Google Drive 연결 설정을 확인해주세요.',
+      });
     const response = await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST',
       signal: AbortSignal.timeout(15_000),
       body: new URLSearchParams({
-        client_id: process.env.GOOGLE_DRIVE_CLIENT_ID || '',
-        client_secret: process.env.GOOGLE_DRIVE_CLIENT_SECRET || '',
-        refresh_token: process.env.GOOGLE_DRIVE_REFRESH_TOKEN || '',
+        client_id: config.clientId,
+        client_secret: config.clientSecret,
+        refresh_token: config.refreshToken,
         grant_type: 'refresh_token',
       }),
     });
@@ -156,6 +196,12 @@ export async function beginPdfStorage(record: PdfUploadRecord) {
     await file.close();
     return null;
   }
+  const config = driveConfig();
+  if (!config)
+    throw createError({
+      statusCode: 503,
+      statusMessage: 'Google Drive 연결 설정을 확인해주세요.',
+    });
   const response = await fetch(
     'https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable&fields=id,size,mimeType',
     {
@@ -171,7 +217,7 @@ export async function beginPdfStorage(record: PdfUploadRecord) {
       body: JSON.stringify({
         name: record.name,
         mimeType: 'application/pdf',
-        parents: [process.env.GOOGLE_DRIVE_PDF_FOLDER_ID],
+        parents: [config.folderId],
         appProperties: {
           newsletterPostId: record.postId,
           newsletterUploadId: record.id,

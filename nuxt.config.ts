@@ -25,6 +25,12 @@ export default defineNuxtConfig({
     transpile: ['gsap'],
   },
   nitro: {
+    // sanitize-html is CommonJS while its parser dependency is ESM. Vercel's
+    // Node runtime cannot bridge that pair when both packages are external,
+    // so bundle the sanitizer with the server output.
+    externals: {
+      inline: ['sanitize-html'],
+    },
     vercel: {
       functions: { maxDuration: 300 },
     },

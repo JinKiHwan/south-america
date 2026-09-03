@@ -1,5 +1,10 @@
 <template>
-  <section class="main-visual" :data-alignment="alignment" aria-labelledby="main-visual-title">
+  <section
+    class="main-visual"
+    :class="{ 'is-preview': preview }"
+    :data-alignment="alignment"
+    aria-labelledby="main-visual-title"
+  >
     <img
       class="main-visual__image"
       :src="imageUrl"
@@ -25,9 +30,11 @@ withDefaults(defineProps<{
   title: string;
   description: string;
   alignment?: 'left' | 'center' | 'right';
+  preview?: boolean;
 }>(), {
   imageAlt: '',
   alignment: 'center',
+  preview: false,
 });
 </script>
 
@@ -38,10 +45,15 @@ withDefaults(defineProps<{
   container-type: inline-size;
   display: grid;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: clamp(480px, 66.667svh, 760px);
   overflow: hidden;
   background: #2D2A26;
   color: #FFFFFF;
+}
+
+.main-visual.is-preview {
+  height: auto;
+  aspect-ratio: 16 / 9;
 }
 
 .main-visual__image,
@@ -131,5 +143,11 @@ withDefaults(defineProps<{
 
 .main-visual[data-alignment='right'] .main-visual__overlay {
   background: linear-gradient(270deg, rgba(18, 16, 14, 0.72), rgba(18, 16, 14, 0.3));
+}
+
+@media (max-width: 767px) {
+  .main-visual:not(.is-preview) {
+    height: clamp(440px, 66.667svh, 620px);
+  }
 }
 </style>

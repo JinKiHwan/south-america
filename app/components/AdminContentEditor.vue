@@ -72,7 +72,7 @@
         <section class="admin-card admin-preview-card">
           <div class="admin-preview-heading"><span class="admin-live-dot" /><h2>미리보기</h2><span>{{ localeNames[editingLocale] }}</span></div>
           <div class="admin-preview-browser"><i /><i /><i /><span>Vision Thru the Bible</span></div>
-          <HeroSlide v-if="isHero" v-bind="heroPreview" />
+          <HeroSlide v-if="isHero" v-bind="heroPreview" preview />
           <div v-else class="admin-missionary-preview">
             <img :src="draft.imageUrl" :alt="text.imageAlt">
             <div><span>{{ text.label }}</span><h3>{{ text.title }}</h3><small>{{ text.role }}</small><div class="admin-preview-divider" /><p>{{ text.description }}</p><span class="admin-preview-contact">{{ text.buttonLabel }}</span></div>

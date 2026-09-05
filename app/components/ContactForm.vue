@@ -52,6 +52,8 @@
               type="text" 
               v-model="form.name" 
               required 
+              maxlength="80"
+              autocomplete="name"
               class="w-full transition-all duration-300"
               style="
                 background: rgba(255, 255, 255, 0.05);
@@ -74,6 +76,8 @@
               type="email" 
               v-model="form.email" 
               required 
+              maxlength="254"
+              autocomplete="email"
               class="w-full transition-all duration-300"
               style="
                 background: rgba(255, 255, 255, 0.05);
@@ -132,6 +136,8 @@
             v-model="form.message" 
             rows="5" 
             required 
+            minlength="5"
+            maxlength="5000"
             class="w-full transition-all duration-300"
             style="
               background: rgba(255, 255, 255, 0.05);
@@ -145,6 +151,17 @@
             "
             onfocus="this.style.borderColor='rgba(232, 122, 93, 0.6)'; this.style.background='rgba(255, 255, 255, 0.1)';"
             onblur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.background='rgba(255, 255, 255, 0.05)';"
+          />
+        </div>
+
+        <div class="contact-honeypot" aria-hidden="true">
+          <label>Website</label>
+          <input
+            v-model="form.website"
+            type="text"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
           />
         </div>
 
@@ -190,7 +207,8 @@ const form = ref({
   name: '',
   email: '',
   type: 'materials',
-  message: ''
+  message: '',
+  website: ''
 });
 
 const isSubmitting = ref(false);
@@ -208,7 +226,7 @@ const submitForm = async () => {
     
     if (response.success) {
       submitStatus.value = 'success';
-      form.value = { name: '', email: '', type: 'materials', message: '' };
+      form.value = { name: '', email: '', type: 'materials', message: '', website: '' };
     } else {
       submitStatus.value = 'error';
     }
@@ -251,6 +269,15 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.contact-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 @media (max-width: 1023px) {
   section#contact {
     padding-top: 60px;

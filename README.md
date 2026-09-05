@@ -29,6 +29,12 @@ PDF는 한 글당 1개, 최대 500MiB입니다. 진행률과 일시정지·이�
 
 **개인 Google Drive 저장은 가능하며 서버 어댑터를 구현했습니다. 실제 계정 연결과 실파일 검증은 아직 필요합니다.** OAuth 소유자 계정, 전용 비공개 폴더, Vercel 설정과 제한은 [Google Drive PDF 연결 문서](docs/google-drive-pdfs.md)에 정리했습니다. Drive 설정 없이도 글은 저장할 수 있습니다. 에뮬레이터에서 PDF는 테스트용 로컬 디렉터리에 저장됩니다.
 
+## 문의 메일
+
+홈페이지 문의 폼은 서버 SMTP를 통해 `visionthruthebible@gmail.com`으로 전송합니다. 문의자의 이메일은 답장 주소로 설정되며, 이름·이메일·문의 유형·문의 내용을 메일 본문에 포함합니다. 입력 길이와 형식을 서버에서 다시 검사하고 IP별로 15분에 5회까지 접수합니다.
+
+로컬 `.env`와 Vercel 서버 환경변수에 `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`를 설정해야 합니다. Gmail을 발신 계정으로 사용하면 일반 계정 비밀번호 대신 앱 비밀번호를 사용하세요. 발신 계정 정보는 클라이언트 코드나 Git에 넣지 않습니다.
+
 ## Firebase 서버 연결
 
 실제 프로젝트 ID는 `southamerica-b7adf`입니다. Firestore의 `(default)` 데이터베이스와 Firebase Storage 버킷이 필요합니다. 데이터베이스/버킷의 저장 지역은 생성 전에 결정해야 합니다.
@@ -93,4 +99,4 @@ TEST_BASE_URL=http://127.0.0.1:3100 npm test
 
 테스트에서는 권한 없는 요청, 비밀번호 검증, CSRF, 세션 만료/취소, 저장 충돌, 공개 콘텐츠 반영, 이미지 검증/업로드, 국가 추가, HTML 정제, 소식지 상태 전환, 6MiB 이상 PDF 분할 전송·재개·다운로드 해시 일치·부분 다운로드를 확인합니다. 운영툴에서 에뮬레이터 연결 여부를 표시하며, 테스트 데이터는 실제 Firebase에 저장되지 않습니다. 외부 서비스가 없는 `npm test`에서는 에뮬레이터 통합 테스트를 건너뜁니다.
 
-2026-08-31 의존성 감사에서 호환되는 업데이트를 적용한 후 critical은 0건, high 1건과 moderate 6건이 남았습니다. 기존 Nodemailer의 major 업그레이드 및 Firebase Admin SDK의 하위 의존성 정리가 필요합니다. 자동 제안된 Firebase Admin 구버전 다운그레이드는 적용하지 않았습니다. 현재 문의 API의 실제 메일 전송은 기존대로 비활성화되어 있습니다. 이번 검증은 실제 Firebase/Google Drive 인증 또는 운영 배포 성공을 의미하지 않습니다.
+2026-08-31 의존성 감사에서 호환되는 업데이트를 적용한 후 critical은 0건, high 1건과 moderate 6건이 남았습니다. 기존 Nodemailer의 major 업그레이드 및 Firebase Admin SDK의 하위 의존성 정리가 필요합니다. 자동 제안된 Firebase Admin 구버전 다운그레이드는 적용하지 않았습니다. 이번 검증은 실제 Firebase/Google Drive 인증 또는 운영 배포 성공을 의미하지 않습니다.

@@ -1,43 +1,78 @@
 import nodemailer from 'nodemailer';
+import { createContactMail, parseContactInput } from '../lib/contact-email';
+
+const attempts = new Map<string, { count: number; resetAt: number }>();
+const LIMIT_WINDOW = 15 * 60 * 1000;
+const LIMIT_COUNT = 5;
+
+function checkRateLimit(key: string) {
+  const now = Date.now();
+  const current = attempts.get(key);
+  if (!current || current.resetAt <= now) {
+    attempts.set(key, { count: 1, resetAt: now + LIMIT_WINDOW });
+    return;
+  }
+  if (current.count >= LIMIT_COUNT) {
+    throw createError({
+      statusCode: 429,
+      message: '문의가 연속으로 접수되었습니다. 잠시 후 다시 시도해주세요.',
+    });
+  }
+  current.count += 1;
+  if (attempts.size > 1000) {
+    for (const [storedKey, value] of attempts) {
+      if (value.resetAt <= now) attempts.delete(storedKey);
+    }
+  }
+}
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-  
-  // Nodemailer transport setup
+  requireSameOrigin(event);
+  const input = parseContactInput(await readLimitedJson(event, 24 * 1024));
+  const client =
+    getRequestIP(event, { xForwardedFor: Boolean(process.env.VERCEL) }) ||
+    'unknown';
+  checkRateLimit(client);
+
+  const smtpUser = process.env.SMTP_USER?.trim();
+  const smtpPass = process.env.SMTP_PASS;
+  const port = Number(process.env.SMTP_PORT || 465);
+  if (
+    !smtpUser ||
+    !smtpPass ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(smtpUser) ||
+    !Number.isInteger(port) ||
+    port < 1 ||
+    port > 65535
+  ) {
+    throw createError({
+      statusCode: 503,
+      message: '문의 메일 설정을 확인해주세요.',
+    });
+  }
+
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '465'),
-    secure: true,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
+    port,
+    secure: port === 465,
+    auth: { user: smtpUser, pass: smtpPass },
+    connectionTimeout: 10_000,
+    greetingTimeout: 10_000,
+    socketTimeout: 20_000,
   });
 
-  const mailOptions = {
-    from: process.env.SMTP_USER,
-    to: process.env.CONTACT_EMAIL || 'test@example.com', // 선교사님 이메일 (임시)
-    subject: `[VTB 홈페이지 문의] ${body.type === 'materials' ? '자료 요청' : body.type === 'prayer' ? '기도 동역' : '일반 문의'} - ${body.name}`,
-    text: `
-      이름: ${body.name}
-      이메일: ${body.email}
-      문의 유형: ${body.type}
-      
-      메시지:
-      ${body.message}
-    `,
-  };
-
   try {
-    // 실제 운영 환경에서는 아래 메일 전송 로직의 주석을 해제합니다.
-    // await transporter.sendMail(mailOptions);
-    
-    // 테스트용 콘솔 출력
-    console.log('메일 전송 시뮬레이션:', mailOptions);
-
-    return { success: true, message: 'Message sent successfully.' };
-  } catch (error) {
-    console.error('Error sending email:', error);
-    return { success: false, message: 'Failed to send message.' };
+    await transporter.sendMail(createContactMail(input, smtpUser));
+    return { success: true };
+  } catch (error: any) {
+    console.error('Contact email delivery failed.', {
+      code: typeof error?.code === 'string' ? error.code : 'unknown',
+    });
+    throw createError({
+      statusCode: 502,
+      message: '문의 전송에 실패했습니다. 잠시 후 다시 시도해주세요.',
+    });
+  } finally {
+    transporter.close();
   }
 });

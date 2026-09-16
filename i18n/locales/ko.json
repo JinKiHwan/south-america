@@ -63,7 +63,8 @@
   "youtube": {
     "title": "유튜브",
     "highlight": "성경 강의",
-    "view_all": "더보기"
+    "view_all": "더보기",
+    "empty": "성경 강의 영상을 준비 중입니다."
   },
   "contact": {
     "title": "사역에",

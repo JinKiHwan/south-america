@@ -75,7 +75,7 @@
         <img
           v-if="post.thumbnail"
           :src="post.thumbnail"
-          :alt="post.translations.ko.title"
+          :alt="newsletterCopy(post.translations, 'en').title"
         />
         <div v-else class="news-no-image" aria-hidden="true">LETTER</div>
         <div class="news-row-content">
@@ -91,8 +91,8 @@
           <NuxtLink
             v-if="post.status !== 'deleted'"
             :to="'/admin/newsletters/' + post.id"
-            >{{ post.translations.ko.title }}</NuxtLink
-          ><strong v-else>{{ post.translations.ko.title }}</strong
+            >{{ newsletterCopy(post.translations, 'en').title }}</NuxtLink
+          ><strong v-else>{{ newsletterCopy(post.translations, 'en').title }}</strong
           ><small
             >수정 {{ new Date(post.updatedAt).toLocaleString('ko-KR') }}</small
           >
@@ -134,7 +134,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { NewsletterSummary, NewsletterCountry } from '#shared/newsletter';
+import { newsletterCopy, type NewsletterSummary, type NewsletterCountry } from '#shared/newsletter';
 definePageMeta({ layout: 'admin', middleware: 'admin' });
 defineI18nRoute({ locales: ['ko'] });
 const {
@@ -166,7 +166,7 @@ const visiblePosts = computed(() =>
       (filter.value === 'all'
         ? post.status !== 'deleted'
         : post.status === filter.value) &&
-      post.translations.ko.title
+      newsletterCopy(post.translations, 'en').title
         .toLocaleLowerCase()
         .includes(search.value.trim().toLocaleLowerCase()),
   ),

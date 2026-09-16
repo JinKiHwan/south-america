@@ -1,7 +1,7 @@
 <template>
   <div class="admin-app" data-admin-app>
     <aside class="admin-sidebar">
-      <NuxtLink to="/admin" class="admin-brand">
+      <NuxtLink to="/" class="admin-brand" aria-label="Vision Thru the Bible 홈페이지로 이동">
         <span class="admin-brand-mark">V</span>
         <span>Vision Thru the Bible<small>SOUTH AMERICA · ADMIN</small></span>
       </NuxtLink>
@@ -70,6 +70,14 @@
           </svg>
           국가 관리
         </NuxtLink>
+        <NuxtLink to="/admin/contact-types" :class="{ 'is-active': route.path === '/admin/contact-types' }">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5Z" /><path d="M8 9h8M8 12h5" /></svg>
+          문의 유형
+        </NuxtLink>
+        <NuxtLink to="/admin/youtube" :class="{ 'is-active': route.path === '/admin/youtube' }">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" /><path d="m10 9 5 3-5 3V9Z" /></svg>
+          유튜브 자동화
+        </NuxtLink>
       </nav>
       <div class="admin-sidebar-bottom">
         <p>마음을 전하는 공간을<br />함께 가꾸어갑니다.</p>
@@ -120,6 +128,10 @@ const sectionTitle = computed(() =>
     ? '최근 소식지'
     : route.path === '/admin/countries'
       ? '국가 관리'
+      : route.path === '/admin/contact-types'
+        ? '문의 유형 관리'
+        : route.path === '/admin/youtube'
+          ? '유튜브 자동화'
       : route.path === '/admin/missionary'
         ? '선교사 소개'
         : '메인 비주얼',

@@ -27,7 +27,7 @@ test('newsletter HTML preserves formatting and removes executable content', () =
   assert.match(html, /<strong>감사<\/strong>/);
   assert.doesNotMatch(html, /script|onerror|onclick|javascript|iframe|<img/);
 });
-test('publication requires meaningful Korean content, supports drafts and translation fallback', () => {
+test('publication defaults to English, preserves legacy Korean content and falls back safely', () => {
   const draft = emptyNewsletter();
   draft.translations.ko.title = '사역 소식';
   draft.translations.ko.body = '<p><br></p>';
@@ -42,6 +42,9 @@ test('publication requires meaningful Korean content, supports drafts and transl
   assert.equal(newsletterCopy(draft.translations, 'en').title, '사역 소식');
   draft.translations.en.title = 'A letter';
   assert.throws(() => cleanNewsletter({ ...draft, status: 'published' }));
+  draft.translations.en.body = '<p>A new letter.</p>';
+  assert.equal(cleanNewsletter({ ...draft, status: 'published' }).status, 'published');
+  assert.equal(newsletterCopy(draft.translations, 'es').title, 'A letter');
   assert.equal(
     newsletterInputSchema.safeParse({
       ...draft,

@@ -63,7 +63,8 @@
   "youtube": {
     "title": "Youtube",
     "highlight": "Palestras",
-    "view_all": "Ver mais"
+    "view_all": "Ver mais",
+    "empty": "Em breve, vídeos de ensino bíblico."
   },
   "contact": {
     "title": "Entre em",

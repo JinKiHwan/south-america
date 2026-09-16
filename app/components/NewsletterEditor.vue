@@ -58,13 +58,13 @@
             <div>
               <h2>본문 작성</h2>
               <p>
-                한국어는 필수입니다. 번역을 비워두면 한국어 내용이 표시됩니다.
+                영어부터 작성해주세요. 스페인어·포르투갈어·한국어 번역을 비우면 영어 내용이 표시됩니다. 기존 한국어 글은 그대로 수정할 수 있습니다.
               </p>
             </div>
           </div>
           <div class="admin-locale-tabs" role="tablist" aria-label="본문 언어">
             <button
-              v-for="item in siteLocales"
+              v-for="item in newsletterEditorLocales"
               :key="item"
               role="tab"
               :aria-selected="locale === item"
@@ -166,7 +166,7 @@
           >
             이미지 제거
           </button>
-          <p class="admin-field-hint">JPG, PNG, WebP · 원본 용량 제한 없음 · 1MB 이하 WebP 자동 최적화 · 16:9 권장</p>
+          <p class="admin-field-hint">JPG, PNG, WebP · 긴 변 최대 1200px · 300KB 이하 WebP 자동 최적화 · 16:9 권장</p>
         </section>
         <section class="admin-card news-pdf-card">
           <div class="news-pdf-heading">
@@ -267,16 +267,14 @@ import {
   formatFileSize,
   PDF_CHUNK_BYTES,
   PDF_MAX_BYTES,
+  newsletterEditorLocales,
   type NewsletterInput,
   type NewsletterPost,
   type NewsletterCountry,
   type PdfAttachment,
 } from '#shared/newsletter';
-import {
-  siteLocales,
-  localeNames,
-  type SiteLocale,
-} from '#shared/site-content';
+import { localeNames, type SiteLocale } from '#shared/site-content';
+import { NEWSLETTER_THUMBNAIL_MAX_BYTES, NEWSLETTER_THUMBNAIL_MAX_DIMENSION } from '#shared/image';
 import { prepareImageUpload } from '~/utils/image-upload';
 const props = defineProps<{ id?: string }>();
 const route = useRoute();
@@ -296,7 +294,7 @@ const attachment = ref<PdfAttachment | null>(null);
 const version = ref(0);
 const currentStatus = ref('hidden');
 const baseline = ref('');
-const locale = ref<SiteLocale>('ko');
+const locale = ref<SiteLocale>('en');
 const saving = ref(false);
 const imageUploading = ref(false);
 const pdfUploading = ref(false);
@@ -361,9 +359,9 @@ async function save(
   if (saving.value || imageUploading.value || pdfUploading.value) return false;
   errorMessage.value = '';
   success.value = '';
-  if (!draft.value.translations.ko.title.trim()) {
-    locale.value = 'ko';
-    errorMessage.value = '한국어 제목을 입력해주세요.';
+  if (!draft.value.translations.en.title.trim() && !draft.value.translations.ko.title.trim()) {
+    locale.value = 'en';
+    errorMessage.value = '영어 제목을 입력해주세요.';
     return false;
   }
   saving.value = true;
@@ -403,8 +401,11 @@ async function uploadThumbnail(event: Event) {
   imageUploading.value = true;
   errorMessage.value = '';
   try {
-    const prepared = await prepareImageUpload(file);
-    const result = await $fetch<{ imageUrl: string }>('/api/admin/upload', {
+    const prepared = await prepareImageUpload(file, {
+      maxDimension: NEWSLETTER_THUMBNAIL_MAX_DIMENSION,
+      maxBytes: NEWSLETTER_THUMBNAIL_MAX_BYTES,
+    });
+    const result = await $fetch<{ imageUrl: string }>('/api/admin/upload?purpose=newsletter', {
       method: 'POST',
       body: prepared,
       headers: { 'Content-Type': 'image/webp' },

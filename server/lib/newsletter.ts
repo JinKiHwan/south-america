@@ -10,6 +10,59 @@ import {
 } from '../../shared/newsletter';
 import { siteLocales } from '../../shared/site-content';
 
+interface CountrySettings {
+  version: number;
+  order: string[];
+  names: Record<string, string>;
+  hidden: string[];
+}
+const emptyCountrySettings = (): CountrySettings => ({
+  version: 0,
+  order: [],
+  names: {},
+  hidden: [],
+});
+
+export function mergeCountries(custom: NewsletterCountry[], settings: CountrySettings) {
+  const all = [...structuredClone(defaultCountries), ...custom];
+  const positions = new Map(settings.order.map((id, index) => [id, index]));
+  return all
+    .filter((country) => !settings.hidden.includes(country.id))
+    .map((country, initial) => ({
+      ...country,
+      name: settings.names[country.id] || country.name,
+      labels: settings.names[country.id] ? undefined : country.labels,
+      initial,
+    }))
+    .sort((a, b) =>
+      (positions.get(a.id) ?? Number.MAX_SAFE_INTEGER) -
+        (positions.get(b.id) ?? Number.MAX_SAFE_INTEGER) ||
+      a.initial - b.initial,
+    )
+    .map(({ initial: _initial, ...country }) => country);
+}
+
+export async function newsletterCountrySnapshot(): Promise<{
+  version: number;
+  countries: NewsletterCountry[];
+}> {
+  if (!isFirebaseConfigured())
+    return { version: 0, countries: structuredClone(defaultCountries) };
+  const db = getDatabase();
+  const [settingsDoc, docs] = await Promise.all([
+    db.collection('newsletterCountrySettings').doc('current').get(),
+    db.collection('newsletterCountries').get(),
+  ]);
+  const settings = (settingsDoc.data() || emptyCountrySettings()) as CountrySettings;
+  return {
+    version: settings.version || 0,
+    countries: mergeCountries(
+      docs.docs.map((doc) => ({ id: doc.id, name: doc.data().name as string })),
+      settings,
+    ),
+  };
+}
+
 export function cleanNewsletterHtml(html: string) {
   return sanitizeHtml(html, {
     allowedTags: [
@@ -51,21 +104,22 @@ export function cleanNewsletter(input: NewsletterInput): NewsletterInput {
     result.translations[locale].body = cleanNewsletterHtml(
       result.translations[locale].body,
     );
-  if (!result.translations.ko.title)
+  const primaryLocale = result.translations.en.title ? 'en' : 'ko';
+  if (!result.translations[primaryLocale].title)
     throw createError({
       statusCode: 400,
-      statusMessage: '한국어 제목을 입력해주세요.',
+      statusMessage: '영어 제목을 입력해주세요. 기존 한국어 소식지는 그대로 수정할 수 있습니다.',
     });
   if (
     result.status === 'published' &&
-    !plainNewsletterText(result.translations.ko.body)
+    !plainNewsletterText(result.translations[primaryLocale].body)
   ) {
     throw createError({
       statusCode: 400,
       statusMessage: '공개할 소식지의 본문을 입력해주세요.',
     });
   }
-  for (const locale of siteLocales.filter((item) => item !== 'ko')) {
+  for (const locale of siteLocales.filter((item) => item !== primaryLocale)) {
     const copy = result.translations[locale];
     if (
       result.status === 'published' &&
@@ -81,15 +135,7 @@ export function cleanNewsletter(input: NewsletterInput): NewsletterInput {
   return result;
 }
 export async function newsletterCountries(): Promise<NewsletterCountry[]> {
-  if (!isFirebaseConfigured()) return structuredClone(defaultCountries);
-  const docs = await getDatabase().collection('newsletterCountries').get();
-  return [
-    ...structuredClone(defaultCountries),
-    ...docs.docs.map((doc) => ({
-      id: doc.id,
-      name: doc.data().name as string,
-    })),
-  ];
+  return (await newsletterCountrySnapshot()).countries;
 }
 export function newsletterDto(id: string, data: any): NewsletterPost {
   return {

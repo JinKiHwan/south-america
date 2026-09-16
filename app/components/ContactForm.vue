@@ -115,9 +115,7 @@
               onfocus="this.style.borderColor='rgba(232, 122, 93, 0.6)'; this.style.background='rgba(255, 255, 255, 0.1)';"
               onblur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.background='rgba(255, 255, 255, 0.05)';"
             >
-              <option value="materials" style="background: #171717;">{{ $t('contact.form.type_options.materials') }}</option>
-              <option value="prayer" style="background: #171717;">{{ $t('contact.form.type_options.prayer') }}</option>
-              <option value="general" style="background: #171717;">{{ $t('contact.form.type_options.general') }}</option>
+              <option v-for="type in contactTypes" :key="type.id" :value="type.id" style="background: #171717;">{{ typeLabel(type) }}</option>
             </select>
             <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white opacity-60">
               <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,10 +196,15 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import { defaultContactTypes, type ContactType } from '#shared/contact-types';
 
 const { $gsap, $ScrollTrigger } = useNuxtApp();
+const { locale } = useI18n();
+const typeLabel = (type: ContactType) => type.labels[locale.value as keyof ContactType['labels']] || type.labels.ko;
+const { data: savedTypes } = await useFetch<ContactType[]>('/api/contact-types');
+const contactTypes = computed(() => savedTypes.value?.length ? savedTypes.value : defaultContactTypes);
 
 const form = ref({
   name: '',
@@ -212,21 +215,24 @@ const form = ref({
 });
 
 const isSubmitting = ref(false);
-const submitStatus = ref(null);
+const submitStatus = ref<'success' | 'error' | null>(null);
+watch(contactTypes, (types) => {
+  if (!types.some((type) => type.id === form.value.type)) form.value.type = types[0]?.id || 'general';
+}, { immediate: true });
 
 const submitForm = async () => {
   isSubmitting.value = true;
   submitStatus.value = null;
   
   try {
-    const response = await $fetch('/api/contact', {
+    const response = await $fetch<{ success: boolean }>('/api/contact', {
       method: 'POST',
       body: form.value
     });
     
     if (response.success) {
       submitStatus.value = 'success';
-      form.value = { name: '', email: '', type: 'materials', message: '', website: '' };
+      form.value = { name: '', email: '', type: contactTypes.value[0]?.id || 'general', message: '', website: '' };
     } else {
       submitStatus.value = 'error';
     }

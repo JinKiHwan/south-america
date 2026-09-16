@@ -63,7 +63,8 @@
   "youtube": {
     "title": "Youtube",
     "highlight": "Conferencias",
-    "view_all": "Ver más"
+    "view_all": "Ver más",
+    "empty": "Próximamente habrá videos de enseñanza bíblica."
   },
   "contact": {
     "title": "Ponte en",

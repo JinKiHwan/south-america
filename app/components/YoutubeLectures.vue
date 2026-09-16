@@ -22,7 +22,7 @@
             {{ $t('hero.verse_text') }}
           </p>
         </div>
-        <a href="#" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 24px; font-size: 14px;">
+        <a v-if="videos.length" :href="channelUrl" target="_blank" rel="noopener noreferrer" class="btn-outline flex items-center gap-2 group" style="border-radius: 99px; padding: 8px 24px; font-size: 14px;">
           {{ $t('youtube.view_all') }}
           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="group-hover:translate-x-1 transition-transform">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7M3 12h18"/>
@@ -32,7 +32,8 @@
     </div>
 
     <!-- Scroll carousel -->
-    <div class="relative pl-6 md:pl-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]">
+    <p v-if="!videos.length" class="mx-auto px-6 text-[#7A7571]" style="max-width: 1400px;">{{ $t('youtube.empty') }}</p>
+    <div v-else class="relative pl-6 md:pl-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]">
       <div class="lecture-swiper-container">
         <swiper
           :modules="[FreeMode]"
@@ -41,8 +42,8 @@
           :freeMode="true"
           class="w-full overflow-visible lecture-swiper"
         >
-          <swiper-slide v-for="video in mockVideos" :key="video.id" style="width: 360px !important;">
-            <div class="group cursor-pointer" style="width: 100%; max-width: 360px;">
+          <swiper-slide v-for="video in videos" :key="video.id" style="width: 360px !important;">
+            <a :href="`https://www.youtube.com/watch?v=${video.id}`" target="_blank" rel="noopener noreferrer" class="group block" style="width: 100%; max-width: 360px;">
               <!-- Thumbnail (16:9) -->
               <div class="relative overflow-hidden rounded-2xl mb-5 shadow-sm" style="aspect-ratio: 16/9; background: #171717; width: 100%;">
                 <img 
@@ -79,12 +80,12 @@
                   {{ video.title }}
                 </h3>
                 <div class="flex items-center gap-2 text-sm text-[#7A7571]">
-                  <span class="font-medium" style="color: #E87A5D;">{{ video.category }}</span>
+                  <span class="font-medium" style="color: #E87A5D;">YouTube</span>
                   <span class="w-1 h-1 rounded-full bg-[#E8E3DD]"></span>
-                  <span>{{ video.date }}</span>
+                  <span>{{ video.publishedAt ? new Date(video.publishedAt).toLocaleDateString(locale) : '' }}</span>
                 </div>
               </div>
-            </div>
+            </a>
           </swiper-slide>
         </swiper>
       </div>
@@ -92,22 +93,19 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue';
+import type { YoutubeVideo } from '#shared/youtube';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 
 const { $gsap, $ScrollTrigger } = useNuxtApp();
-
-const mockVideos = [
-  { id: 1, title: '신명기 강해 1강 - 광야에서의 회상', category: 'Deuteronomy', date: 'Apr 10, 2026', thumbnail: '/images/mock/mock05.webp' },
-  { id: 2, title: '신명기 강해 2강 - 언약의 갱신과 축복', category: 'Deuteronomy', date: 'Apr 17, 2026', thumbnail: '/images/mock/mock06.webp' },
-  { id: 3, title: '일대일 제자양육 1과 - 그리스도는 누구신가', category: 'Disciple Training', date: 'Apr 24, 2026', thumbnail: '/images/mock/mock07.webp' },
-  { id: 4, title: '일대일 제자양육 2과 - 구원의 확신과 기쁨', category: 'Disciple Training', date: 'May 01, 2026', thumbnail: '/images/mock/mock08.webp' },
-  { id: 5, title: '성경적 리더십 세미나: 선교적 사명', category: 'Seminars', date: 'May 08, 2026', thumbnail: '/images/mock/mock09.webp' },
-];
+const { locale } = useI18n();
+const { data } = await useFetch<{ channelId: string; videos: YoutubeVideo[] }>('/api/youtube-videos');
+const videos = computed(() => data.value?.videos || []);
+const channelUrl = computed(() => `https://www.youtube.com/channel/${data.value?.channelId}/videos`);
 
 onMounted(() => {
   if ($gsap && $ScrollTrigger) {
@@ -121,7 +119,7 @@ onMounted(() => {
       }
     );
 
-    $gsap.fromTo('.lecture-swiper',
+    if (videos.value.length) $gsap.fromTo('.lecture-swiper',
       { opacity: 0, x: 20 },
       {
         opacity: 1, x: 0, duration: 0.6, ease: 'power2.out',

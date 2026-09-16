@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import { createContactMail, parseContactInput } from '../lib/contact-email';
+import { contactTypeSnapshot } from '../lib/contact-types';
 
 const attempts = new Map<string, { count: number; resetAt: number }>();
 const LIMIT_WINDOW = 15 * 60 * 1000;
@@ -28,7 +29,9 @@ function checkRateLimit(key: string) {
 
 export default defineEventHandler(async (event) => {
   requireSameOrigin(event);
-  const input = parseContactInput(await readLimitedJson(event, 24 * 1024));
+  const types = (await contactTypeSnapshot()).types;
+  const input = parseContactInput(await readLimitedJson(event, 24 * 1024), types.map((type) => type.id));
+  const typeLabel = types.find((type) => type.id === input.type)!.labels.ko;
   const client =
     getRequestIP(event, { xForwardedFor: Boolean(process.env.VERCEL) }) ||
     'unknown';
@@ -62,7 +65,7 @@ export default defineEventHandler(async (event) => {
   });
 
   try {
-    await transporter.sendMail(createContactMail(input, smtpUser));
+    await transporter.sendMail(createContactMail(input, smtpUser, typeLabel));
     return { success: true };
   } catch (error: any) {
     console.error('Contact email delivery failed.', {

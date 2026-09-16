@@ -82,7 +82,7 @@ export default defineEventHandler(async (event) => {
       readTime: Math.max(
         1,
         Math.ceil(
-          plainNewsletterText(content.translations.ko.body).split(/\s+/)
+          plainNewsletterText((content.translations.en.title ? content.translations.en : content.translations.ko).body).split(/\s+/)
             .length / 150,
         ),
       ),

@@ -3,6 +3,7 @@ import { siteLocales, type SiteLocale } from './site-content';
 
 export const newsletterId = z.string().uuid();
 export const countryNameSchema = z.string().trim().min(1).max(60);
+export const newsletterEditorLocales = ['en', 'es', 'pt', 'ko'] as const;
 export interface NewsletterCountry {
   id: string;
   name: string;
@@ -94,7 +95,11 @@ export function newsletterCopy<T extends { title: string }>(
   locale: string,
 ): T {
   const copy = translations[locale as SiteLocale];
-  return copy?.title?.trim() ? copy : translations.ko;
+  return copy?.title?.trim()
+    ? copy
+    : translations.en?.title?.trim()
+      ? translations.en
+      : translations.ko;
 }
 export function countryLabel(
   country: NewsletterCountry | undefined,

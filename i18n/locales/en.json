@@ -63,7 +63,8 @@
   "youtube": {
     "title": "Youtube",
     "highlight": "Lectures",
-    "view_all": "Watch more"
+    "view_all": "Watch more",
+    "empty": "Bible teaching videos are coming soon."
   },
   "contact": {
     "title": "Get in",

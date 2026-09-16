@@ -19,7 +19,10 @@ function canvasWebp(canvas: HTMLCanvasElement, quality: number) {
   });
 }
 
-export async function prepareImageUpload(file: File) {
+export async function prepareImageUpload(
+  file: File,
+  options: { maxDimension?: number; maxBytes?: number } = {},
+) {
   if (!acceptedTypes.has(file.type)) {
     throw new Error('JPG, PNG, WebP 이미지만 선택해주세요.');
   }
@@ -34,7 +37,7 @@ export async function prepareImageUpload(file: File) {
   try {
     const initialScale = Math.min(
       1,
-      IMAGE_MAX_DIMENSION / Math.max(bitmap.width, bitmap.height),
+      (options.maxDimension || IMAGE_MAX_DIMENSION) / Math.max(bitmap.width, bitmap.height),
     );
     let width = Math.max(1, Math.round(bitmap.width * initialScale));
     let height = Math.max(1, Math.round(bitmap.height * initialScale));
@@ -53,7 +56,7 @@ export async function prepareImageUpload(file: File) {
       for (const quality of qualities) {
         const blob = await canvasWebp(canvas, quality);
         smallest = blob;
-        if (blob.size <= IMAGE_MAX_BYTES) {
+        if (blob.size <= (options.maxBytes || IMAGE_MAX_BYTES)) {
           const baseName = file.name.replace(/\.[^.]+$/, '') || 'image';
           return new File([blob], baseName + '.webp', {
             type: 'image/webp',
@@ -65,7 +68,7 @@ export async function prepareImageUpload(file: File) {
       if (!smallest) break;
       const scale = Math.min(
         0.86,
-        Math.sqrt(IMAGE_MAX_BYTES / smallest.size) * 0.92,
+        Math.sqrt((options.maxBytes || IMAGE_MAX_BYTES) / smallest.size) * 0.92,
       );
       const nextWidth = Math.max(1, Math.floor(width * scale));
       const nextHeight = Math.max(1, Math.floor(height * scale));
@@ -77,6 +80,5 @@ export async function prepareImageUpload(file: File) {
     bitmap.close();
   }
 
-  throw new Error('이미지를 1MB 이하로 변환하지 못했습니다.');
+  throw new Error('이미지 용량을 줄이지 못했습니다.');
 }
-

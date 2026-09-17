@@ -41,12 +41,6 @@
         }}</strong></span
       >
     </div>
-    <p v-if="errorMessage" class="admin-alert is-error" role="alert">
-      {{ errorMessage }}
-    </p>
-    <p v-if="success" class="admin-alert is-success" role="status">
-      {{ success }}
-    </p>
     <p v-if="deleted" class="admin-alert is-warning">
       휴지통에 있는 글입니다. 목록에서 복원한 뒤 수정해주세요.
     </p>
@@ -249,9 +243,6 @@
               이어 올리기
             </button>
           </div>
-          <p v-if="pdfError" class="admin-alert is-error" role="alert">
-            {{ pdfError }}
-          </p>
           <p class="admin-field-hint">
             페이지를 새로고침했다면 같은 파일을 다시 선택해 이어 올릴 수
             있습니다. 글을 숨기거나 삭제하면 다운로드도 차단됩니다.
@@ -259,6 +250,23 @@
         </section>
       </aside>
     </div>
+    <dialog
+      ref="feedbackDialog"
+      class="news-feedback-dialog"
+      :role="feedback?.kind === 'error' ? 'alertdialog' : 'dialog'"
+      aria-labelledby="news-feedback-title"
+      aria-describedby="news-feedback-message"
+      @close="feedback = null"
+    >
+      <div v-if="feedback" class="news-feedback-content">
+        <span :class="['news-feedback-icon', `is-${feedback.kind}`]" aria-hidden="true">
+          {{ feedback.kind === 'success' ? '✓' : '!' }}
+        </span>
+        <h2 id="news-feedback-title">{{ feedback.title }}</h2>
+        <p id="news-feedback-message">{{ feedback.message }}</p>
+        <button type="button" class="admin-button is-primary" autofocus @click="feedbackDialog?.close()">확인</button>
+      </div>
+    </dialog>
   </div>
 </template>
 <script setup lang="ts">
@@ -300,9 +308,18 @@ const imageUploading = ref(false);
 const pdfUploading = ref(false);
 const pdfPreparing = ref(false);
 const pauseRequested = ref(false);
-const errorMessage = ref('');
-const success = ref('');
-const pdfError = ref('');
+const feedbackDialog = ref<HTMLDialogElement | null>(null);
+const feedback = ref<{ kind: 'success' | 'error'; title: string; message: string } | null>(null);
+function showFeedback(kind: 'success' | 'error', title: string, message: string) {
+  feedback.value = { kind, title, message };
+  nextTick(() => {
+    if (feedbackDialog.value && !feedbackDialog.value.open) feedbackDialog.value.showModal();
+  });
+}
+function serverMessage(error: any, fallback: string) {
+  const message = error?.data?.statusMessage || error?.data?.message;
+  return typeof message === 'string' && message.trim() ? message : fallback;
+}
 const deleted = computed(() => currentStatus.value === 'deleted');
 const busy = computed(
   () =>
@@ -357,11 +374,9 @@ async function save(
   quiet = false,
 ): Promise<boolean> {
   if (saving.value || imageUploading.value || pdfUploading.value) return false;
-  errorMessage.value = '';
-  success.value = '';
   if (!draft.value.translations.en.title.trim() && !draft.value.translations.ko.title.trim()) {
     locale.value = 'en';
-    errorMessage.value = '영어 제목을 입력해주세요.';
+    showFeedback('error', '소식지를 저장하지 못했습니다', '영어 제목을 입력해주세요.');
     return false;
   }
   saving.value = true;
@@ -378,17 +393,19 @@ async function save(
       },
     );
     hydrate(post);
-    success.value = quiet
-      ? 'PDF를 첨부할 숨김 글을 저장했습니다.'
-      : status === 'published'
-        ? '공개 저장했습니다. 홈페이지에 반영되었습니다.'
-        : '숨김 상태로 저장했습니다.';
-    if (!props.id)
-      await router.replace({ query: { ...route.query, draft: post.id } });
+    if (!props.id) {
+      try {
+        await router.replace({ query: { ...route.query, draft: post.id } });
+      } catch {
+        // The post is already saved; a URL update failure must not report a failed save.
+      }
+    }
+    if (!quiet) showFeedback('success', '소식지를 저장했습니다', status === 'published'
+      ? '공개 저장했습니다. 홈페이지에 반영되었습니다.'
+      : '숨김 상태로 저장했습니다.');
     return true;
   } catch (error: any) {
-    errorMessage.value =
-      error.data?.statusMessage || '글을 저장하지 못했습니다.';
+    showFeedback('error', '소식지를 저장하지 못했습니다', serverMessage(error, '입력 내용이나 연결 상태를 확인한 뒤 다시 시도해주세요.'));
     return false;
   } finally {
     saving.value = false;
@@ -399,7 +416,6 @@ async function uploadThumbnail(event: Event) {
   const file = input.files?.[0];
   if (!file) return;
   imageUploading.value = true;
-  errorMessage.value = '';
   try {
     const prepared = await prepareImageUpload(file, {
       maxDimension: NEWSLETTER_THUMBNAIL_MAX_DIMENSION,
@@ -412,8 +428,7 @@ async function uploadThumbnail(event: Event) {
     });
     draft.value.thumbnail = result.imageUrl;
   } catch (error: any) {
-    errorMessage.value =
-      error.data?.statusMessage || error.message || '이미지를 업로드하지 못했습니다.';
+    showFeedback('error', '썸네일을 올리지 못했습니다', serverMessage(error, error?.message || '이미지를 확인한 뒤 다시 시도해주세요.'));
   } finally {
     imageUploading.value = false;
     input.value = '';
@@ -458,19 +473,18 @@ async function choosePdf(event: Event) {
   const file = input.files?.[0];
   input.value = '';
   if (!file || busy.value) return;
-  pdfError.value = '';
   if (
     !/\.pdf$/i.test(file.name) ||
     file.size > PDF_MAX_BYTES ||
     file.size < 8
   ) {
-    pdfError.value = '500MB 이하 PDF 파일을 선택해주세요.';
+    showFeedback('error', 'PDF를 선택하지 못했습니다', '500MB 이하 PDF 파일을 선택해주세요.');
     return;
   }
   pdfPreparing.value = true;
   try {
     if (!/^%PDF-\d\.\d/.test(await file.slice(0, 8).text())) {
-      pdfError.value = '올바른 PDF 파일이 아닙니다.';
+      showFeedback('error', 'PDF를 선택하지 못했습니다', '올바른 PDF 파일이 아닙니다.');
       return;
     }
     if (!postId.value && !(await save('hidden', true))) return;
@@ -509,8 +523,7 @@ async function choosePdf(event: Event) {
     cacheUpload();
     await resumePdf();
   } catch (error: any) {
-    pdfError.value =
-      error.data?.statusMessage || 'PDF 업로드를 시작하지 못했습니다.';
+    showFeedback('error', 'PDF 업로드를 시작하지 못했습니다', serverMessage(error, '파일과 연결 상태를 확인한 뒤 다시 시도해주세요.'));
   } finally {
     pdfPreparing.value = false;
   }
@@ -518,12 +531,11 @@ async function choosePdf(event: Event) {
 async function resumePdf() {
   if (pdfUploading.value) return;
   if (!upload.value || !selectedFile) {
-    pdfError.value = '같은 PDF 파일을 다시 선택해주세요.';
+    showFeedback('error', 'PDF 업로드를 이어갈 수 없습니다', '같은 PDF 파일을 다시 선택해주세요.');
     return;
   }
   pdfUploading.value = true;
   pauseRequested.value = false;
-  pdfError.value = '';
   try {
     upload.value = await $fetch<Upload>('/api/admin/pdf/' + upload.value.id);
     while (upload.value.state !== 'complete' && !pauseRequested.value) {
@@ -548,12 +560,10 @@ async function resumePdf() {
       };
       draft.value.attachmentId = upload.value.id;
       cacheUpload();
-      success.value = 'PDF 업로드를 완료했습니다. 글을 저장하면 첨부됩니다.';
+      showFeedback('success', 'PDF 업로드가 완료되었습니다', '글을 저장하면 PDF가 게시글에 첨부됩니다.');
     }
   } catch (error: any) {
-    pdfError.value =
-      error.data?.statusMessage ||
-      '전송이 중단되었습니다. 이어 올리기를 눌러주세요.';
+    showFeedback('error', 'PDF 전송이 중단되었습니다', serverMessage(error, '이어 올리기를 눌러 다시 시도해주세요.'));
   } finally {
     pdfUploading.value = false;
   }
@@ -579,3 +589,35 @@ onBeforeRouteLeave(() => {
     return false;
 });
 </script>
+
+<style scoped>
+.news-feedback-dialog {
+  width: min(440px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  margin: auto;
+  padding: 32px;
+  border: 0;
+  border-radius: 18px;
+  color: #292722;
+  background: #fff;
+  box-shadow: 0 24px 70px #17171740;
+}
+.news-feedback-dialog::backdrop { background: #17171799; }
+.news-feedback-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.news-feedback-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  font-size: 28px;
+  font-weight: 700;
+}
+.news-feedback-icon.is-success { color: #547a47; background: #eaf4e7; }
+.news-feedback-icon.is-error { color: #b74d3a; background: #fff0eb; }
+.news-feedback-content h2 { margin: 0 0 10px; font-size: 21px; font-weight: 650; }
+.news-feedback-content p { margin: 0 0 24px; color: #716d65; font-size: 14px; line-height: 1.7; white-space: pre-line; }
+.news-feedback-content .admin-button { min-width: 120px; }
+@media (max-width: 500px) { .news-feedback-dialog { padding: 26px 22px; } }
+</style>
